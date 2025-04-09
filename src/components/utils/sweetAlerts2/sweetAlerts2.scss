@@ -1,0 +1,36 @@
+@import "../../styles/imports/internalImports";
+
+.color-button {
+    @include fixedSize(42px, 42px);
+    border: 2px solid #bbb;
+    background: rgba(180, 180, 180, 0.2);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative; // Garante que o círculo interno se posicione corretamente
+
+    &:hover {
+        background: rgba(180, 180, 180, 0.4);
+        border-color: #999;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .color-circle {
+        @include fixedSize(30px, 30px); // Ajuste fino para melhor proporção
+        border-radius: 50%;
+        background: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); // Centraliza perfeitamente
+        transition: transform 0.2s ease-in-out;
+
+        &:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+    }
+}
