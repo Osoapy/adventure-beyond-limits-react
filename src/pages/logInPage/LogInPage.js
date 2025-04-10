@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase"; // Ajusta o caminho se estiver em outra pasta
+import { auth } from "../../firebase";
+import { useNavigate } from "react-router-dom";
+import "./logInPage.css";
 
 export default function LogInPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -15,7 +18,8 @@ export default function LogInPage() {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
             console.log("Usuário logado:", user);
-            // Aqui você pode redirecionar, ex: window.location.href = "/dashboard"
+            sessionStorage.setItem("email", email);
+            navigate("/main");
         } catch (err) {
             console.error(err);
             setError("Email ou senha inválidos.");
@@ -23,45 +27,30 @@ export default function LogInPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <form
-                onSubmit={handleSubmit}
-                className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md"
-            >
-                <h2 className="text-2xl font-bold mb-6 text-center">Entrar na Conta</h2>
-                {error && <p className="text-red-500 mb-4">{error}</p>}
-                <div className="mb-4">
-                    <label htmlFor="email" className="block text-sm font-medium mb-1">
-                        Email
-                    </label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        className="w-full p-2 border border-gray-300 rounded-lg"
-                    />
-                </div>
-                <div className="mb-6">
-                    <label htmlFor="password" className="block text-sm font-medium mb-1">
-                        Senha
-                    </label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        className="w-full p-2 border border-gray-300 rounded-lg"
-                    />
-                </div>
-                <button
-                    type="submit"
-                    className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
-                >
-                    Entrar
-                </button>
+        <div className="login-container">
+            <form onSubmit={handleSubmit} className="login-form">
+                <h2>Entrar na Conta</h2>
+                {error && <p className="error-msg">{error}</p>}
+
+                <label htmlFor="email">Email</label>
+                <input
+                    type="email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+
+                <label htmlFor="password">Senha</label>
+                <input
+                    type="password"
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+
+                <button type="submit">Entrar</button>
             </form>
         </div>
     );
