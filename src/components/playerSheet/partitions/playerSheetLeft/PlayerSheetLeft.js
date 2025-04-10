@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import './playerSheetLeft.css';
-import NoImage from '../../../assets/noImageAvailable.png';
-import errorAlert from '../../utils/sweetAlerts2/errorAlert';
+import NoImage from '../../../../assets/noImageAvailable.png';
+import errorAlert from '../../../../utils/sweetAlerts2/errorAlert';
 
 export default function PlayerSheetLeft() {
     const [imageSrc, setImageSrc] = useState(NoImage);

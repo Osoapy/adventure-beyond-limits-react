@@ -1,5 +1,5 @@
-import greenButton from '../../../assets/greenButton.png';
-import redButton from '../../../assets/redButton.png';
+import greenButton from '../../../../assets/greenButton.png';
+import redButton from '../../../../assets/redButton.png';
 import './playerSheetRight.css';
 
 export default function PlayerSheetBottomRight() {

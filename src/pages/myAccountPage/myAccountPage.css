@@ -1,0 +1,29 @@
+.app-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ef5350;
+  color: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.app-bar .app-bar-title {
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+}
+.app-bar .app-bar-buttons {
+  display: flex;
+  gap: 1rem;
+}
+.app-bar .app-bar-button {
+  background-color: #fdd835;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.app-bar .app-bar-button:hover {
+  background-color: #fff176;
+}/*# sourceMappingURL=myAccountPage.css.map */
