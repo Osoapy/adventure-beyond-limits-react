@@ -6,6 +6,20 @@
 }
 
 :root {
+  /* FONTS */
+  /* HEIGHTS */
+  --borderHeight: 5px;
+  /* COLORS */
+  --lightGray: rgb(235, 234, 237);
+  --white: #ffffff;
+  --tokenBackground: #d9dbde;
+  --tokenTop: #e64f32;
+  --tokenLightGray: rgb(178, 180, 184);
+  --tokenDarkGray: #3f3e40;
+  --tokenBorderColor: #c4472e;
+  /* Shadows */
+  --tokenShadow: 0px 11px 10px var(--tokenLightGray);
+  /* Types */
   --normal: #797850;
   --fire: #ff6c00;
   --water: #6390F0;
@@ -24,6 +38,7 @@
   --dark: #705746;
   --steel: #474751;
   --fairy: #D685AD;
+  /* Lesser type colours */
   --lessNormal: rgba(168, 167, 122, 0.2);
   --lessFire: rgba(238, 129, 48, 0.2);
   --lessWater: rgba(99, 144, 240, 0.2);
@@ -282,25 +297,5 @@
   height: 100%;
   border-radius: 5px;
   margin-right: 2%;
-  cursor: pointer;
-}
-.teams-Container .player-Container .player .pokemonTeam-Container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  flex-direction: row;
-  height: 100%;
-  width: 100%;
-}
-.teams-Container .player-Container .player .pokemonTeam-Container .pokemonTeam {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid var(--lightGray);
-  background-color: var(--lightGray);
-  border-radius: 5px;
-  height: 100%;
-  width: 16%;
   cursor: pointer;
 }/*# sourceMappingURL=myAccountPage.css.map */

@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
-import './myAccountPage.css'
+import './myAccountPage.css';
+import PokemonTeam from "../../components/pokemonTeam/PokemonTeam";
+import StandardHeader from "../../components/standardHeader/StandardHeader";
+import AddButton from "../../components/addButton/AddButton";
+import AddPokemonForm from "../../components/addPokemonForm/AddPokemonForm";
 
 export default function MyAccountPage() {
     const [trainer, setTrainer] = useState(null);
+    const [showForm, setShowForm] = useState(false); // controla exibição
     const email = sessionStorage.getItem("email");
 
     useEffect(() => {
@@ -26,63 +31,26 @@ export default function MyAccountPage() {
         }
     
         fetchTrainer();
-    }, [email]);    
+    }, [email]);
 
     return (
         <div className="min-h-screen bg-gray-100">
-            <header className="app-bar">
-                <div className="app-bar-title">Pokédex</div>
-                <div className="app-bar-buttons">
-                </div>
+            <StandardHeader>
                 <img
                     src={
                         trainer?.imageBase64 ||
                         "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"
                     }
-                    alt="Foto do corno"
+                    alt="Foto de perfil"
                     className="w-10 h-10 rounded-full border-2 border-white shadow"
                 />
-            </header>
+            </StandardHeader>
             
-            <div className="teams-Container">
-                <div className="player-Container" id="JhonnyTail2-Container">
-                    <div className="player" id="JhonnyTail2">
-                        <header className="top-Container">
-                            <div className="playerButton" id="playerJhonnyTail2Button">
-                                <img className="playerImg" id="playerJhonnyTail2" 
-                                    src={
-                                        trainer?.imageBase64 ||
-                                        "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"
-                                    }/>
-                            </div>
-                            <div className="player-Top">
-                                <h1 className="player-Name">Jhonny Tail 2</h1>
-                                <div className="underline"></div>
-                            </div>
-                        </header>
-                        <div className="pokemonTeam-Container">
-                            <button className="pokemonTeam steel" id="playerJhonnyTail2TeamButton0">
-                                <img className="pokemonTeamImage" id="playerJhonnyTail2TeamImage0" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/375.png"/>
-                            </button>
-                            <button className="pokemonTeam water" id="playerJhonnyTail2TeamButton1">
-                                <img className="pokemonTeamImage" id="playerJhonnyTail2TeamImage1" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/60.png"/>
-                            </button>
-                            <button className="pokemonTeam" id="playerJhonnyTail2TeamButton2">
-                                <img className="pokemonTeamImage" id="playerJhonnyTail2TeamImage2" src="./Assets/Images/addButton.png"/>
-                            </button>
-                            <button className="pokemonTeam" id="playerJhonnyTail2TeamButton3">
-                                <img className="pokemonTeamImage" id="playerJhonnyTail2TeamImage3" src="./Assets/Images/addButton.png"/>
-                            </button>
-                            <button className="pokemonTeam" id="playerJhonnyTail2TeamButton4">
-                                <img className="pokemonTeamImage" id="playerJhonnyTail2TeamImage4" src="./Assets/Images/addButton.png"/>
-                            </button>
-                            <button className="pokemonTeam" id="playerJhonnyTail2TeamButton5">
-                                <img className="pokemonTeamImage" id="playerJhonnyTail2TeamImage5" src="./Assets/Images/addButton.png"/>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <PokemonTeam />
+
+            {showForm && <AddPokemonForm />} {/* renderiza o formulário condicionalmente */}
+
+            <AddButton onClick={() => setShowForm(prev => !prev)} />
         </div>
     );
 }

@@ -3,3 +3,15 @@
     align-items: center;
     justify-content: center;
 }
+
+@mixin fixedWidth($width) {
+    width: $width;
+    min-width: $width;
+    max-width: $width;
+}
+
+@mixin fixedHeight($height) {
+    height: $height;
+    min-height: $height;
+    max-height: $height;
+}

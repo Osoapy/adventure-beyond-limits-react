@@ -221,146 +221,36 @@
   background-color: var(--lessNormal) !important;
 }
 
-/* Variables */
-:root {
-  /* FONTS */
-  --pokemonFont: "Kimberle", sans-serif;
-  /* HEIGHTS */
-  --borderHeight: 5px;
-  /* COLORS */
-  --tokenBackground: #d9dbde;
-  --tokenTop: #e64f32;
-  --tokenLightGray: rgb(178, 180, 184);
-  --tokenDarkGray: #3f3e40;
-  --tokenBorderColor: #c4472e;
-  --white: #ffffff;
-  /* Shadows */
-  --tokenShadow: 0px 11px 10px var(--tokenLightGray);
-}
-
-.playerCreationButtons {
-  box-shadow: var(--tokenShadow);
-  background-color: white;
-  justify-content: space-around;
-  align-items: center;
-  border-radius: 15px;
+.app-bar {
+  height: 10vh;
+  min-height: 10vh;
+  max-height: 10vh;
   display: flex;
-  color: black;
-  flex-wrap: wrap;
-  width: 94%;
-  gap: 6%;
-  height: 40%;
-  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ef5350;
+  color: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-.playerCreationButtons #redButton, .playerCreationButtons #greenButton {
-  max-width: 50%;
-  max-height: 50%;
+.app-bar .app-bar-title {
+  font-size: 2rem;
+  letter-spacing: 1px;
+  margin: 0;
+}
+.app-bar .app-bar-buttons {
+  display: flex;
+  gap: 1rem;
+}
+.app-bar .app-bar-buttons .app-bar-button {
+  background-color: #fdd835;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  font-weight: bold;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
-
-/* Trainer parts */
-.page-Container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-image: url("../../assets/background.webp");
-  background-size: contain;
-  height: 100vh;
-  width: 100vw;
-}
-.page-Container .player-Filled-Container {
-  height: 66vh;
-  width: 80%;
-  /* Responsiveness */
-}
-.page-Container .player-Filled-Container .player-Name {
-  z-index: 3;
-}
-.page-Container .player-Filled-Container .token-Spam-Text-Content {
-  font-family: var(--pokemonFont);
-  margin-top: 0.23%;
-  margin-left: 0.23%;
-  position: absolute;
-}
-.page-Container .player-Filled-Container .token-Spam-Text-Content.small-Spam-Text-Content {
-  margin-left: 0.33%;
-  margin-top: 0;
-  font-size: 0.8em;
-}
-.page-Container .player-Filled-Container .spam-Text-Content {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  margin: auto;
-  padding-left: 3%;
-  align-items: center;
-  justify-content: center;
-}
-.page-Container .player-Filled-Container .player-Filled {
-  display: flex;
-  border-radius: 15px;
-  flex-direction: row;
-  height: 100%;
-  width: 100%;
-}
-@media (max-width: 600px) and (min-height: 700px) {
-  .page-Container .player-Filled-Container .player-Container {
-    font-size: 18px;
-    height: 40vh;
-    width: 88%;
-  }
-  .page-Container .player-Filled-Container .player-Filled-Right-Inside-Title {
-    font-size: 18px;
-  }
-  .page-Container .player-Filled-Container .player-Filled-Container {
-    font-size: 14px;
-    height: 48vh;
-    width: 91%;
-  }
-  .page-Container .player-Filled-Container .player-Filled-Left-Inside-Image-Container {
-    width: 95%;
-  }
-  .page-Container .player-Filled-Container .player-Filled-Right-Inside-Nature-Container {
-    width: 98%;
-    gap: 2%;
-  }
-  .page-Container .player-Filled-Container .player-Filled-Right-Inside-Player-Container {
-    width: 98%;
-    height: 20%;
-  }
-  .page-Container .player-Filled-Container .player-Filled-Right-Inside-Pokemons {
-    box-shadow: 0px 0px 0px black;
-    padding: 2%;
-    width: 98%;
-    gap: 2%;
-  }
-  .page-Container .player-Filled-Container .pokemonTeam-Container {
-    display: flex;
-    gap: 4px;
-    height: 100%;
-    width: 100%;
-    flex-wrap: wrap;
-  }
-  .page-Container .player-Filled-Container .pokemonTeam {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid var(--lightGray);
-    background-color: var(--lightGray);
-    border-radius: 5px;
-    height: 50%;
-    width: 32%;
-    cursor: pointer;
-  }
-}
-@media (min-width: 1600px) and (min-height: 900px) {
-  .page-Container .player-Filled-Container .player-Container {
-    font-size: 21px;
-    height: 27vh;
-  }
-  .page-Container .player-Filled-Container .player-Filled-Container {
-    font-size: 23px;
-    height: 75vh;
-    width: 69%;
-  }
-}/*# sourceMappingURL=playerSheet.css.map */
+.app-bar .app-bar-buttons .app-bar-button:hover {
+  background-color: #fff176;
+}/*# sourceMappingURL=standardHeader.css.map */
