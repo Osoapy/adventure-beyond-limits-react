@@ -2,19 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   gap: 4px;
   flex-direction: row;
   height: 100%;
   width: 100%;
-}
-.pokemonTeam-Container .pokemonTeam {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid var(--lightGray);
-  background-color: var(--lightGray);
-  border-radius: 5px;
-  height: 100%;
-  width: 16%;
-  cursor: pointer;
 }/*# sourceMappingURL=pokemonTeam.css.map */

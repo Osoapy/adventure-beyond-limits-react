@@ -253,4 +253,10 @@
 }
 .app-bar .app-bar-buttons .app-bar-button:hover {
   background-color: #fff176;
+}
+.app-bar .app-bar-buttons .profile-picture {
+  height: 5vh;
+  min-height: 5vh;
+  max-height: 5vh;
+  border-radius: 100%;
 }/*# sourceMappingURL=standardHeader.css.map */

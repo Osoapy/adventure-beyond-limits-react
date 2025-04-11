@@ -1,0 +1,11 @@
+.pokemonTeam {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--lightGray);
+    background-color: var(--lightGray);
+    border-radius: 5px;
+    height: 100%;
+    width: 15vw;
+    cursor: pointer;
+}
