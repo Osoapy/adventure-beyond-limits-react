@@ -3,7 +3,7 @@ import { Chart, RadarController, RadialLinearScale, PointElement, LineElement, F
 
 Chart.register(RadarController, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
-export default function CurrentPokemonForm() {
+export default function CurrentPokemonForm({ pokemon }) {
     const chartRef = useRef(null);
 
     useEffect(() => {
@@ -15,7 +15,7 @@ export default function CurrentPokemonForm() {
                 labels: ['HP', 'Attack', 'Defence', 'S.Atk', 'S.Def', 'Speed'],
                 datasets: [{
                     label: '',
-                    data: [1, 2, 3, 4, 5, 6],
+                    data: pokemon.ivs,
                     fill: true,
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     borderColor: 'rgb(255, 99, 132)',
@@ -56,41 +56,59 @@ export default function CurrentPokemonForm() {
                 <p className="pokemon-field-text first-field">
                     <b className="null">Nickname:</b>
                 </p>
-                <div className="pokemon-field-answear first-field" contentEditable spellCheck={false}>Paramount</div>
+                <div className="pokemon-field-answear first-field" contentEditable spellCheck={false}>
+                    {pokemon.nickname}
+                </div>
 
                 <p className="pokemon-field-text">
                     <b>Level:</b>
                 </p>
-                <div className="pokemon-field-answear" contentEditable spellCheck={false}>21</div>
+                <div className="pokemon-field-answear" contentEditable spellCheck={false}>
+                    {pokemon.level}
+                </div>
 
                 <p className="pokemon-field-text">
                     <b>Gender:</b>
                 </p>
-                <div className="pokemon-field-answear" contentEditable spellCheck={false}>M</div>
+                <div className="pokemon-field-answear" contentEditable spellCheck={false}>
+                    {pokemon.gender}
+                </div>
 
                 <p className="pokemon-field-text">
                     <b>Ability:</b>
                 </p>
-                <div className="pokemon-field-answear ability water" contentEditable spellCheck={false}>Water Absorb</div>
+                <div className="pokemon-field-answear ability water" contentEditable spellCheck={false}>
+                    {pokemon.ability}
+                </div>
 
                 <p className="pokemon-field-text">
                     <b>Nature:</b>
                 </p>
-                <div className="pokemon-field-answear nature" contentEditable spellCheck={false}>Mild</div>
+                <div className="pokemon-field-answear nature" contentEditable spellCheck={false}>
+                    {pokemon.nature}
+                </div>
 
                 <p className="pokemon-field-text">
                     <b>Held item:</b>
                 </p>
-                <div className="pokemon-field-answear" contentEditable spellCheck={false}></div>
+                <div className="pokemon-field-answear" contentEditable spellCheck={false}>
+                    {pokemon.heldItem}
+                </div>
             </div>
 
             <div className="moves-container">
                 <div className="info">Moves</div>
                 <div className="moves">
-                    <div className="move" contentEditable spellCheck={false}>Bubble Beam</div>
-                    <div className="move" contentEditable spellCheck={false}>Hypnosis</div>
-                    <div className="move" contentEditable spellCheck={false}>Mud Shot</div>
-                    <div className="move" contentEditable spellCheck={false}>Pound</div>
+                {pokemon.moves.map((move, index) => (
+                    <div
+                    key={index}
+                    className="move"
+                    contentEditable
+                    spellCheck={false}
+                    >
+                        {move}
+                    </div>
+                ))}
                 </div>
             </div>
 
@@ -107,7 +125,7 @@ export default function CurrentPokemonForm() {
                         <div className="ev" key={i}>
                             <div className="iv-text">{stat}</div>
                             <div className="iv-value" contentEditable spellCheck={false}>
-                                {["19", "27", "15", "15", "21", "27"][i]}
+                                {pokemon.ivs[i]}
                             </div>
                         </div>
                     ))}
@@ -118,7 +136,7 @@ export default function CurrentPokemonForm() {
                         <div className="ev" key={i}>
                             <div className="ev-text">{stat}</div>
                             <div className="ev-value" contentEditable spellCheck={false}>
-                                {["65", "31", "22", "41", "26", "48"][i]}
+                                {pokemon.ivs[i]}
                             </div>
                         </div>
                     ))}
@@ -129,7 +147,7 @@ export default function CurrentPokemonForm() {
                         <div className="ev" key={i}>
                             <div className="ev-text">{stat}</div>
                             <div className="ev-value" contentEditable spellCheck={false}>
-                                {["252", "0", "4", "252", "0", "0"][i]}
+                                {pokemon.evs[i]}
                             </div>
                         </div>
                     ))}

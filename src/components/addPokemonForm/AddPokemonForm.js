@@ -1,9 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import PokemonDropdown from '../pokemonDropdown/PokemonDropdown';
 import './addPokemonForm.css';
+import { SavePokemon } from '../../database/SavePokemon';
 
 export default function AddPokemonForm() {
+  const email = sessionStorage.getItem("email");
+
   const [pokemonData, setPokemonData] = useState({
+    trainer: email,
     species: '',
     nickname: '???',
     level: '1',
@@ -156,7 +160,7 @@ export default function AddPokemonForm() {
           ))}
         </div>
 
-        <button className="create-button" onClick={() => console.log(pokemonData)}>
+        <button className="create-button" onClick={() => SavePokemon(pokemonData)}>
           CREATE
         </button>
       </div>

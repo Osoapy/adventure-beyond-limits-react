@@ -11,30 +11,47 @@ import CurrentPokemonForm from "../../components/currentPokemonForm/CurrentPokem
 
 export default function MyAccountPage() {
     const [trainer, setTrainer] = useState(null);
+    const [pokemons, setPokemons] = useState([]);
     const [currentPokemon, setCurrentPokemon] = useState(null);
     const [showForm, setShowForm] = useState(false);
     const [showPokemonInfo, setShowPokemonInfo] = useState(false);
     const email = sessionStorage.getItem("email");
 
+    // Busca os dados do treinador (pode remover se não for mais usar)
     useEffect(() => {
         async function fetchTrainer() {
             if (!email) return;
-    
             const q = query(
                 collection(db, "player"),
-                where("email", "==", String(email).toLowerCase().trim())
-            );            
-    
+                where("email", "==", email.toLowerCase().trim())
+            );
             const snapshot = await getDocs(q);
             if (!snapshot.empty) {
                 const data = snapshot.docs[0].data();
                 setTrainer(data);
-            } else {
-                console.warn("Nenhum trainer encontrado para o email:", email);
             }
         }
-    
+
         fetchTrainer();
+    }, [email]);
+
+    // Busca todos os pokémons associados ao email
+    useEffect(() => {
+        async function fetchPokemons() {
+            if (!email) return;
+            const q = query(
+                collection(db, "pokemon"),
+                where("trainer", "==", email.toLowerCase().trim())
+            );
+            const snapshot = await getDocs(q);
+            const foundPokemons = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            setPokemons(foundPokemons);
+        }
+
+        fetchPokemons();
     }, [email]);
 
     return (
@@ -49,20 +66,28 @@ export default function MyAccountPage() {
                     className="profile-picture"
                 />
             </StandardHeader>
-            
+
             <PokemonTeam>
-                <PokemonButton onClick={() => setShowPokemonInfo(prev => !prev)} ></PokemonButton>
-                <PokemonButton onClick={() => setShowPokemonInfo(prev => !prev)} ></PokemonButton>
-                <PokemonButton onClick={() => setShowPokemonInfo(prev => !prev)} ></PokemonButton>
-                <PokemonButton onClick={() => setShowPokemonInfo(prev => !prev)} ></PokemonButton>
-                <PokemonButton onClick={() => setShowPokemonInfo(prev => !prev)} ></PokemonButton>
-                <PokemonButton onClick={() => setShowPokemonInfo(prev => !prev)} ></PokemonButton>
-                <PokemonButton onClick={() => setShowPokemonInfo(prev => !prev)} ></PokemonButton>
-                <PokemonButton onClick={() => setShowPokemonInfo(prev => !prev)} ></PokemonButton>
+                {pokemons.map((poke, index) => (
+                    <PokemonButton
+                        key={poke.id || index}
+                        onClick={() => {
+                            if (currentPokemon?.id === poke.id) {
+                                setShowPokemonInfo(prev => !prev);
+                            } else {
+                                setCurrentPokemon(poke);
+                                setShowPokemonInfo(true);
+                            }
+                        }}
+                        pokemon={poke}
+                    />
+                ))}
             </PokemonTeam>
 
             {showForm && <AddPokemonForm />}
-            {showPokemonInfo && <CurrentPokemonForm />}
+            {showPokemonInfo && currentPokemon && (
+                <CurrentPokemonForm pokemon={currentPokemon} />
+            )}
 
             <AddButton onClick={() => setShowForm(prev => !prev)} />
         </div>

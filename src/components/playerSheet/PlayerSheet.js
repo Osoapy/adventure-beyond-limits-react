@@ -2,7 +2,7 @@ import PlayerSheetBottomRight from './partitions/playerSheetBottomRight/PlayerSh
 import PlayerSheetLeft from './partitions/playerSheetLeft/PlayerSheetLeft'
 import PlayerSheetTopRight from './partitions/playerSheetTopRight/PlayerSheetTopRight'
 import { useEffect } from 'react';
-import { SavePlayer } from './SavePlayer';
+import { SavePlayer } from '../../database/SavePlayer';
 import { useNavigate } from "react-router-dom";
 import './playerSheet.css'
 
