@@ -1,52 +1,84 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Chart, RadarController, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend } from "chart.js";
+import PokemonGif from "../../utils/fetchs/pokemonGif/PokemonGif";
+import './currentPokemonForm.css';
+import CalculatePokemonStats from "../../utils/functions/calculatePokemonStats/CalculatePokemonStats";
 
 Chart.register(RadarController, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
 export default function CurrentPokemonForm({ pokemon }) {
+    const [ready, setReady] = useState(false);
     const chartRef = useRef(null);
+    const [section, setSection] = useState("Stats"); // "IVs", "EVs" ou "Stats"
+    const chartInstanceRef = useRef(null);
 
     useEffect(() => {
-        const ctx = chartRef.current;
+        async function setupStatsAndChart() {
+            await CalculatePokemonStats(pokemon);
+            if (!pokemon.attributes) return;
+            setReady(true);
 
-        const myChart = new Chart(ctx, {
-            type: 'radar',
-            data: {
-                labels: ['HP', 'Attack', 'Defence', 'S.Atk', 'S.Def', 'Speed'],
-                datasets: [{
-                    label: '',
-                    data: pokemon.ivs,
-                    fill: true,
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgb(255, 99, 132)',
-                    pointBackgroundColor: 'rgb(255, 99, 132)',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgb(255, 99, 132)'
-                }]
-            },
-            options: {
-                plugins: {
-                    legend: {
-                        labels: {
-                            font: {
-                                family: "'Kimberle', sans-serif"
+            const ctx = chartRef.current;
+
+            // Destroi gráfico anterior se existir
+            if (chartInstanceRef.current) {
+                chartInstanceRef.current.destroy();
+            }
+
+            const newChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['HP', 'Attack', 'Defense', 'S.Atk', 'S.Def', 'Speed'],
+                    datasets: [{
+                        label: '',
+                        data: [
+                            pokemon.attributes['HP'],
+                            pokemon.attributes['Attack'],
+                            pokemon.attributes['Defense'],
+                            pokemon.attributes['S.Atk'],
+                            pokemon.attributes['S.Def'],
+                            pokemon.attributes['Speed']
+                        ],
+                        fill: true,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        pointBackgroundColor: 'rgb(255, 99, 132)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(255, 99, 132)'
+                    }]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            labels: {
+                                font: {
+                                    family: "'Kimberle', sans-serif"
+                                }
                             }
                         }
-                    }
-                },
-                elements: {
-                    line: {
-                        borderWidth: 2
+                    },
+                    elements: {
+                        line: {
+                            borderWidth: 2
+                        }
                     }
                 }
+            });
+
+            Chart.defaults.font.size = 18;
+
+            chartInstanceRef.current = newChart; // Salva referência
+        }
+
+        setupStatsAndChart();
+
+        return () => {
+            if (chartInstanceRef.current) {
+                chartInstanceRef.current.destroy();
             }
-        });
-
-        Chart.defaults.font.size = 18;
-
-        return () => myChart.destroy();
-    }, []);
+        };
+    }, [pokemon]);
 
     return (
         <div className="player-Token pokemon-Filled-Container" id="JhonnyTail2-Token">
@@ -115,46 +147,61 @@ export default function CurrentPokemonForm({ pokemon }) {
             <div className="ivs-container">
                 <div className="info">IVs / EVs</div>
                 <div className="iv-button">
-                    <button className="left-button">IVs</button>
-                    <button className="att-button active">Stats</button>
-                    <button className="right-button">EVs</button>
+                    <button
+                        className={`left-button ${section === "IVs" ? "active" : ""}`}
+                        onClick={() => section !== "IVs" && setSection("IVs")}
+                    >
+                        IVs
+                    </button>
+                    <button
+                        className={`att-button ${section === "Stats" ? "active" : ""}`}
+                        onClick={() => section !== "Stats" && setSection("Stats")}
+                    >
+                        Stats
+                    </button>
+                    <button
+                        className={`right-button ${section === "EVs" ? "active" : ""}`}
+                        onClick={() => section !== "EVs" && setSection("EVs")}
+                    >
+                        EVs
+                    </button>
                 </div>
 
-                <div className="ivs">
-                    {["HP", "Atk", "Def", "S.Atk", "S.Def", "Speed"].map((stat, i) => (
+                <div className={`ivs ${section === "IVs" ? "show" : "hide"}`}>
+                    {pokemon.ivs && ["HP", "Attack", "Defense", "S.Atk", "S.Def", "Speed"].map((stat, i) => (
                         <div className="ev" key={i}>
                             <div className="iv-text">{stat}</div>
                             <div className="iv-value" contentEditable spellCheck={false}>
-                                {pokemon.ivs[i]}
+                                {pokemon.ivs[stat]}
                             </div>
                         </div>
                     ))}
                 </div>
 
-                <div className="ivs show">
-                    {["HP", "Atk", "Def", "S.Atk", "S.Def", "Speed"].map((stat, i) => (
-                        <div className="ev" key={i}>
-                            <div className="ev-text">{stat}</div>
-                            <div className="ev-value" contentEditable spellCheck={false}>
-                                {pokemon.ivs[i]}
+                <div className={`stats ${section === "Stats" ? "show" : "hide"}`}>
+                    {ready && pokemon.attributes && ["HP", "Attack", "Defense", "S.Atk", "S.Def", "Speed"].map((stat, i) => (
+                        <div className="stat" key={i}>
+                            <div className="stats-text">{stat}</div>
+                            <div className="stats-value" contentEditable spellCheck={false}>
+                                {pokemon.attributes[stat]}
                             </div>
                         </div>
                     ))}
                 </div>
 
-                <div className="evs">
-                    {["HP", "Atk", "Def", "S.Atk", "S.Def", "Speed"].map((stat, i) => (
+                <div className={`evs ${section === "EVs" ? "show" : "hide"}`}>
+                    {pokemon.evs && ["HP", "Attack", "Defense", "S.Atk", "S.Def", "Speed"].map((stat, i) => (
                         <div className="ev" key={i}>
                             <div className="ev-text">{stat}</div>
                             <div className="ev-value" contentEditable spellCheck={false}>
-                                {pokemon.evs[i]}
+                                {pokemon.evs[stat]}
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
 
-            <div className="stats">
+            <div className="stats-visualiser">
                 <div className="info">Stats</div>
                 <div className="canvas-container">
                     <canvas
@@ -172,11 +219,7 @@ export default function CurrentPokemonForm({ pokemon }) {
                     ></canvas>
                 </div>
                 <div className="pokemon-sprite-container">
-                    <img
-                        className="pokemon-sprite"
-                        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/60.gif"
-                        alt="pokemon"
-                    />
+                    <PokemonGif specie={pokemon.species}></PokemonGif>
                 </div>
             </div>
         </div>
