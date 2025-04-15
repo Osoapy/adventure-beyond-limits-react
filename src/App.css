@@ -5,6 +5,18 @@
   max-width: 100%;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 :root {
   /* FONTS */
   /* HEIGHTS */
@@ -217,6 +229,96 @@
 }
 
 .ability.normal, .move.normal {
+  color: var(--normal) !important;
+  background-color: var(--lessNormal) !important;
+}
+
+.electric {
+  color: var(--electric) !important;
+  background-color: var(--lessElectric) !important;
+}
+
+.fire {
+  color: var(--fire) !important;
+  background-color: var(--lessFire) !important;
+}
+
+.water {
+  color: var(--water) !important;
+  background-color: var(--lessWater) !important;
+}
+
+.grass {
+  color: var(--grass) !important;
+  background-color: var(--lessGrass) !important;
+}
+
+.poison {
+  color: var(--poison) !important;
+  background-color: var(--lessPoison) !important;
+}
+
+.ice {
+  color: var(--ice) !important;
+  background-color: var(--lessIce) !important;
+}
+
+.fighting {
+  color: var(--fighting) !important;
+  background-color: var(--lessFighting) !important;
+}
+
+.ground {
+  color: var(--ground) !important;
+  background-color: var(--lessGround) !important;
+}
+
+.flying {
+  color: var(--flying) !important;
+  background-color: var(--lessFlying) !important;
+}
+
+.psychic {
+  color: var(--psychic) !important;
+  background-color: var(--lessPsychic) !important;
+}
+
+.bug {
+  color: var(--bug) !important;
+  background-color: var(--lessBug) !important;
+}
+
+.rock {
+  color: var(--rock) !important;
+  background-color: var(--lessRock) !important;
+}
+
+.ghost {
+  color: var(--ghost) !important;
+  background-color: var(--lessGhost) !important;
+}
+
+.dragon {
+  color: var(--dragon) !important;
+  background-color: var(--lessDragon) !important;
+}
+
+.dark {
+  color: var(--dark) !important;
+  background-color: var(--lessDark) !important;
+}
+
+.steel {
+  color: var(--steel) !important;
+  background-color: var(--lessSteel) !important;
+}
+
+.fairy {
+  color: var(--fairy) !important;
+  background-color: var(--lessFairy) !important;
+}
+
+.normal {
   color: var(--normal) !important;
   background-color: var(--lessNormal) !important;
 }

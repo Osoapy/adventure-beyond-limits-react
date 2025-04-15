@@ -1,3 +1,5 @@
+@import '../../styles/imports/generalImports';
+
 #myChart {
     max-height: 90% !important;
     min-height: 90% !important;
@@ -60,7 +62,7 @@
   }
   
   .left-button, .att-button, .right-button {
-    width: 33.3%;
+    width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -119,10 +121,12 @@
   }
   
   .iv-value, .stats-value, .ev-value {
-    display: flex;
+    @include flexCenter();
+    border: 0px;
     background-color: lightgray;
     border-radius: 7.5px;
     justify-content: center;
+    text-align: center;
     align-items: center;
     height: 25%;
     width: 100%;
@@ -202,7 +206,6 @@
   }
   
   .move {
-    padding-left: 1%;
     align-items: center;
     display: flex;
     height: 20%;

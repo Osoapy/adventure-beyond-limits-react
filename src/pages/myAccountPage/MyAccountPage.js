@@ -75,6 +75,9 @@ export default function MyAccountPage() {
                             if (currentPokemon?.id === poke.id) {
                                 setShowPokemonInfo(prev => !prev);
                             } else {
+                                if (setShowForm) {
+                                    setShowForm(false);
+                                }
                                 setCurrentPokemon(poke);
                                 setShowPokemonInfo(true);
                             }
@@ -85,11 +88,16 @@ export default function MyAccountPage() {
             </PokemonTeam>
 
             {showForm && <AddPokemonForm />}
-            {showPokemonInfo && currentPokemon && (
+            {showPokemonInfo && !showForm && currentPokemon && (
                 <CurrentPokemonForm pokemon={currentPokemon} />
             )}
 
-            <AddButton onClick={() => setShowForm(prev => !prev)} />
+            <AddButton onClick={() => {
+                setShowForm(prev => !prev);
+                if (showPokemonInfo) {
+                    setShowPokemonInfo(false)
+                }
+            }} />
         </div>
     );
 }

@@ -1,0 +1,25 @@
+.pokemon-dropdown, .moves-dropdown, .genders-dropdown, .abilities-dropdown, .nature-dropdown, .held-item-dropdown {
+    width: 70%;
+    position: relative;
+
+    input {
+        background-color: transparent;
+        width: 100%;
+        height: 100%;
+        border: 0px;
+    }
+}
+
+.pokemon-dropdown, .moves-dropdown {
+    input {
+        padding-left: 8px;
+        border-radius: 5px;
+    }
+}
+
+.moves-dropdown {
+    input {
+        border-radius: 15px;
+        padding-left: 8px;
+    }
+}

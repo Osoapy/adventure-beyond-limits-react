@@ -1,7 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
-import PokemonDropdown from '../pokemonDropdown/PokemonDropdown';
+import { useState } from 'react';
+import PokemonDropdown from '../dropdowns/pokemonDropdown/PokemonDropdown';
 import './addPokemonForm.css';
 import { SavePokemon } from '../../database/SavePokemon';
+import PokemonMovesDropdown from '../dropdowns/movesDropdown/PokemonMovesDropdown';
+import PokemonGenderDropdown from '../dropdowns/genderDropdown/GenderDropdown';
+import PokemonAbilitiesDropdown from '../dropdowns/abilityDropdown/AbilityDropdown';
+import PokemonNatureDropdown from '../dropdowns/natureDropdown/PokemonNatureDropdown';
+import PokemonHeldItemDropdown from '../dropdowns/heldItemDropdown/PokemonHeldItemDropdown';
 
 export default function AddPokemonForm() {
   const email = sessionStorage.getItem("email");
@@ -10,7 +15,8 @@ export default function AddPokemonForm() {
     trainer: email,
     species: '',
     nickname: '???',
-    level: '1',
+    level: '100',
+    mainType: '',
     gender: '',
     ability: '',
     nature: '',
@@ -19,6 +25,13 @@ export default function AddPokemonForm() {
     ivs: { HP: '0', Attack: '0', Defense: '0', 'S.Atk': '0', 'S.Def': '0', Speed: '0' },
     evs: { HP: '0', Attack: '0', Defense: '0', 'S.Atk': '0', 'S.Def': '0', Speed: '0' },
   });
+
+  const [activeStats, setActiveStats] = useState('ivs');
+
+  const toggleStats = (type) => {
+    if (activeStats === type) return; // já está ativo
+    setActiveStats(type);
+  };
 
   const handleFieldChange = (field, value) => {
     setPokemonData(prev => ({ ...prev, [field]: value }));
@@ -46,69 +59,51 @@ export default function AddPokemonForm() {
         <div className="info">Info</div>
 
         <p className="pokemon-field-text creation-start"><b>Species:</b></p>
-        <PokemonDropdown onSelect={name => handleFieldChange('species', name)} />
+        <PokemonDropdown species={pokemonData.species} onSelect={name => handleFieldChange('species', name)} />
 
         <p className="pokemon-field-text"><b>Nickname:</b></p>
-        <div
+        <input
+          placeholder={pokemonData.nickname}
+          type='text'
+          minLength="1"
           className="pokemon-field-answear"
-          contentEditable
           spellCheck={false}
-          onInput={e => handleFieldChange('nickname', e.currentTarget.textContent)}
-        >{pokemonData.nickname}</div>
+          onInput={e => handleFieldChange('nickname', e.currentTarget.value)}
+        ></input>
 
         <p className="pokemon-field-text"><b>Level:</b></p>
-        <div
+        <input
+          placeholder={pokemonData.level}
+          type='number'
           className="pokemon-field-answear"
-          contentEditable
+          min="1"
+          max="100"
           spellCheck={false}
-          onInput={e => handleFieldChange('level', e.currentTarget.textContent)}
-        >{pokemonData.level}</div>
+          onInput={e => handleFieldChange('level', e.currentTarget.value)}
+        ></input>
 
         <p className="pokemon-field-text"><b>Gender:</b></p>
-        <div
-          className="pokemon-field-answear"
-          contentEditable
-          spellCheck={false}
-          onInput={e => handleFieldChange('gender', e.currentTarget.textContent)}
-        >{pokemonData.gender || 'Choose between M, F or None'}</div>
+        <PokemonGenderDropdown species={pokemonData.species} onSelect={gender => handleFieldChange('gender', gender)}/>
 
         <p className="pokemon-field-text"><b>Ability:</b></p>
-        <div
-          className="pokemon-field-answear ability"
-          contentEditable
-          spellCheck={false}
-          onInput={e => handleFieldChange('ability', e.currentTarget.textContent)}
-        >{pokemonData.ability || 'Insert its ability here...'}</div>
+        <PokemonAbilitiesDropdown species={pokemonData.species} onSelect={ability => handleFieldChange('ability', ability)} />
 
         <p className="pokemon-field-text"><b>Nature:</b></p>
-        <div
-          className="pokemon-field-answear nature"
-          contentEditable
-          spellCheck={false}
-          onInput={e => handleFieldChange('nature', e.currentTarget.textContent)}
-        >{pokemonData.nature || 'Insert its nature here...'}</div>
+        <PokemonNatureDropdown onSelect={nature => handleFieldChange('nature', nature)} />
 
         <p className="pokemon-field-text"><b>Held item:</b></p>
-        <div
-          className="pokemon-field-answear"
-          contentEditable
-          spellCheck={false}
-          onInput={e => handleFieldChange('heldItem', e.currentTarget.textContent)}
-        >{pokemonData.heldItem}</div>
+        <PokemonHeldItemDropdown onSelect={heldItem => handleFieldChange('heldItem', heldItem)} />
       </div>
 
       <div className="moves-container">
         <div className="info">Moves</div>
         <div className="moves">
-          {pokemonData.moves.map((move, i) => (
-            <div
-              key={i}
-              className="move"
-              contentEditable
-              spellCheck={false}
-              onInput={e => handleMoveChange(i, e.currentTarget.textContent)}
-            >{move}</div>
-          ))}
+        {pokemonData.moves.map((move, i) => (
+          <PokemonMovesDropdown key={i}
+            species={pokemonData.species}
+            onSelect={newMove => handleMoveChange(i, newMove)}
+          />
+        ))}
         </div>
       </div>
 
@@ -116,46 +111,50 @@ export default function AddPokemonForm() {
         <div className="info">IVs / EVs</div>
 
         <div className="iv-button">
-          <button className="left-button">IVs</button>
-          <button className="att-button active">Stats</button>
-          <button className="right-button">EVs</button>
+          <button
+            className={`left-button ${activeStats === 'ivs' ? 'active' : ''}`}
+            onClick={() => toggleStats('ivs')}
+          >
+            IVs
+          </button>
+          <button
+            className={`right-button ${activeStats === 'evs' ? 'active' : ''}`}
+            onClick={() => toggleStats('evs')}
+          >
+            EVs
+          </button>
         </div>
 
-        <div className="ivs">
+        <div className={`ivs ${activeStats === 'ivs' ? 'show' : 'hide'}`}>
           {Object.keys(pokemonData.ivs).map(stat => (
             <div className="ev" key={`iv-${stat}`}>
               <div className="iv-text">{stat}</div>
-              <div
+              <input
+                placeholder={pokemonData.ivs[stat]}
+                type='number'
                 className="iv-value"
-                contentEditable
+                min="0"
+                max="31"
                 spellCheck={false}
-                onInput={e => handleStatChange('ivs', stat, e.currentTarget.textContent)}
-              >{pokemonData.ivs[stat]}</div>
+                onInput={e => handleStatChange('ivs', stat, e.currentTarget.value)}
+              ></input>
             </div>
           ))}
         </div>
 
-        <div className="ivs show">
-          {Object.keys(pokemonData.ivs).map(stat => (
-            <div className="ev" key={`ivs-show-${stat}`}>
-              <div className="ev-text">{stat}</div>
-              <div className="ev-value" contentEditable spellCheck={false}>
-                {pokemonData.ivs[stat]}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="evs">
+        <div className={`evs ${activeStats === 'evs' ? 'show' : 'hide'}`}>
           {Object.keys(pokemonData.evs).map(stat => (
             <div className="ev" key={`ev-${stat}`}>
               <div className="ev-text">{stat}</div>
-              <div
+              <input
+                placeholder={pokemonData.evs[stat]}
+                type='number'
                 className="ev-value"
-                contentEditable
+                min="0"
+                max="252"
                 spellCheck={false}
-                onInput={e => handleStatChange('evs', stat, e.currentTarget.textContent)}
-              >{pokemonData.evs[stat]}</div>
+                onInput={e => handleStatChange('evs', stat, e.currentTarget.value)}
+              ></input>
             </div>
           ))}
         </div>
