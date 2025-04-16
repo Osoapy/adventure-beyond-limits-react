@@ -2,16 +2,37 @@ import { useEffect, useRef, useState } from "react";
 import { Chart, RadarController, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend } from "chart.js";
 import PokemonGif from "../../utils/fetchs/pokemonGif/PokemonGif";
 import './currentPokemonForm.css';
+import { FaSave } from "react-icons/fa";
 import CalculatePokemonStats from "../../utils/functions/calculatePokemonStats/CalculatePokemonStats";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase"; // ajuste o caminho conforme onde está sua config do Firebase
 
 Chart.register(RadarController, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
 export default function CurrentPokemonForm({ pokemon }) {
     const [ready, setReady] = useState(false);
+    const [hasChanges, setHasChanges] = useState(false);
     const chartRef = useRef(null);
-    const [section, setSection] = useState("Stats"); // "IVs", "EVs" ou "Stats"
     const chartInstanceRef = useRef(null);
+    const [section, setSection] = useState("Stats");
 
+    // Unsaved changes
+    useEffect(() => {
+        const editableElements = document.querySelectorAll('[contenteditable="true"]');
+        const handleInput = () => setHasChanges(true);
+
+        editableElements.forEach(el => {
+            el.addEventListener("input", handleInput);
+        });
+
+        return () => {
+            editableElements.forEach(el => {
+                el.removeEventListener("input", handleInput);
+            });
+        };
+    }, [pokemon]);
+
+    // Graphic
     useEffect(() => {
         async function setupStatsAndChart() {
             await CalculatePokemonStats(pokemon);
@@ -80,6 +101,36 @@ export default function CurrentPokemonForm({ pokemon }) {
         };
     }, [pokemon]);
 
+    const saveChanges = async () => {
+        const updatedData = {
+            nickname: document.querySelector(".first-field:nth-of-type(2)")?.innerText,
+            level: document.querySelector(".first-field + .pokemon-field-text + div")?.innerText,
+            gender: document.querySelector(".pokemon-field-text:nth-of-type(3) + div")?.innerText,
+            ability: document.querySelector(".ability")?.innerText,
+            nature: document.querySelector(".nature")?.innerText,
+            heldItem: document.querySelector(".pokemon-field-text:nth-of-type(6) + div")?.innerText,
+            moves: Array.from(document.querySelectorAll(".move")).map(div => div.innerText),
+            ivs: {},
+            evs: {},
+        };
+    
+        ["HP", "Attack", "Defense", "S.Atk", "S.Def", "Speed"].forEach((stat, i) => {
+            const iv = document.querySelector(`.ivs .iv:nth-of-type(${i + 1}) .iv-value`);
+            const ev = document.querySelector(`.evs .ev:nth-of-type(${i + 1}) .ev-value`);
+            if (iv) updatedData.ivs[stat] = iv.innerText;
+            if (ev) updatedData.evs[stat] = ev.innerText;
+        });
+    
+        try {
+            const pokemonRef = doc(db, "pokemon", pokemon.id); // Certifique-se de que `pokemon.id` é o ID do documento
+            await updateDoc(pokemonRef, updatedData);
+            setHasChanges(false);
+        } catch (error) {
+            console.error("Erro ao salvar no Firebase:", error);
+        }
+    };
+    
+
     return (
         <div className="player-Token pokemon-Filled-Container" id="JhonnyTail2-Token">
             <div className="start">
@@ -109,7 +160,7 @@ export default function CurrentPokemonForm({ pokemon }) {
                 <p className="pokemon-field-text">
                     <b>Ability:</b>
                 </p>
-                <div className="pokemon-field-answear ability water" contentEditable spellCheck={false}>
+                <div className={`pokemon-field-answear ability ${pokemon.mainType}`} contentEditable spellCheck={false}>
                     {pokemon.ability}
                 </div>
 
@@ -145,7 +196,7 @@ export default function CurrentPokemonForm({ pokemon }) {
             </div>
 
             <div className="ivs-container">
-                <div className="info">IVs / EVs</div>
+                <div className="info">IVs / Stats / EVs</div>
                 <div className="iv-button">
                     <button
                         className={`left-button ${section === "IVs" ? "active" : ""}`}
@@ -221,6 +272,27 @@ export default function CurrentPokemonForm({ pokemon }) {
                 <div className="pokemon-sprite-container">
                     <PokemonGif specie={pokemon.species}></PokemonGif>
                 </div>
+
+                {hasChanges && (
+                    <button
+                        onClick={saveChanges}
+                        style={{
+                            position: "fixed",
+                            bottom: "20px",
+                            right: "20px",
+                            backgroundColor: "#2ecc71",
+                            border: "none",
+                            borderRadius: "50%",
+                            padding: "15px",
+                            boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                            cursor: "pointer",
+                            zIndex: 1000
+                        }}
+                        title="Salvar alterações"
+                    >
+                        <FaSave color="white" size={20} />
+                    </button>
+                )}
             </div>
         </div>
     );

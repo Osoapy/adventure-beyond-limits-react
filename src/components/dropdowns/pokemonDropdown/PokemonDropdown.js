@@ -14,7 +14,6 @@ export default function PokemonDropdown({ onSelect }) {
     fetch('https://pokeapi.co/api/v2/pokemon/?limit=9999')
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         const names = data.results.map((p) => p.name);
         setPokemons(names);
       });

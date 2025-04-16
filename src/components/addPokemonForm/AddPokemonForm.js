@@ -159,9 +159,24 @@ export default function AddPokemonForm() {
           ))}
         </div>
 
-        <button className="create-button" onClick={() => SavePokemon(pokemonData)}>
-          CREATE
-        </button>
+        <input type="submit" value="Create" className="create-button" onClick={() => {
+          if (!pokemonData.species || pokemonData.species.trim() === '') return;
+          SavePokemon(pokemonData);
+          setPokemonData({
+            trainer: email,
+            species: '',
+            nickname: '???',
+            level: '100',
+            mainType: '',
+            gender: '',
+            ability: '',
+            nature: '',
+            heldItem: 'None',
+            moves: ['Move #1', 'Move #2', 'Move #3', 'Move #4'],
+            ivs: { HP: '0', Attack: '0', Defense: '0', 'S.Atk': '0', 'S.Def': '0', Speed: '0' },
+            evs: { HP: '0', Attack: '0', Defense: '0', 'S.Atk': '0', 'S.Def': '0', Speed: '0' },
+          });
+        }}/>
       </div>
     </div>
   );

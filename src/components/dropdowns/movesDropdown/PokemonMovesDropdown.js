@@ -1,10 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../../../firebase';
 
 export default function PokemonMovesDropdown({ species, onSelect }) {
   const [moves, setMoves] = useState([]);
+  const [moveTypes, setMoveTypes] = useState({});
   const [search, setSearch] = useState('');
   const [filtered, setFiltered] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [selectedType, setSelectedType] = useState('normal'); // NOVO
   const inputRef = useRef(null);
   const containerRef = useRef(null);
 
@@ -30,6 +34,21 @@ export default function PokemonMovesDropdown({ species, onSelect }) {
   }, [species]);
 
   useEffect(() => {
+    const fetchMoveTypes = async () => {
+      const snapshot = await getDocs(collection(db, 'moves'));
+      const types = {};
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        if (data.name && data.type) {
+          types[data.name] = data.type;
+        }
+      });
+      setMoveTypes(types);
+    };
+    fetchMoveTypes();
+  }, []);
+
+  useEffect(() => {
     setFiltered(
       moves.filter(m => m.toLowerCase().includes(search.toLowerCase()))
     );
@@ -48,11 +67,11 @@ export default function PokemonMovesDropdown({ species, onSelect }) {
   return (
     <div
       ref={containerRef}
-      className='moves-dropdown move normal'
+      className={`moves-dropdown move ${selectedType}`} // ATUALIZADO
       style={{ position: 'relative', width: '100%' }}
     >
       <input
-        className='normal'
+        className={selectedType} // ATUALIZADO
         ref={inputRef}
         value={search}
         onChange={e => setSearch(e.target.value)}
@@ -77,23 +96,28 @@ export default function PokemonMovesDropdown({ species, onSelect }) {
             zIndex: 10,
           }}
         >
-          {filtered.map(name => (
-            <li
-              key={name}
-              onClick={() => {
-                setSearch(name);
-                setShowDropdown(false);
-                onSelect(name);
-              }}
-              style={{
-                padding: '8px',
-                cursor: 'pointer',
-                borderBottom: '1px solid #eee',
-              }}
-            >
-              {name}
-            </li>
-          ))}
+          {filtered.map(name => {
+            const type = moveTypes[name] || 'normal';
+            return (
+              <li
+                key={name}
+                className={`move ${type}`}
+                onClick={() => {
+                  setSearch(name);
+                  setSelectedType(type); // NOVO
+                  setShowDropdown(false);
+                  onSelect(name);
+                }}
+                style={{
+                  padding: '8px',
+                  cursor: 'pointer',
+                  borderBottom: '1px solid #eee',
+                }}
+              >
+                {name}
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>
