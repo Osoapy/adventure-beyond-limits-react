@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../firebase';
 
-export default function PokemonMovesDropdown({ species, onSelect }) {
+export default function PokemonMovesDropdown({ species, onSelect, initialValue }) {
   const [moves, setMoves] = useState([]);
   const [moveTypes, setMoveTypes] = useState({});
   const [search, setSearch] = useState('');
@@ -32,6 +32,14 @@ export default function PokemonMovesDropdown({ species, onSelect }) {
         setMoves([]);
       });
   }, [species]);
+
+  useEffect(() => {
+    if (initialValue) {
+      setSearch(initialValue);
+      const type = moveTypes[initialValue] || 'normal';
+      setSelectedType(type);
+    }
+  }, [initialValue, moveTypes]);
 
   useEffect(() => {
     const fetchMoveTypes = async () => {
@@ -106,7 +114,9 @@ export default function PokemonMovesDropdown({ species, onSelect }) {
                   setSearch(name);
                   setSelectedType(type); // NOVO
                   setShowDropdown(false);
-                  onSelect(name);
+                  if (onSelect) {
+                    onSelect(name)
+                  };
                 }}
                 style={{
                   padding: '8px',

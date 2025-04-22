@@ -5,6 +5,7 @@ import './currentPokemonForm.css';
 import { FaSave } from "react-icons/fa";
 import CalculatePokemonStats from "../../utils/functions/calculatePokemonStats/CalculatePokemonStats";
 import { doc, updateDoc } from "firebase/firestore";
+import PokemonMovesDropdown from '../dropdowns/movesDropdown/PokemonMovesDropdown';
 import { db } from "../../firebase"; // ajuste o caminho conforme onde está sua config do Firebase
 
 Chart.register(RadarController, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
@@ -182,16 +183,13 @@ export default function CurrentPokemonForm({ pokemon }) {
             <div className="moves-container">
                 <div className="info">Moves</div>
                 <div className="moves">
-                {pokemon.moves.map((move, index) => (
-                    <div
-                    key={index}
-                    className="move"
-                    contentEditable
-                    spellCheck={false}
-                    >
-                        {move}
-                    </div>
-                ))}
+                    {pokemon.moves.map((move, i) => (
+                        <PokemonMovesDropdown
+                            key={i}
+                            species={pokemon.species}
+                            initialValue={move}
+                        />
+                    ))}
                 </div>
             </div>
 
