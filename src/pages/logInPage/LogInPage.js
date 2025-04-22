@@ -2,6 +2,7 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import aipomBackground from "../../assets/aipomBackground.png"
 import "./logInPage.css";
 
 export default function LogInPage() {
@@ -29,28 +30,32 @@ export default function LogInPage() {
     return (
         <div className="login-container">
             <form onSubmit={handleSubmit} className="login-form">
-                <h2>Entrar na Conta</h2>
-                {error && <p className="error-msg">{error}</p>}
+                <img className="login-form-img" src={aipomBackground}/>
 
-                <label htmlFor="email">Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
+                <main>
+                    <h2>Login</h2>
+                    {error && <p className="error-msg">{error}</p>}
 
-                <label htmlFor="password">Senha</label>
-                <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
+                    <label htmlFor="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
 
-                <button type="submit">Entrar</button>
+                    <label htmlFor="password">Senha</label>
+                    <input
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+
+                    <button type="submit">Entrar</button>
+                </main>
             </form>
         </div>
     );

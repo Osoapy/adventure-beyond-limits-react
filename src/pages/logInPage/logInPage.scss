@@ -1,6 +1,8 @@
 .login-container {
     min-height: 100vh;
     background: #f3f4f6;
+    background-image: url('../../assets/background.webp');
+    background-size: contain;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -9,53 +11,68 @@
 
 .login-form {
     background: white;
-    padding: 2rem;
-    border-radius: 1rem;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
 
-    h2 {
-        font-size: 1.75rem;
-        text-align: center;
+    .login-form-img {
+        width: 100%;
         margin-bottom: 1rem;
-        color: #1d4ed8;
     }
 
-    label {
-        font-weight: 600;
-        font-size: 0.95rem;
-        color: #333;
-    }
+    main {
+        background: white;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        padding-bottom: 2rem;
+        display: flex;
+        flex-direction: column;
 
-    input {
-        padding: 0.6rem 0.75rem;
-        border: 1px solid #ccc;
-        border-radius: 0.5rem;
-        font-size: 1rem;
-        transition: border-color 0.3s;
-
-        &:focus {
-            border-color: #2563eb;
-            outline: none;
+        h2 {
+            font-size: 1.75rem;
+            color: #9d5ca2;
+            margin-bottom: 2rem;
         }
-    }
-
-    button {
-        background: #2563eb;
-        color: white;
-        padding: 0.75rem;
-        font-weight: bold;
-        border: none;
-        border-radius: 0.5rem;
-        cursor: pointer;
-        transition: background 0.3s;
-
-        &:hover {
-            background: #1e40af;
+    
+        label {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #686570;
+        }
+    
+        input {
+            padding: 0.6rem 0.75rem;
+            color: #686570;
+            border: 1px solid #ccc;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            margin-bottom: 1rem;
+    
+            &:focus {
+                border-color: #b45eba;
+                outline: none;
+            }
+        }
+    
+        button {
+            background: #834D87;
+            color: white;
+            padding: 0.75rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background 0.3s;
+    
+            &:hover {
+                background: #653b68;
+            }
         }
     }
 

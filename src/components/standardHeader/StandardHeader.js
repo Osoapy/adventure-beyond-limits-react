@@ -1,9 +1,11 @@
 import './standardHeader.css';
+import aipomLogo from '../../assets/aipomLogo.png';
 
 export default function StandardHeader({ children }) {
     return (
         <header className="app-bar">
-            <h1 className="app-bar-title">P.A.B.L.💫</h1>
+            <div className="app-bar-background"></div>
+            <img className="app-bar-site-icon" src={aipomLogo}/>
             <nav className="app-bar-buttons">
                 { children }
             </nav>

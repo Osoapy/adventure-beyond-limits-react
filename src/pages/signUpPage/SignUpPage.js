@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import "./signUpPage.css";
+import aipomBackground from "../../assets/bananaBackground.jpg"
 import { useNavigate } from "react-router-dom";
 
 export default function SignUpPage() {
@@ -37,39 +38,43 @@ export default function SignUpPage() {
     return (
         <div className="signup-container">
             <form onSubmit={handleSubmit} className="signup-form">
-                <h1>Criar Conta</h1>
-
                 {error && <div className="error-msg">{error}</div>}
                 {success && <div className="success-msg">{success}</div>}
 
-                <label htmlFor="email">E-mail</label>
-                <input
-                    type="email"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
+                <img className="form-background-img" src={aipomBackground}/>
 
-                <label htmlFor="password">Senha</label>
-                <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
+                <main>
+                    <h1>Sign Up</h1>
 
-                <label htmlFor="confirmPassword">Confirmar Senha</label>
-                <input
-                    type="password"
-                    id="confirmPassword"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                />
+                    <label htmlFor="email">E-mail</label>
+                    <input
+                        type="email"
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
 
-                <button type="submit">Criar Conta</button>
+                    <label htmlFor="password">Senha</label>
+                    <input
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+
+                    <label htmlFor="confirmPassword">Confirmar Senha</label>
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        required
+                    />
+
+                    <button type="submit">Criar Conta</button>
+                </main>
             </form>
         </div>
     );

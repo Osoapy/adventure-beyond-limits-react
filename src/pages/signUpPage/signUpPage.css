@@ -1,45 +1,59 @@
 .signup-container {
   min-height: 100vh;
   display: flex;
+  background-image: url("../../assets/background.webp");
+  background-size: contain;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to bottom right, #e6f5ec, #ffffff);
   padding: 1rem;
 }
 
 .signup-form {
   background: #fff;
-  padding: 2rem;
-  border-radius: 1rem;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
 }
-.signup-form h1 {
-  text-align: center;
+.signup-form .form-background-img {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.signup-form main {
+  background: #fff;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 2rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+.signup-form main h1 {
   font-size: 1.75rem;
   color: #227a4f;
+  margin-bottom: 2rem;
 }
-.signup-form label {
+.signup-form main label {
   font-weight: 600;
   color: #444;
   font-size: 0.95rem;
 }
-.signup-form input {
+.signup-form main input {
   padding: 0.6rem 0.75rem;
   border: 1px solid #ccc;
   border-radius: 0.5rem;
   font-size: 1rem;
   transition: border-color 0.3s;
+  margin-bottom: 1rem;
 }
-.signup-form input:focus {
+.signup-form main input:focus {
   border-color: #35a16a;
   outline: none;
 }
-.signup-form button {
+.signup-form main button {
   background: #35a16a;
   color: white;
   padding: 0.75rem;
@@ -49,7 +63,7 @@
   cursor: pointer;
   transition: background 0.3s;
 }
-.signup-form button:hover {
+.signup-form main button:hover {
   background: #2e8e5c;
 }
 .signup-form .error-msg {
