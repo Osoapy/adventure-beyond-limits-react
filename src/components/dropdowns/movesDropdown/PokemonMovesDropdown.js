@@ -34,12 +34,12 @@ export default function PokemonMovesDropdown({ species, onSelect, initialValue }
   }, [species]);
 
   useEffect(() => {
-    if (initialValue) {
-      setSearch(initialValue);
-      const type = moveTypes[initialValue] || 'normal';
-      setSelectedType(type);
-    }
-  }, [initialValue, moveTypes]);
+    if (!initialValue || Object.keys(moveTypes).length === 0) return;
+  
+    setSearch(initialValue);
+    const type = moveTypes[initialValue] || 'normal';
+    setSelectedType(type);
+  }, [initialValue, moveTypes]);  
 
   useEffect(() => {
     const fetchMoveTypes = async () => {

@@ -580,4 +580,22 @@ canvas {
   .stats {
     height: 46vh;
   }
+}
+.floating-save-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 15px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: background-color 0.3s;
+}
+
+.floating-save-button:hover {
+  background-color: #218838;
 }/*# sourceMappingURL=currentPokemonForm.css.map */

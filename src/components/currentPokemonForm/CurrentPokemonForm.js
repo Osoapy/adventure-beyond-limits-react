@@ -16,6 +16,7 @@ export default function CurrentPokemonForm({ pokemon }) {
     const chartRef = useRef(null);
     const chartInstanceRef = useRef(null);
     const [section, setSection] = useState("Stats");
+    const [currentMoves, setCurrentMoves] = useState([...pokemon.moves]);
 
     // Unsaved changes
     useEffect(() => {
@@ -110,16 +111,26 @@ export default function CurrentPokemonForm({ pokemon }) {
             ability: document.querySelector(".ability")?.innerText,
             nature: document.querySelector(".nature")?.innerText,
             heldItem: document.querySelector(".pokemon-field-text:nth-of-type(6) + div")?.innerText,
-            moves: Array.from(document.querySelectorAll(".move")).map(div => div.innerText),
+            moves: currentMoves,
             ivs: {},
             evs: {},
         };
     
         ["HP", "Attack", "Defense", "S.Atk", "S.Def", "Speed"].forEach((stat, i) => {
-            const iv = document.querySelector(`.ivs .iv:nth-of-type(${i + 1}) .iv-value`);
+            const iv = document.querySelector(`.ivs .ev:nth-of-type(${i + 1}) .iv-value`);
+            if (iv && iv.value !== "") {
+                updatedData.ivs[stat] = parseInt(iv.value);
+            } else {
+                updatedData.ivs[stat] = pokemon.ivs?.[stat] ?? 0;
+            }
             const ev = document.querySelector(`.evs .ev:nth-of-type(${i + 1}) .ev-value`);
-            if (iv) updatedData.ivs[stat] = iv.innerText;
-            if (ev) updatedData.evs[stat] = ev.innerText;
+            if (ev && ev.value !== "") {
+                updatedData.evs[stat] = parseInt(ev.value);
+            } else {
+                updatedData.evs[stat] = pokemon.evs?.[stat] ?? 0;
+            }
+            if (iv) updatedData.ivs[stat] = iv.value;
+            if (ev) updatedData.evs[stat] = ev.value;
         });
     
         try {
@@ -188,6 +199,12 @@ export default function CurrentPokemonForm({ pokemon }) {
                             key={i}
                             species={pokemon.species}
                             initialValue={move}
+                            onSelect={(newMove) => {
+                                const updatedMoves = [...currentMoves];
+                                updatedMoves[i] = newMove;
+                                setCurrentMoves(updatedMoves);
+                                setHasChanges(true);
+                            }}                              
                         />
                     ))}
                 </div>
@@ -220,9 +237,12 @@ export default function CurrentPokemonForm({ pokemon }) {
                     {pokemon.ivs && ["HP", "Attack", "Defense", "S.Atk", "S.Def", "Speed"].map((stat, i) => (
                         <div className="ev" key={i}>
                             <div className="iv-text">{stat}</div>
-                            <div className="iv-value" contentEditable spellCheck={false}>
-                                {pokemon.ivs[stat]}
-                            </div>
+                            <input
+                                defaultValue={pokemon.ivs[stat]}
+                                type='number'
+                                className="iv-value"
+                                min="0" max="31"
+                            />
                         </div>
                     ))}
                 </div>
@@ -231,7 +251,7 @@ export default function CurrentPokemonForm({ pokemon }) {
                     {ready && pokemon.attributes && ["HP", "Attack", "Defense", "S.Atk", "S.Def", "Speed"].map((stat, i) => (
                         <div className="stat" key={i}>
                             <div className="stats-text">{stat}</div>
-                            <div className="stats-value" contentEditable spellCheck={false}>
+                            <div className="stats-value" spellCheck={false}>
                                 {pokemon.attributes[stat]}
                             </div>
                         </div>
@@ -242,9 +262,12 @@ export default function CurrentPokemonForm({ pokemon }) {
                     {pokemon.evs && ["HP", "Attack", "Defense", "S.Atk", "S.Def", "Speed"].map((stat, i) => (
                         <div className="ev" key={i}>
                             <div className="ev-text">{stat}</div>
-                            <div className="ev-value" contentEditable spellCheck={false}>
-                                {pokemon.evs[stat]}
-                            </div>
+                            <input
+                                defaultValue={pokemon.evs[stat]}
+                                type='number'
+                                className="ev-value"
+                                min="0" max="252"
+                            />
                         </div>
                     ))}
                 </div>
@@ -274,21 +297,10 @@ export default function CurrentPokemonForm({ pokemon }) {
                 {hasChanges && (
                     <button
                         onClick={saveChanges}
-                        style={{
-                            position: "fixed",
-                            bottom: "20px",
-                            right: "20px",
-                            backgroundColor: "#2ecc71",
-                            border: "none",
-                            borderRadius: "50%",
-                            padding: "15px",
-                            boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-                            cursor: "pointer",
-                            zIndex: 1000
-                        }}
+                        className="floating-save-button"
                         title="Salvar alterações"
                     >
-                        <FaSave color="white" size={20} />
+                        <FaSave size={24} />
                     </button>
                 )}
             </div>
