@@ -9,7 +9,7 @@ import CreatePlayer from './pages/createPlayer/CreatePlayer';
 function App() {
   return (
     <Router>
-      <Routes>
+      <Routes basename="/adventure-beyond-limits-react">
         <Route path="/" element={<HomePage></HomePage>} />
         <Route path="/signup" element={<SignUpPage></SignUpPage>} />
         <Route path="/create-player" element={<CreatePlayer></CreatePlayer>} />
