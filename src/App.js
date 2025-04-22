@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import SignUpPage from './pages/signUpPage/SignUpPage';
 import HomePage from './pages/homePage/HomePage';
 import LoginPage from './pages/logInPage/LogInPage';
@@ -9,12 +9,12 @@ import CreatePlayer from './pages/createPlayer/CreatePlayer';
 function App() {
   return (
     <Router>
-      <Routes basename="/adventure-beyond-limits-react">
-        <Route path="/" element={<HomePage></HomePage>} />
-        <Route path="/signup" element={<SignUpPage></SignUpPage>} />
-        <Route path="/create-player" element={<CreatePlayer></CreatePlayer>} />
-        <Route path="/login" element={<LoginPage></LoginPage>} />
-        <Route path="/main" element={<MyAccountPage></MyAccountPage>} />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/create-player" element={<CreatePlayer />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/main" element={<MyAccountPage />} />
       </Routes>
     </Router>
   );
