@@ -1,20 +1,22 @@
 {
   "files": {
-    "main.css": "/adventure-beyond-limits-react/static/css/main.b15944f9.css",
-    "main.js": "/adventure-beyond-limits-react/static/js/main.2775ec05.js",
+    "main.css": "/adventure-beyond-limits-react/static/css/main.f0193cbd.css",
+    "main.js": "/adventure-beyond-limits-react/static/js/main.bd30d0ee.js",
     "static/js/453.28199990.chunk.js": "/adventure-beyond-limits-react/static/js/453.28199990.chunk.js",
     "static/media/background.webp": "/adventure-beyond-limits-react/static/media/background.e27a6164309ada361a70.webp",
+    "static/media/aipomLogo.png": "/adventure-beyond-limits-react/static/media/aipomLogo.d696c71580480c7652a5.png",
+    "static/media/aipomBackground.png": "/adventure-beyond-limits-react/static/media/aipomBackground.fd743746605cd447fe18.png",
     "static/media/redButton.png": "/adventure-beyond-limits-react/static/media/redButton.408e62abbac960a0ae0b.png",
     "static/media/leagueSymbol.png": "/adventure-beyond-limits-react/static/media/leagueSymbol.db6c2321161a13b3175a.png",
     "static/media/greenButton.png": "/adventure-beyond-limits-react/static/media/greenButton.17618d70504e3d870bc4.png",
     "static/media/noImageAvailable.png": "/adventure-beyond-limits-react/static/media/noImageAvailable.cf7e3bd68914fa14b5ef.png",
     "index.html": "/adventure-beyond-limits-react/index.html",
-    "main.b15944f9.css.map": "/adventure-beyond-limits-react/static/css/main.b15944f9.css.map",
-    "main.2775ec05.js.map": "/adventure-beyond-limits-react/static/js/main.2775ec05.js.map",
+    "main.f0193cbd.css.map": "/adventure-beyond-limits-react/static/css/main.f0193cbd.css.map",
+    "main.bd30d0ee.js.map": "/adventure-beyond-limits-react/static/js/main.bd30d0ee.js.map",
     "453.28199990.chunk.js.map": "/adventure-beyond-limits-react/static/js/453.28199990.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b15944f9.css",
-    "static/js/main.2775ec05.js"
+    "static/css/main.f0193cbd.css",
+    "static/js/main.bd30d0ee.js"
   ]
 }
