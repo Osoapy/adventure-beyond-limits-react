@@ -1,0 +1,24 @@
+@import '../pokemonForm.scss';
+
+.floating-save-button {
+  @include fixedHeight(40px);
+  @include fixedWidth(40px);
+  @include flexCenter();
+
+  padding: 11px;
+  position: fixed;
+  bottom: calc(1vw + 55px);
+  right: calc(1vw + 25px - 20px);
+  background-color: #F6EDD3;
+  color: black;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  z-index: 1000;
+  transition: background-color 0.3s;
+  
+  &:hover {
+    background-color: #dad2ba;
+  }
+}

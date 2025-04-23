@@ -411,7 +411,7 @@ input[type=number] {
   border-radius: 15px;
 }
 
-.ivs.show, .evs.show {
+.ivs.show, .stats.show, .evs.show {
   align-items: center;
   justify-content: space-evenly;
   display: flex;
@@ -422,11 +422,11 @@ input[type=number] {
   border-radius: 15px;
 }
 
-.ivs, .evs {
+.ivs, .stats, .evs {
   display: none;
 }
 
-.iv, .ev {
+.iv, .stat, .ev {
   width: 15%;
   height: 66%;
   display: flex;
@@ -435,7 +435,7 @@ input[type=number] {
   justify-content: center;
 }
 
-.iv-text, .ev-text {
+.iv-text, .stats-text, .ev-text {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -443,17 +443,21 @@ input[type=number] {
   width: 100%;
 }
 
-.iv-value, .ev-value {
+.iv-value, .stats-value, .ev-value {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0px;
   background-color: lightgray;
   border-radius: 7.5px;
   justify-content: center;
+  text-align: center;
   align-items: center;
   height: 25%;
   width: 100%;
 }
 
-.stats {
+.stats-visualiser {
   justify-content: center;
   align-items: flex-start;
   box-shadow: 0px 17.5px 6px -6px rgb(235, 234, 237);

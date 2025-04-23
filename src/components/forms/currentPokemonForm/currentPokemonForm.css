@@ -494,6 +494,7 @@ canvas {
 }
 
 .info {
+  z-index: 999;
   position: absolute;
   background-color: white;
   color: #9e9e9e;
@@ -515,6 +516,7 @@ canvas {
 }
 
 .pokemon-field-text, .pokemon-field-answear {
+  border: 0px;
   margin-top: 2%;
   padding-left: 1%;
   display: flex;
@@ -582,20 +584,28 @@ canvas {
   }
 }
 .floating-save-button {
+  height: 40px;
+  min-height: 40px;
+  max-height: 40px;
+  width: 40px;
+  min-width: 40px;
+  max-width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px;
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #28a745;
-  color: white;
+  bottom: calc(1vw + 55px);
+  right: calc(1vw + 25px - 20px);
+  background-color: #F6EDD3;
+  color: black;
   border: none;
   border-radius: 50%;
-  padding: 15px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1000;
   transition: background-color 0.3s;
 }
-
 .floating-save-button:hover {
-  background-color: #218838;
+  background-color: #dad2ba;
 }/*# sourceMappingURL=currentPokemonForm.css.map */

@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import Swal from 'sweetalert2';
-import PokemonDropdown from '../dropdowns/pokemonDropdown/PokemonDropdown';
-import PokemonMovesDropdown from '../dropdowns/movesDropdown/PokemonMovesDropdown';
-import PokemonGenderDropdown from '../dropdowns/genderDropdown/GenderDropdown';
-import PokemonAbilitiesDropdown from '../dropdowns/abilityDropdown/AbilityDropdown';
-import PokemonNatureDropdown from '../dropdowns/natureDropdown/PokemonNatureDropdown';
-import PokemonHeldItemDropdown from '../dropdowns/heldItemDropdown/PokemonHeldItemDropdown';
-import { SavePokemon } from '../../database/SavePokemon';
+import PokemonDropdown from '../../dropdowns/pokemonDropdown/PokemonDropdown';
+import PokemonMovesDropdown from '../../dropdowns/movesDropdown/PokemonMovesDropdown';
+import PokemonGenderDropdown from '../../dropdowns/genderDropdown/GenderDropdown';
+import PokemonAbilitiesDropdown from '../../dropdowns/abilityDropdown/AbilityDropdown';
+import PokemonNatureDropdown from '../../dropdowns/natureDropdown/PokemonNatureDropdown';
+import PokemonHeldItemDropdown from '../../dropdowns/heldItemDropdown/PokemonHeldItemDropdown';
+import { SavePokemon } from '../../../database/SavePokemon';
 import './addPokemonForm.css';
 
 export default function AddPokemonForm() {

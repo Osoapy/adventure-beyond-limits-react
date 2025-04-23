@@ -5,9 +5,9 @@ import './myAccountPage.css';
 import PokemonTeam from "../../components/pokemonTeam/PokemonTeam";
 import StandardHeader from "../../components/standardHeader/StandardHeader";
 import AddButton from "../../components/addButton/AddButton";
-import AddPokemonForm from "../../components/addPokemonForm/AddPokemonForm";
+import AddPokemonForm from "../../components/forms/addPokemonForm/AddPokemonForm";
 import PokemonButton from "../../components/pokemonButton/pokemonButton";
-import CurrentPokemonForm from "../../components/currentPokemonForm/CurrentPokemonForm";
+import CurrentPokemonForm from "../../components/forms/currentPokemonForm/CurrentPokemonForm";
 
 export default function MyAccountPage() {
     const [trainer, setTrainer] = useState(null);
@@ -57,14 +57,16 @@ export default function MyAccountPage() {
     return (
         <div className="min-h-screen bg-gray-100">
             <StandardHeader>
-                <img
-                    src={
-                        trainer?.imageBase64 ||
-                        "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"
-                    }
-                    alt="Foto de perfil"
-                    className="profile-picture"
-                />
+                <div className="pfp-container">
+                    <img
+                        src={
+                            trainer?.imageBase64 ||
+                            "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"
+                        }
+                        alt="Foto de perfil"
+                        className="profile-picture"
+                    />
+                </div>
             </StandardHeader>
 
             <PokemonTeam>

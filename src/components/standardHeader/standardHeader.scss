@@ -33,7 +33,7 @@
 
     .app-bar-buttons {
         padding: 1rem 2rem;
-        width: 80%;
+        width: -webkit-fill-available;
         position: relative;
         display: flex;
         gap: 1rem;
@@ -58,10 +58,20 @@
             }
         }
 
-        .profile-picture {
-            @include fixedHeight(5vh);
+        .pfp-container {
+            @include fixedHeight(7vh);
+            @include fixedWidth(7vh);
+            @include flexCenter();
 
             border-radius: 100%;
+            background-color: var(--tokenDarkGray);
+
+            .profile-picture {
+                @include fixedHeight(6vh);
+                @include fixedWidth(6vh);
+    
+                border-radius: 100%;
+            }
         }
     }
 }

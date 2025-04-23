@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Chart, RadarController, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend } from "chart.js";
-import PokemonGif from "../../utils/fetchs/pokemonGif/PokemonGif";
+import PokemonGif from "../../../utils/fetchs/pokemonGif/PokemonGif";
 import './currentPokemonForm.css';
 import { FaSave } from "react-icons/fa";
-import CalculatePokemonStats from "../../utils/functions/calculatePokemonStats/CalculatePokemonStats";
+import CalculatePokemonStats from "../../../utils/functions/calculatePokemonStats/CalculatePokemonStats";
 import { doc, updateDoc } from "firebase/firestore";
-import PokemonMovesDropdown from '../dropdowns/movesDropdown/PokemonMovesDropdown';
-import { db } from "../../firebase"; // ajuste o caminho conforme onde está sua config do Firebase
+import PokemonMovesDropdown from '../../dropdowns/movesDropdown/PokemonMovesDropdown';
+import { db } from "../../../firebase"; // ajuste o caminho conforme onde está sua config do Firebase
 
 Chart.register(RadarController, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
@@ -33,6 +33,21 @@ export default function CurrentPokemonForm({ pokemon }) {
             });
         };
     }, [pokemon]);
+
+    useEffect(() => {
+        const ivEvInputs = document.querySelectorAll('.iv-value, .ev-value');
+        const handleChange = () => setHasChanges(true);
+    
+        ivEvInputs.forEach(input => {
+            input.addEventListener("input", handleChange);
+        });
+    
+        return () => {
+            ivEvInputs.forEach(input => {
+                input.removeEventListener("input", handleChange);
+            });
+        };
+    }, [pokemon]);    
 
     // Graphic
     useEffect(() => {
@@ -298,7 +313,6 @@ export default function CurrentPokemonForm({ pokemon }) {
                     <button
                         onClick={saveChanges}
                         className="floating-save-button"
-                        title="Salvar alterações"
                     >
                         <FaSave size={24} />
                     </button>

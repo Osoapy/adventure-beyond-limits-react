@@ -5,11 +5,11 @@
     @include fixedWidth(50px);
     @include flexCenter();
 
-    background-color: aquamarine;
+    background-color: #9d5ca2;
     border-radius: 7.5px;
     position: fixed;
-    bottom: 5px;
-    left: 5px;
+    bottom: 1vw;
+    right: 1vw;
 
     .addButton {
         @include flexCenter();
