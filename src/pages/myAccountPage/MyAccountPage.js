@@ -55,7 +55,7 @@ export default function MyAccountPage() {
     }, [email]);
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div>
             <StandardHeader>
                 <div className="pfp-container">
                     <img

@@ -43,6 +43,7 @@ export default function PokemonHeldItemDropdown({ onSelect }) {
       className='held-item-dropdown'
     >
       <input
+        className='pokemon-field-answear'
         ref={inputRef}
         value={search}
         onChange={e => setSearch(e.target.value)}

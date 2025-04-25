@@ -122,6 +122,7 @@
 
 .iv-value, .stats-value, .ev-value {
     @include flexCenter();
+    font-size: large;
     border: 0px;
     background-color: lightgray;
     border-radius: 7.5px;
@@ -217,6 +218,18 @@ canvas {
 
 /* Responsiveness */
 @media (max-width: 600px) and (min-height: 700px) {
+    .pokemon-field-answear {
+        font-size: large;
+    }
+
+    .moves-container {
+        height: 25vh;
+
+        .input-moves-dropdown {
+            font-size: large;
+        }
+    }
+
     .start, .moves-container, .ivs-container, .stats {
         width: 88%;
         font-size: 20px;
@@ -224,6 +237,17 @@ canvas {
 
     .att-button, .right-button, .left-button {
         font-size: 18px;
+    }
+
+    .stats-visualiser {
+        height: 70vh;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .stats-info {
+        position: relative;
     }
 
     .start, .stats {
@@ -234,12 +258,12 @@ canvas {
         margin-top: 8%;
     }
 
-    .iv, .ev {
+    .iv, .stat, .ev {
         height: 40%;
         width: 30%;
     }
 
-    .ivs.show, .evs.show {
+    .ivs.show, .stats.show, .evs.show {
         flex-wrap: wrap;
     }
 }

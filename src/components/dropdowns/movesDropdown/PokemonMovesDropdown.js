@@ -79,7 +79,7 @@ export default function PokemonMovesDropdown({ species, onSelect, initialValue }
       style={{ position: 'relative', width: '100%' }}
     >
       <input
-        className={selectedType} // ATUALIZADO
+        className={`input-moves-dropdown ${selectedType}`} // ATUALIZADO
         ref={inputRef}
         value={search}
         onChange={e => setSearch(e.target.value)}
@@ -101,7 +101,7 @@ export default function PokemonMovesDropdown({ species, onSelect, initialValue }
             overflowY: 'auto',
             backgroundColor: 'white',
             border: '1px solid #ccc',
-            zIndex: 10,
+            zIndex: 1000,
           }}
         >
           {filtered.map(name => {

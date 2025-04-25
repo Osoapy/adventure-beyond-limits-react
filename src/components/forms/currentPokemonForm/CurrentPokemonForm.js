@@ -289,7 +289,7 @@ export default function CurrentPokemonForm({ pokemon }) {
             </div>
 
             <div className="stats-visualiser">
-                <div className="info">Stats</div>
+                <div className="info stats-info">Stats</div>
                 <div className="canvas-container">
                     <canvas
                         ref={chartRef}

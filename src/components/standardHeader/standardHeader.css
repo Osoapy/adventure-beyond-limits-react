@@ -363,12 +363,10 @@ input[type=number] {
   width: -webkit-fill-available;
   position: relative;
   display: flex;
-  gap: 1rem;
-  z-index: 1;
-  display: flex;
   justify-content: flex-end;
   align-items: center;
-  position: relative;
+  gap: 1rem;
+  z-index: 1;
 }
 .app-bar .app-bar-buttons .app-bar-button {
   background-color: #fdd835;
@@ -397,11 +395,46 @@ input[type=number] {
   background-color: var(--tokenDarkGray);
 }
 .app-bar .app-bar-buttons .pfp-container .profile-picture {
-  height: 6vh;
-  min-height: 6vh;
-  max-height: 6vh;
-  width: 6vh;
-  min-width: 6vh;
-  max-width: 6vh;
+  height: 4.5vh;
+  min-height: 4.5vh;
+  max-height: 4.5vh;
+  width: 4.5vh;
+  min-width: 4.5vh;
+  max-width: 4.5vh;
   border-radius: 100%;
+}
+
+@media screen and (max-width: 600px), screen and (max-height: 1200px) {
+  .app-bar {
+    height: 7vh;
+    min-height: 7vh;
+    max-height: 7vh;
+  }
+  .app-bar .app-bar-background {
+    height: 7vh;
+    min-height: 7vh;
+    max-height: 7vh;
+  }
+  .app-bar .app-bar-buttons .pfp-container {
+    height: 5vh;
+    min-height: 5vh;
+    max-height: 5vh;
+    width: 5vh;
+    min-width: 5vh;
+    max-width: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    background-color: var(--tokenDarkGray);
+  }
+  .app-bar .app-bar-buttons .pfp-container .profile-picture {
+    height: 4.5vh;
+    min-height: 4.5vh;
+    max-height: 4.5vh;
+    width: 4.5vh;
+    min-width: 4.5vh;
+    max-width: 4.5vh;
+    border-radius: 100%;
+  }
 }/*# sourceMappingURL=standardHeader.css.map */

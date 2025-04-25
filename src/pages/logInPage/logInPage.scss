@@ -1,5 +1,9 @@
+@import '../../styles/imports/generalImports';
+
 .login-container {
-    min-height: 100vh;
+    @include fixedHeight(100vh);
+    @include fixedWidth(100vw);
+
     background: #f3f4f6;
     background-image: url('../../assets/background.webp');
     background-size: contain;

@@ -58,6 +58,7 @@ export default function PokemonAbilitiesDropdown({ species, onSelect }) {
       className='abilities-dropdown'
     >
       <input
+        className='pokemon-field-answear'
         ref={inputRef}
         value={search}
         onChange={e => setSearch(e.target.value)}

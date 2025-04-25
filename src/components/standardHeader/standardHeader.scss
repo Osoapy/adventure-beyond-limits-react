@@ -1,77 +1,119 @@
 @import '../../styles/imports/generalImports';
 
+// =====================
+// Variáveis
+// =====================
+$tamanho-barra-desktop: 10vh;
+$tamanho-barra-mobile: 7vh;
+$cor-botao: #fdd835;
+$cor-botao-hover: #fff176;
+$cor-texto-botao: #2f2f2f;
+$padding-botao: 0.5rem 1.2rem;
+$radius-botao: 8px;
+$gap-botoes: 1rem;
+$padding-botoes: 1rem 2rem;
+$tamanho-pfp-desktop: 7vh;
+$tamanho-pfp-mobile: 5vh;
+$tamanho-img-pfp: 4.5vh;
+
+// ===================== 
+// Estilos
+// =====================
 .app-bar {
-    @include fixedHeight(10vh);
+  @include fixedHeight($tamanho-barra-desktop);
+  @include fixedWidth(100vw);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  .app-bar-background {
+    @include fixedHeight($tamanho-barra-desktop);
     @include fixedWidth(100vw);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    background-image: url('../../assets/aipomBackground.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  .app-bar-site-icon {
     position: relative;
-    color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    height: 100%;
+  }
 
-    .app-bar-background {
-        @include fixedHeight(10vh);
-        @include fixedWidth(100vw);
+  .app-bar-buttons {
+    padding: $padding-botoes;
+    width: -webkit-fill-available;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: $gap-botoes;
+    z-index: 1;
 
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 0;
-        background-image: url('../../assets/aipomBackground.png');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+    .app-bar-button {
+      background-color: $cor-botao;
+      color: $cor-texto-botao;
+      border: none;
+      padding: $padding-botao;
+      font-weight: bold;
+      border-radius: $radius-botao;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: $cor-botao-hover;
+      }
     }
 
-    .app-bar-site-icon {
-        position: relative;
-        z-index: 1;
-        height: 100%;
+    .pfp-container {
+      @include fixedHeight($tamanho-pfp-desktop);
+      @include fixedWidth($tamanho-pfp-desktop);
+      @include flexCenter();
+      border-radius: 100%;
+      background-color: var(--tokenDarkGray);
+
+      .profile-picture {
+        @include fixedHeight($tamanho-img-pfp);
+        @include fixedWidth($tamanho-img-pfp);
+        border-radius: 100%;
+      }
+    }
+  }
+}
+
+// =====================
+// Responsividade
+// =====================
+@media screen and (max-width: 600px), screen and (max-height: 1200px) {
+  .app-bar {
+    @include fixedHeight($tamanho-barra-mobile);
+
+    .app-bar-background {
+      @include fixedHeight($tamanho-barra-mobile);
     }
 
     .app-bar-buttons {
-        padding: 1rem 2rem;
-        width: -webkit-fill-available;
-        position: relative;
-        display: flex;
-        gap: 1rem;
-        z-index: 1;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        position: relative;
+      .pfp-container {
+        @include fixedHeight($tamanho-pfp-mobile);
+        @include fixedWidth($tamanho-pfp-mobile);
+        @include flexCenter();
+        border-radius: 100%;
+        background-color: var(--tokenDarkGray);
 
-        .app-bar-button {
-            background-color: #fdd835;
-            color: #2f2f2f;
-            border: none;
-            padding: 0.5rem 1.2rem;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-
-            &:hover {
-                background-color: #fff176;
-            }
+        .profile-picture {
+          @include fixedHeight($tamanho-img-pfp);
+          @include fixedWidth($tamanho-img-pfp);
+          border-radius: 100%;
         }
-
-        .pfp-container {
-            @include fixedHeight(7vh);
-            @include fixedWidth(7vh);
-            @include flexCenter();
-
-            border-radius: 100%;
-            background-color: var(--tokenDarkGray);
-
-            .profile-picture {
-                @include fixedHeight(6vh);
-                @include fixedWidth(6vh);
-    
-                border-radius: 100%;
-            }
-        }
+      }
     }
+  }
 }
