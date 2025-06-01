@@ -8,7 +8,7 @@ const natures = [
   'rash', 'relaxed', 'sassy', 'serious', 'timid'
 ];
 
-export default function PokemonNatureDropdown({ onSelect }) {
+export default function PokemonNatureDropdown({ onSelect, initialValue }) {
   const [search, setSearch] = useState('');
   const [filtered, setFiltered] = useState(natures);
   const [showDropdown, setShowDropdown] = useState(false);

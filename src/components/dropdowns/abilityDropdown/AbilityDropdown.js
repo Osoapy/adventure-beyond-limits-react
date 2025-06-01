@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import '../pokemonDropdown.css';
 
-export default function PokemonAbilitiesDropdown({ species, onSelect }) {
+export default function PokemonAbilitiesDropdown({ species, onSelect, initialValue }) {
   const [abilities, setAbilities] = useState([]);
   const [search, setSearch] = useState('');
   const [filtered, setFiltered] = useState([]);
@@ -35,6 +35,12 @@ export default function PokemonAbilitiesDropdown({ species, onSelect }) {
         setAbilities([]);
       });
   }, [species]);
+
+  useEffect(() => {
+    if (!initialValue) return;
+
+    setSearch(initialValue);
+  }, [initialValue]);  
   
   useEffect(() => {
     setFiltered(

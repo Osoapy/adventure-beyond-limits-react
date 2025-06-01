@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
+import littleAipom from "../../assets/littleAipom.png";
 import "./signUpPage.css";
-import aipomBackground from "../../assets/bananaBackground.jpg"
 import { useNavigate } from "react-router-dom";
 
 export default function SignUpPage() {
@@ -41,12 +41,14 @@ export default function SignUpPage() {
                 {error && <div className="error-msg">{error}</div>}
                 {success && <div className="success-msg">{success}</div>}
 
-                <img className="form-background-img" src={aipomBackground}/>
-
                 <main>
-                    <h1>Sign Up</h1>
+                    <div className="title-and-logo"> 
+                        <h1>Sign Up</h1>
 
-                    <label htmlFor="email">E-mail</label>
+                        <img className="signup-form-img" src={littleAipom} alt="Little Aipom" />
+                    </div>
+
+                    <label htmlFor="email">&nbsp;&nbsp;E-mail</label>
                     <input
                         type="email"
                         id="email"
@@ -55,7 +57,7 @@ export default function SignUpPage() {
                         required
                     />
 
-                    <label htmlFor="password">Senha</label>
+                    <label htmlFor="password">&nbsp;&nbsp;Senha</label>
                     <input
                         type="password"
                         id="password"
@@ -63,8 +65,7 @@ export default function SignUpPage() {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-
-                    <label htmlFor="confirmPassword">Confirmar Senha</label>
+                    <label htmlFor="confirmPassword">&nbsp;&nbsp;Confirmar Senha</label>
                     <input
                         type="password"
                         id="confirmPassword"
@@ -74,6 +75,8 @@ export default function SignUpPage() {
                     />
 
                     <button type="submit">Criar Conta</button>
+
+                    <a href="#/login">Já possui uma conta? Log In</a>
                 </main>
             </form>
         </div>

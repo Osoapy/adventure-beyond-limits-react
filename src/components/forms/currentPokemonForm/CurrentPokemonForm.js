@@ -8,6 +8,9 @@ import { doc, updateDoc } from "firebase/firestore";
 import PokemonMovesDropdown from '../../dropdowns/movesDropdown/PokemonMovesDropdown';
 import { db } from "../../../firebase"; // ajuste o caminho conforme onde está sua config do Firebase
 import PokemonHeldItemDropdown from "../../dropdowns/heldItemDropdown/PokemonHeldItemDropdown";
+import PokemonGenderDropdown from "../../dropdowns/genderDropdown/GenderDropdown";
+import PokemonAbilitiesDropdown from "../../dropdowns/abilityDropdown/AbilityDropdown";
+import PokemonNatureDropdown from "../../dropdowns/natureDropdown/PokemonNatureDropdown";
 
 Chart.register(RadarController, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
@@ -17,6 +20,9 @@ export default function CurrentPokemonForm({ pokemon }) {
     const chartRef = useRef(null);
     const chartInstanceRef = useRef(null);
     const [section, setSection] = useState("Stats");
+    const [currentNature, setCurrentNature] = useState(pokemon.nature);
+    const [currentAbility, setCurrentAbility] = useState(pokemon.ability);
+    const [currentGender, setCurrentGender] = useState(pokemon.gender);
     const [currentHeldItem, setCurrentHeldItem] = useState(pokemon.heldItem);
     const [currentMoves, setCurrentMoves] = useState([...pokemon.moves]);
 
@@ -124,9 +130,9 @@ export default function CurrentPokemonForm({ pokemon }) {
         const updatedData = {
             nickname: document.querySelector(".first-field:nth-of-type(2)")?.innerText,
             level: document.querySelector(".first-field + .pokemon-field-text + div")?.innerText,
-            gender: document.querySelector(".pokemon-field-text:nth-of-type(3) + div")?.innerText,
-            ability: document.querySelector(".ability")?.innerText,
-            nature: document.querySelector(".nature")?.innerText,
+            gender: currentGender,
+            ability: currentAbility,
+            nature: currentNature,
             heldItem: currentHeldItem,
             moves: currentMoves,
             ivs: {},
@@ -182,23 +188,39 @@ export default function CurrentPokemonForm({ pokemon }) {
                 <p className="pokemon-field-text">
                     <b>Gender:</b>
                 </p>
-                <div className="pokemon-field-answear" contentEditable spellCheck={false}>
-                    {pokemon.gender}
-                </div>
+                <PokemonGenderDropdown
+                    initialValue={pokemon.gender}
+                    onSelect={(newGender) => {
+                        pokemon.gender = newGender;
+                        setCurrentGender(newGender);
+                        setHasChanges(true);
+                    }}
+                />
 
                 <p className="pokemon-field-text">
                     <b>Ability:</b>
                 </p>
-                <div className={`pokemon-field-answear ability ${pokemon.mainType}`} contentEditable spellCheck={false}>
-                    {pokemon.ability}
-                </div>
+                <PokemonAbilitiesDropdown
+                    species={pokemon.species}
+                    initialValue={pokemon.ability}
+                    onSelect={(newAbility) => {
+                        pokemon.ability = newAbility;
+                        setCurrentAbility(newAbility);
+                        setHasChanges(true);
+                    }}
+                />
 
                 <p className="pokemon-field-text">
                     <b>Nature:</b>
                 </p>
-                <div className="pokemon-field-answear nature" contentEditable spellCheck={false}>
-                    {pokemon.nature}
-                </div>
+                <PokemonNatureDropdown
+                    initialValue={pokemon.nature}
+                    onSelect={(newNature) => {
+                        pokemon.nature = newNature;
+                        setCurrentNature(newNature);
+                        setHasChanges(true);
+                    }}
+                />
 
                 <p className="pokemon-field-text">
                     <b>Held item:</b>
@@ -206,25 +228,11 @@ export default function CurrentPokemonForm({ pokemon }) {
                 <PokemonHeldItemDropdown
                     initialValue={pokemon.heldItem}
                     onSelect={(newItem) => {
-                        console.log(newItem);
                         pokemon.heldItem = newItem;
                         setCurrentHeldItem(newItem);
                         setHasChanges(true);
                     }}
                 />
-                    {/* 
-                        <PokemonMovesDropdown
-                            key={i}
-                            species={pokemon.species}
-                            initialValue={move}
-                            onSelect={(newMove) => {
-                                const updatedMoves = [...currentMoves];
-                                updatedMoves[i] = newMove;
-                                setCurrentMoves(updatedMoves);
-                                setHasChanges(true);
-                            }}                              
-                        />
-                    */}
             </div>
 
             <div className="moves-container">

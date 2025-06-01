@@ -1,13 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import '../pokemonDropdown.css';
 
-export default function PokemonGenderDropdown({ species, onSelect }) {
+export default function PokemonGenderDropdown({ species, onSelect, initialValue }) {
   const [genders, setGenders] = useState([]);
   const [search, setSearch] = useState('');
   const [filtered, setFiltered] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const inputRef = useRef(null);
   const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (!initialValue) return;
+
+    setSearch(initialValue);
+  }, [initialValue]);  
 
   useEffect(() => {
     if (!species || species === '') {
