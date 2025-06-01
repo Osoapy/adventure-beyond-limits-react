@@ -7,6 +7,7 @@ import CalculatePokemonStats from "../../../utils/functions/calculatePokemonStat
 import { doc, updateDoc } from "firebase/firestore";
 import PokemonMovesDropdown from '../../dropdowns/movesDropdown/PokemonMovesDropdown';
 import { db } from "../../../firebase"; // ajuste o caminho conforme onde está sua config do Firebase
+import PokemonHeldItemDropdown from "../../dropdowns/heldItemDropdown/PokemonHeldItemDropdown";
 
 Chart.register(RadarController, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
@@ -16,6 +17,7 @@ export default function CurrentPokemonForm({ pokemon }) {
     const chartRef = useRef(null);
     const chartInstanceRef = useRef(null);
     const [section, setSection] = useState("Stats");
+    const [currentHeldItem, setCurrentHeldItem] = useState(pokemon.heldItem);
     const [currentMoves, setCurrentMoves] = useState([...pokemon.moves]);
 
     // Unsaved changes
@@ -125,7 +127,7 @@ export default function CurrentPokemonForm({ pokemon }) {
             gender: document.querySelector(".pokemon-field-text:nth-of-type(3) + div")?.innerText,
             ability: document.querySelector(".ability")?.innerText,
             nature: document.querySelector(".nature")?.innerText,
-            heldItem: document.querySelector(".pokemon-field-text:nth-of-type(6) + div")?.innerText,
+            heldItem: currentHeldItem,
             moves: currentMoves,
             ivs: {},
             evs: {},
@@ -201,9 +203,28 @@ export default function CurrentPokemonForm({ pokemon }) {
                 <p className="pokemon-field-text">
                     <b>Held item:</b>
                 </p>
-                <div className="pokemon-field-answear" contentEditable spellCheck={false}>
-                    {pokemon.heldItem}
-                </div>
+                <PokemonHeldItemDropdown
+                    initialValue={pokemon.heldItem}
+                    onSelect={(newItem) => {
+                        console.log(newItem);
+                        pokemon.heldItem = newItem;
+                        setCurrentHeldItem(newItem);
+                        setHasChanges(true);
+                    }}
+                />
+                    {/* 
+                        <PokemonMovesDropdown
+                            key={i}
+                            species={pokemon.species}
+                            initialValue={move}
+                            onSelect={(newMove) => {
+                                const updatedMoves = [...currentMoves];
+                                updatedMoves[i] = newMove;
+                                setCurrentMoves(updatedMoves);
+                                setHasChanges(true);
+                            }}                              
+                        />
+                    */}
             </div>
 
             <div className="moves-container">

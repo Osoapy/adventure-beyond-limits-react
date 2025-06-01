@@ -1,13 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import '../pokemonDropdown.css';
 
-export default function PokemonHeldItemDropdown({ onSelect }) {
+export default function PokemonHeldItemDropdown({ onSelect, initialValue }) {
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState('');
   const [filtered, setFiltered] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const inputRef = useRef(null);
   const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (!initialValue) return;
+
+    setSearch(initialValue);
+  }, [initialValue]);  
 
   useEffect(() => {
     fetch('https://pokeapi.co/api/v2/item-attribute/5/')

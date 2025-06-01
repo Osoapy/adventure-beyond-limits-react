@@ -48,6 +48,12 @@ $tamanho-img-pfp: 4.5vh;
     height: 100%;
   }
 
+  .app-bar-site-title {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+  }
+
   .app-bar-buttons {
     padding: $padding-botoes;
     width: -webkit-fill-available;
