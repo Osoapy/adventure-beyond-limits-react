@@ -16,6 +16,12 @@ export default function PokemonNatureDropdown({ onSelect, initialValue }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
+    if (!initialValue) return;
+
+    setSearch(initialValue);
+  }, [initialValue]);  
+
+  useEffect(() => {
     setFiltered(
       natures.filter(n => n.toLowerCase().includes(search.toLowerCase()))
     );

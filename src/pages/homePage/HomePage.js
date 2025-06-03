@@ -4,7 +4,6 @@ import StandardHeader from '../../components/standardHeader/StandardHeader';
 import './HomePage.css';
 
 export default function HomePage() {
-
   return (
     <div className="homepage-container">
       <StandardHeader>

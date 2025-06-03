@@ -2,7 +2,7 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
-import aipomBackground from "../../assets/aipomBackground.png"
+import littleAipom from "../../assets/littleAipom.png";
 import "./logInPage.css";
 
 export default function LogInPage() {
@@ -30,10 +30,12 @@ export default function LogInPage() {
     return (
         <div className="login-container">
             <form onSubmit={handleSubmit} className="login-form">
-                <img className="login-form-img" src={aipomBackground}/>
-
                 <main>
-                    <h2>Login</h2>
+                    <div className="title-and-logo"> 
+                        <h1>Log In</h1>
+
+                        <img className="signup-form-img" src={littleAipom} alt="Little Aipom" />
+                    </div>
                     {error && <p className="error-msg">{error}</p>}
 
                     <label htmlFor="email">Email</label>

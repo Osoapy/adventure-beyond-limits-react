@@ -326,23 +326,20 @@ input[type=number] {
 }
 
 .login-container {
-  height: 100vh;
   min-height: 100vh;
-  max-height: 100vh;
-  width: 100vw;
-  min-width: 100vw;
-  max-width: 100vw;
-  background: #f3f4f6;
-  background-image: url("../../assets/background.webp");
-  background-size: contain;
   display: flex;
+  background-image: url("../../assets/enteringAccountBackground.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   align-items: center;
-  justify-content: center;
-  padding: 1rem;
+  justify-content: flex-end;
+  padding: 1rem 1.5rem 1rem 1rem;
 }
 
 .login-form {
   background: white;
+  border-radius: 20px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
@@ -354,6 +351,7 @@ input[type=number] {
   margin-bottom: 1rem;
 }
 .login-form main {
+  border-radius: 20px;
   background: white;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   width: 100%;
@@ -363,6 +361,25 @@ input[type=number] {
   padding-bottom: 2rem;
   display: flex;
   flex-direction: column;
+}
+.login-form main .title-and-logo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.login-form main .title-and-logo h1 {
+  font-size: 1.75rem;
+  z-index: 1;
+  color: #040406;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.login-form main .title-and-logo img {
+  height: 4rem;
+  position: relative;
+  z-index: 0;
+  top: 1px;
+  right: 1px;
 }
 .login-form main h2 {
   font-size: 1.75rem;

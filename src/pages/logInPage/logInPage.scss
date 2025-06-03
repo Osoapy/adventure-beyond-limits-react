@@ -1,20 +1,21 @@
 @import '../../styles/imports/generalImports';
 
 .login-container {
-    @include fixedHeight(100vh);
-    @include fixedWidth(100vw);
-
-    background: #f3f4f6;
-    background-image: url('../../assets/background.webp');
-    background-size: contain;
+    min-height: 100vh;
     display: flex;
+    background-image: url('../../assets/enteringAccountBackground.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     align-items: center;
-    justify-content: center;
-    padding: 1rem;
+    justify-content: flex-end;
+    padding: 1rem 1.5rem 1rem 1rem;
 }
 
 .login-form {
     background: white;
+    $form-border-radius: 20px;
+    border-radius: $form-border-radius;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
@@ -27,6 +28,8 @@
     }
 
     main {
+        $form-black: #040406;
+        border-radius: $form-border-radius;
         background: white;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         width: 100%;
@@ -36,6 +39,28 @@
         padding-bottom: 2rem;
         display: flex;
         flex-direction: column;
+
+        .title-and-logo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        
+            h1 {
+                font-size: 1.75rem;
+                z-index: 1;
+                color: $form-black;
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            img {
+                height: 4rem;
+                position: relative;
+                z-index: 0;
+                top: 1px;
+                right: 1px;
+            }
+        }
 
         h2 {
             font-size: 1.75rem;
