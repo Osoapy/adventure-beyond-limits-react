@@ -1,5 +1,5 @@
 import addButtonIcon from '../../assets/addButton.png';
-import './addButton.css';
+import './addButton.scss';
 
 export default function AddButton({ onClick }) {
     return (

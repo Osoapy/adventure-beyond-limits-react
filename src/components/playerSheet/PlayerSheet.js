@@ -4,7 +4,7 @@ import PlayerSheetTopRight from './partitions/playerSheetTopRight/PlayerSheetTop
 import { useEffect } from 'react';
 import { SavePlayer } from '../../database/SavePlayer';
 import { useNavigate } from "react-router-dom";
-import './playerSheet.css'
+import './playerSheet.scss'
 
 export default function PlayerSheet() {
     const navigate = useNavigate();

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import littleAipom from "../../assets/littleAipom.png";
-import "./signUpPage.css";
+import "./signUpPage.scss";
 import { useNavigate } from "react-router-dom";
 
 export default function SignUpPage() {

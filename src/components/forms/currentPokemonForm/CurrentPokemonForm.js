@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Chart, RadarController, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend } from "chart.js";
 import PokemonGif from "../../../utils/fetchs/pokemonGif/PokemonGif";
-import './currentPokemonForm.css';
+import './currentPokemonForm.scss';
 import { FaSave } from "react-icons/fa";
 import CalculatePokemonStats from "../../../utils/functions/calculatePokemonStats/CalculatePokemonStats";
 import { doc, updateDoc } from "firebase/firestore";

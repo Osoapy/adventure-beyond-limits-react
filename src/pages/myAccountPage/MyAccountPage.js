@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
-import './myAccountPage.css';
+import { arrayMove } from "@dnd-kit/sortable";
+import './myAccountPage.scss';
 import PokemonTeam from "../../components/pokemonTeam/PokemonTeam";
 import StandardHeader from "../../components/standardHeader/StandardHeader";
 import AddButton from "../../components/addButton/AddButton";
@@ -54,6 +55,15 @@ export default function MyAccountPage() {
         fetchPokemons();
     }, [email]);
 
+    const handleReorder = (oldIndex, newIndex) => {
+        setPokemons(prevPokemons => {
+            const newPokemons = [...prevPokemons];
+            const [movedItem] = newPokemons.splice(oldIndex, 1);
+            newPokemons.splice(newIndex, 0, movedItem);
+            return newPokemons;
+        });
+    };
+
     return (
         <div>
             <StandardHeader>
@@ -69,22 +79,20 @@ export default function MyAccountPage() {
                 </div>
             </StandardHeader>
 
-            <PokemonTeam>
-                {pokemons.map((poke, index) => (
+            <PokemonTeam onReorder={handleReorder}>
+                {pokemons.map((poke) => (
                     <PokemonButton
-                        key={poke.id || index}
+                        key={poke.id}
+                        pokemon={poke}
                         onClick={() => {
                             if (currentPokemon?.id === poke.id) {
                                 setShowPokemonInfo(prev => !prev);
                             } else {
-                                if (setShowForm) {
-                                    setShowForm(false);
-                                }
+                                setShowForm(false);
                                 setCurrentPokemon(poke);
                                 setShowPokemonInfo(true);
                             }
                         }}
-                        pokemon={poke}
                     />
                 ))}
             </PokemonTeam>
@@ -97,7 +105,7 @@ export default function MyAccountPage() {
             <AddButton onClick={() => {
                 setShowForm(prev => !prev);
                 if (showPokemonInfo) {
-                    setShowPokemonInfo(false)
+                    setShowPokemonInfo(false);
                 }
             }} />
         </div>

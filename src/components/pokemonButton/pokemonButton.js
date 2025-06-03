@@ -1,9 +1,29 @@
-import './pokemonButton.css';
+import './pokemonButton.scss';
 import { useEffect, useState } from "react";
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 export default function PokemonButton({ onClick, pokemon }) {
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+        transition,
+        isDragging,
+    } = useSortable({
+        id: pokemon.id,
+    });
+
     const [spriteUrl, setSpriteUrl] = useState("");
-    const [typeClass, setTypeClass] = useState("normal"); // valor padrão
+    const [typeClass, setTypeClass] = useState("normal");
+
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition,
+        opacity: isDragging ? 0.5 : 1,
+        cursor: isDragging ? 'grabbing' : 'grab',
+    };
 
     useEffect(() => {
         async function fetchPokemonData() {
@@ -31,8 +51,20 @@ export default function PokemonButton({ onClick, pokemon }) {
     }, [pokemon]);
 
     return (
-        <button className={`pokemonTeam ${typeClass}`} onClick={onClick}>
-            <img className="pokemonTeamImage" src={spriteUrl} alt={pokemon?.species || "Pokémon"} />
+        <button 
+            ref={setNodeRef}
+            style={style}
+            className={`pokemonTeam ${typeClass}`}
+            onClick={onClick}
+            {...attributes}
+            {...listeners}
+        >
+            <img 
+                className="pokemonTeamImage" 
+                src={spriteUrl} 
+                alt={pokemon?.species || "Pokémon"} 
+                draggable="false"
+            />
         </button>
     );
 }

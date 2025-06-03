@@ -1,5 +1,5 @@
 import LeagueSymbol from '../../../../assets/leagueSymbol.png';
-import '../playerSheetBottomRight/playerSheetRight.css';
+import '../playerSheetBottomRight/playerSheetRight.scss';
 
 export default function PlayerSheetTopRight() {
     return (

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import '../pokemonDropdown.css';
+import '../pokemonDropdown.scss';
 
 const natures = [
   'adamant', 'bold', 'brave', 'calm', 'careful', 'gentle',

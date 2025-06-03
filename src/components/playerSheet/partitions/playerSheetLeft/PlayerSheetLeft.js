@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import './playerSheetLeft.css';
+import './playerSheetLeft.scss';
 import NoImage from '../../../../assets/noImageAvailable.png';
 import errorAlert from '../../../../utils/sweetAlerts2/errorAlert';
 

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import '../pokemonDropdown.css';
+import '../pokemonDropdown.scss';
 
 export default function PokemonAbilitiesDropdown({ species, onSelect, initialValue }) {
   const [abilities, setAbilities] = useState([]);

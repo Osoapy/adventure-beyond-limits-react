@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import '../pokemonDropdown.css';
+import '../pokemonDropdown.scss';
 
 export default function PokemonHeldItemDropdown({ onSelect, initialValue }) {
   const [items, setItems] = useState([]);

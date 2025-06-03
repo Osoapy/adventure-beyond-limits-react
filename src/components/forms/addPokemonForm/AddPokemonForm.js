@@ -7,7 +7,7 @@ import PokemonAbilitiesDropdown from '../../dropdowns/abilityDropdown/AbilityDro
 import PokemonNatureDropdown from '../../dropdowns/natureDropdown/PokemonNatureDropdown';
 import PokemonHeldItemDropdown from '../../dropdowns/heldItemDropdown/PokemonHeldItemDropdown';
 import { SavePokemon } from '../../../database/SavePokemon';
-import './addPokemonForm.css';
+import './addPokemonForm.scss';
 
 export default function AddPokemonForm() {
   const email = sessionStorage.getItem("email");

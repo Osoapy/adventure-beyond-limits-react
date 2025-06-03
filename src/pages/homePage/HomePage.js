@@ -1,7 +1,7 @@
 import LogInButton from '../../components/headerButtons/LogInButton';
 import SignUpButton from '../../components/headerButtons/SignUp';
 import StandardHeader from '../../components/standardHeader/StandardHeader';
-import './HomePage.css';
+import './HomePage.scss';
 
 export default function HomePage() {
   return (

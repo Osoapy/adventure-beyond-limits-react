@@ -1,4 +1,4 @@
-import './standardHeader.css';
+import './standardHeader.scss';
 import aipomLogo from '../../assets/aipomLogo.png';
 import aipomTitle from '../../assets/aipomDex.png';
 

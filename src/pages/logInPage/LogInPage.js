@@ -3,7 +3,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import littleAipom from "../../assets/littleAipom.png";
-import "./logInPage.css";
+import "./logInPage.scss";
 
 export default function LogInPage() {
     const [email, setEmail] = useState("");
