@@ -9,7 +9,7 @@ import PokemonHeldItemDropdown from '../../dropdowns/heldItemDropdown/PokemonHel
 import { SavePokemon } from '../../../database/SavePokemon';
 import './addPokemonForm.scss';
 
-export default function AddPokemonForm() {
+export default function AddPokemonForm({ teamNumber }) {
   const email = sessionStorage.getItem("email");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -22,6 +22,7 @@ export default function AddPokemonForm() {
     gender: '',
     ability: '',
     nature: '',
+    team: teamNumber,
     heldItem: 'None',
     moves: ['Move #1', 'Move #2', 'Move #3', 'Move #4'],
     ivs: { HP: '0', Attack: '0', Defense: '0', 'S.Atk': '0', 'S.Def': '0', Speed: '0' },

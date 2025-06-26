@@ -1,6 +1,6 @@
 import './addTeamButton.scss';
 
-export default function AddButton({ onClick }) {
+export default function AddTeamButton({ onClick }) {
     return (
         <div className="addButtonContainer">
             <button className="addButton" onClick={ onClick }>

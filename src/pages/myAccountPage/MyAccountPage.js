@@ -4,129 +4,153 @@ import { db } from "../../firebase";
 import './myAccountPage.scss';
 import PokemonTeam from "../../components/pokemonTeam/PokemonTeam";
 import StandardHeader from "../../components/standardHeader/StandardHeader";
-import AddButton from "../../components/buttons/addTeamButton/AddTeamButton";
+import AddTeamButton from "../../components/buttons/addTeamButton/AddTeamButton";
 import AddPokemonForm from "../../components/forms/addPokemonForm/AddPokemonForm";
 import PokemonButton from "../../components/buttons/pokemonButton/pokemonButton";
 import CurrentPokemonForm from "../../components/forms/currentPokemonForm/CurrentPokemonForm";
 
 export default function MyAccountPage() {
-    const [trainer, setTrainer] = useState(null);
-    const [pokemons, setPokemons] = useState([]);
-    const [currentPokemon, setCurrentPokemon] = useState(null);
-    const [showForm, setShowForm] = useState(false);
-    const [showPokemonInfo, setShowPokemonInfo] = useState(false);
-    const email = sessionStorage.getItem("email");
+  const [trainer, setTrainer] = useState(null);
+  const [pokemons, setPokemons] = useState([]);
+  const [currentPokemon, setCurrentPokemon] = useState(null);
+  const [showForm, setShowForm] = useState({ show: false, teamNumber: null });
+  const [showPokemonInfo, setShowPokemonInfo] = useState(false);
+  const [extraTeams, setExtraTeams] = useState([]);
+  const email = sessionStorage.getItem("email");
 
-    // Busca os dados do treinador (pode remover se não for mais usar)
-    useEffect(() => {
-        async function fetchTrainer() {
-            if (!email) return;
-            const q = query(
-                collection(db, "player"),
-                where("email", "==", email.toLowerCase().trim())
-            );
-            const snapshot = await getDocs(q);
-            if (!snapshot.empty) {
-                const data = snapshot.docs[0].data();
-                setTrainer(data);
+  // Carrega dados do treinador
+  useEffect(() => {
+    async function fetchTrainer() {
+      if (!email) return;
+      const q = query(
+        collection(db, "player"),
+        where("email", "==", email.toLowerCase().trim())
+      );
+      const snapshot = await getDocs(q);
+      if (!snapshot.empty) {
+        const data = snapshot.docs[0].data();
+        setTrainer(data);
+      }
+    }
+    fetchTrainer();
+  }, [email]);
+
+  // Carrega todos os pokémons do treinador
+  useEffect(() => {
+    async function fetchPokemons() {
+      if (!email) return;
+      const q = query(
+        collection(db, "pokemon"),
+        where("trainer", "==", email.toLowerCase().trim())
+      );
+      const snapshot = await getDocs(q);
+      const foundPokemons = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+
+      setPokemons(foundPokemons);
+    }
+    fetchPokemons();
+  }, [email]);
+
+  const handleReorder = (oldIndex, newIndex) => {
+    setPokemons(prevPokemons => {
+      const newPokemons = [...prevPokemons];
+      const [movedItem] = newPokemons.splice(oldIndex, 1);
+      newPokemons.splice(newIndex, 0, movedItem);
+      return newPokemons;
+    });
+  };
+  
+  // ✅ Organiza pokémons por times
+  const groupedByTeam = pokemons.reduce((acc, poke) => {
+    const teamNumber = poke.team ?? 1;
+    if (!acc[teamNumber]) {
+      acc[teamNumber] = [];
+    }
+    acc[teamNumber].push(poke);
+    return acc;
+  }, {});
+
+  const sortedTeamNumbers = Object.keys(groupedByTeam)
+    .map(Number)
+    .sort((a, b) => a - b);
+
+  // ✅ Adição de novo time vazio
+  const handleAddTeam = () => {
+    const maxTeamNumber = sortedTeamNumbers.length > 0
+      ? Math.max(...sortedTeamNumbers)
+      : 0;
+
+    const newTeamNumber = Math.max(...[...sortedTeamNumbers, ...extraTeams, maxTeamNumber]) + 1;
+
+    setExtraTeams(prev => [...prev, newTeamNumber]);
+  };
+  
+  return (
+    <>
+      <StandardHeader>
+        <div className="pfp-container">
+          <img
+            src={
+              trainer?.imageBase64 ||
+              "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"
             }
-        }
+            alt="Foto de perfil"
+            className="profile-picture"
+          />
+        </div>
+      </StandardHeader>
 
-        fetchTrainer();
-    }, [email]);
+      <div className="myAccountBody">
+        <AddTeamButton onClick={handleAddTeam} />
 
-    // Busca todos os pokémons associados ao email
-    useEffect(() => {
-        async function fetchPokemons() {
-            if (!email) return;
-            const q = query(
-                collection(db, "pokemon"),
-                where("trainer", "==", email.toLowerCase().trim())
-            );
-            const snapshot = await getDocs(q);
-            const foundPokemons = snapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data()
-            }));
-            setPokemons(foundPokemons);
-        }
+        {/* Times com pokémons */}
+        {sortedTeamNumbers.map(teamNumber => (
+          <PokemonTeam
+            key={teamNumber}
+            teamNumber={teamNumber}
+            onReorder={handleReorder}
+            setShowForm={setShowForm}
+            showForm={showForm}
+          >
+            {groupedByTeam[teamNumber]?.map(poke => (
+              <PokemonButton
+                key={poke.id}
+                pokemon={poke}
+                onClick={() => {
+                  if (currentPokemon?.id === poke.id) {
+                    setShowPokemonInfo(prev => !prev);
+                  } else {
+                    setShowForm(false);
+                    setCurrentPokemon(poke);
+                    setShowPokemonInfo(true);
+                  }
+                }}
+              />
+            ))}
+          </PokemonTeam>
+        ))}
 
-        fetchPokemons();
-    }, [email]);
+        {/* Times vazios adicionados manualmente */}
+        {extraTeams.map(teamNumber => (
+          <PokemonTeam
+            key={teamNumber}
+            teamNumber={teamNumber}
+            onReorder={handleReorder}
+            setShowForm={setShowForm}
+            showForm={showForm}
+          >
+            {/* Nenhum Pokémon aqui */}
+          </PokemonTeam>
+        ))}
 
-    const handleReorder = (oldIndex, newIndex) => {
-        setPokemons(prevPokemons => {
-            const newPokemons = [...prevPokemons];
-            const [movedItem] = newPokemons.splice(oldIndex, 1);
-            newPokemons.splice(newIndex, 0, movedItem);
-            return newPokemons;
-        });
-    };
-
-    return (
-        <>
-            <StandardHeader>
-                <div className="pfp-container">
-                    <img
-                        src={
-                            trainer?.imageBase64 ||
-                            "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"
-                        }
-                        alt="Foto de perfil"
-                        className="profile-picture"
-                    />
-                </div>
-            </StandardHeader>
-
-            <div className="myAccountBody">
-                <AddButton onClick={() => {
-                    setShowForm(prev => !prev);
-                    if (showPokemonInfo) {
-                        setShowPokemonInfo(false);
-                    }
-                }} />
-
-                <PokemonTeam onReorder={handleReorder} numberOfTeams={1} setShowForm={setShowForm} showForm={showForm}>
-                    {pokemons.map((poke) => (
-                        <PokemonButton
-                            key={poke.id}
-                            pokemon={poke}
-                            onClick={() => {
-                                if (currentPokemon?.id === poke.id) {
-                                    setShowPokemonInfo(prev => !prev);
-                                } else {
-                                    setShowForm(false);
-                                    setCurrentPokemon(poke);
-                                    setShowPokemonInfo(true);
-                                }
-                            }}
-                        />
-                    ))}
-                </PokemonTeam>
-
-                <PokemonTeam onReorder={handleReorder} numberOfTeams={2} setShowForm={setShowForm} showForm={showForm} >
-                    {pokemons.map((poke) => (
-                        <PokemonButton
-                            key={poke.id}
-                            pokemon={poke}
-                            onClick={() => {
-                                if (currentPokemon?.id === poke.id) {
-                                    setShowPokemonInfo(prev => !prev);
-                                } else {
-                                    setShowForm(false);
-                                    setCurrentPokemon(poke);
-                                    setShowPokemonInfo(true);
-                                }
-                            }}
-                        />
-                    ))}
-                </PokemonTeam>
-
-                {showForm && <AddPokemonForm />}
-                {showPokemonInfo && !showForm && currentPokemon && (
-                    <CurrentPokemonForm pokemon={currentPokemon} />
-                )}
-            </div>
-        </>
-    );
+        {showForm.show && <AddPokemonForm teamNumber={showForm.teamNumber} />}
+        {showPokemonInfo && !showForm.show && currentPokemon && (
+          <CurrentPokemonForm pokemon={currentPokemon} />
+        )}
+      </div>
+    </>
+  );
 }

@@ -15,10 +15,14 @@ import {
 import { useState, Children } from 'react';
 import AddPokemonButton from '../buttons/addPokemonButton/AddPokemonButton';
 
-export default function PokemonTeam({ children, onReorder, numberOfTeams, showForm, setShowForm }) {
+export default function PokemonTeam({ children, onReorder, teamNumber, showForm, setShowForm }) {
+  const normalizedChildren = Children.toArray(children || []);
+
+  // ✅ Pega todos os ids dos pokémons, ou array vazio
+  const items = normalizedChildren.map(child => child.props?.pokemon?.id).filter(Boolean);
+
   const [activeId, setActiveId] = useState(null);
-  const items = Children.map(children, (child) => child.props.pokemon.id);
-  
+
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -34,26 +38,24 @@ export default function PokemonTeam({ children, onReorder, numberOfTeams, showFo
 
   function handleDragEnd(event) {
     const { active, over } = event;
-    
-    if (active.id !== over.id) {
-      // Encontra os índices dos itens arrastado e de destino
+
+    if (active && over && active.id !== over.id) {
       const oldIndex = items.indexOf(active.id);
       const newIndex = items.indexOf(over.id);
-      
-      // Chama a função de reordenação passada pelo componente pai
-      if (onReorder) {
+      if (onReorder && oldIndex >= 0 && newIndex >= 0) {
         onReorder(oldIndex, newIndex);
       }
     }
-    
+
     setActiveId(null);
   }
 
+  const activeChild = normalizedChildren.find(child => child.props?.pokemon?.id === activeId);
+
   return (
     <div className="pokemonTeam-Container">
-      <p>Time {numberOfTeams} com {children.length} pokémons</p>
-
-      <div className='pokemons-Container'>
+      <p>Time {teamNumber} com {normalizedChildren.length} pokémons</p>
+      <div className="pokemons-Container">
         <DndContext
           sensors={sensors}
           collisionDetection={closestCorners}
@@ -61,27 +63,24 @@ export default function PokemonTeam({ children, onReorder, numberOfTeams, showFo
           onDragEnd={handleDragEnd}
         >
           <SortableContext items={items} strategy={horizontalListSortingStrategy}>
-            {children}
+            {normalizedChildren}
           </SortableContext>
           
           <DragOverlay>
-            {activeId ? (
-              <div style={{
-                transform: 'scale(1.05)',
-                opacity: 0.8,
-                zIndex: 1000,
-              }}>
-                {Children.toArray(children).find(
-                  (child) => child.props.pokemon.id === activeId
-                )}
+            {activeChild ? (
+              <div style={{ transform: 'scale(1.05)', opacity: 0.8, zIndex: 1000 }}>
+                {activeChild}
               </div>
             ) : null}
           </DragOverlay>
         </DndContext>
 
         <AddPokemonButton
-          key={`${numberOfTeams}-add-button`}
-          onClick={() => {setShowForm(!showForm); setActiveId(null)}}
+          key={`${teamNumber}-add-button`}
+          onClick={() => {
+            setShowForm({ show: !showForm.show, teamNumber }); 
+            setActiveId(null);
+          }}
         />
       </div>
     </div>
