@@ -1,11 +1,12 @@
 {
   "files": {
-    "main.css": "/adventure-beyond-limits-react/static/css/main.f9f3176d.css",
-    "main.js": "/adventure-beyond-limits-react/static/js/main.3b97b62b.js",
+    "main.css": "/adventure-beyond-limits-react/static/css/main.57804d08.css",
+    "main.js": "/adventure-beyond-limits-react/static/js/main.0b91b245.js",
     "static/js/453.28199990.chunk.js": "/adventure-beyond-limits-react/static/js/453.28199990.chunk.js",
     "static/media/background.webp": "/adventure-beyond-limits-react/static/media/background.e27a6164309ada361a70.webp",
     "static/media/enteringAccountBackground.jpg": "/adventure-beyond-limits-react/static/media/enteringAccountBackground.985137da7f942de906c6.jpg",
     "static/media/aipomLogo.png": "/adventure-beyond-limits-react/static/media/aipomLogo.204de61fccc777eab2e1.png",
+    "static/media/Raleway-Regular.ttf": "/adventure-beyond-limits-react/static/media/Raleway-Regular.d9219d8a361ac3530c7e.ttf",
     "static/media/aipomDex.png": "/adventure-beyond-limits-react/static/media/aipomDex.2ac083eb6e76c48cbc98.png",
     "static/media/aipomBackground.png": "/adventure-beyond-limits-react/static/media/aipomBackground.06e2aed2f759ae7a70cb.png",
     "static/media/redButton.png": "/adventure-beyond-limits-react/static/media/redButton.408e62abbac960a0ae0b.png",
@@ -14,12 +15,12 @@
     "static/media/noImageAvailable.png": "/adventure-beyond-limits-react/static/media/noImageAvailable.cf7e3bd68914fa14b5ef.png",
     "static/media/littleAipom.png": "/adventure-beyond-limits-react/static/media/littleAipom.e01fcac4fd3e3ff96e30.png",
     "index.html": "/adventure-beyond-limits-react/index.html",
-    "main.f9f3176d.css.map": "/adventure-beyond-limits-react/static/css/main.f9f3176d.css.map",
-    "main.3b97b62b.js.map": "/adventure-beyond-limits-react/static/js/main.3b97b62b.js.map",
+    "main.57804d08.css.map": "/adventure-beyond-limits-react/static/css/main.57804d08.css.map",
+    "main.0b91b245.js.map": "/adventure-beyond-limits-react/static/js/main.0b91b245.js.map",
     "453.28199990.chunk.js.map": "/adventure-beyond-limits-react/static/js/453.28199990.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f9f3176d.css",
-    "static/js/main.3b97b62b.js"
+    "static/css/main.57804d08.css",
+    "static/js/main.0b91b245.js"
   ]
 }
