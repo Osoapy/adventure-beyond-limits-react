@@ -1,0 +1,36 @@
+@import '../../styles/imports/generalImports';
+@font-face {
+    font-family: 'Raleway';
+    src: url('../../assets/fonts/Raleway-Regular.ttf') format('truetype');
+}
+
+.addButtonContainer {
+    @include fixedHeight(33px);
+    @include flexCenter();
+    width: fit-content;
+
+    background-color: #E3BDF3;
+    border-radius: 7.5px;
+    position: relative;
+
+    .addButton {
+        @include flexCenter();
+
+        height: 100%;
+        width: 100%;
+        border: 0px;
+        margin: 0px;
+        background-color: transparent;
+        text-decoration: none;
+
+        p {
+            $marginValues: 15px;
+            margin-left: $marginValues;
+            margin-right: $marginValues;
+            color: white;
+            font-weight: 700;
+            font-size: larger;
+            font-family: 'Raleway', sans-serif;
+        }
+    }
+}

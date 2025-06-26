@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
-import { arrayMove } from "@dnd-kit/sortable";
 import './myAccountPage.scss';
 import PokemonTeam from "../../components/pokemonTeam/PokemonTeam";
 import StandardHeader from "../../components/standardHeader/StandardHeader";
-import AddButton from "../../components/addButton/AddButton";
+import AddButton from "../../components/addButton/AddTeamButton";
 import AddPokemonForm from "../../components/forms/addPokemonForm/AddPokemonForm";
 import PokemonButton from "../../components/pokemonButton/pokemonButton";
 import CurrentPokemonForm from "../../components/forms/currentPokemonForm/CurrentPokemonForm";
@@ -65,7 +64,7 @@ export default function MyAccountPage() {
     };
 
     return (
-        <div>
+        <>
             <StandardHeader>
                 <div className="pfp-container">
                     <img
@@ -79,35 +78,37 @@ export default function MyAccountPage() {
                 </div>
             </StandardHeader>
 
-            <PokemonTeam onReorder={handleReorder}>
-                {pokemons.map((poke) => (
-                    <PokemonButton
-                        key={poke.id}
-                        pokemon={poke}
-                        onClick={() => {
-                            if (currentPokemon?.id === poke.id) {
-                                setShowPokemonInfo(prev => !prev);
-                            } else {
-                                setShowForm(false);
-                                setCurrentPokemon(poke);
-                                setShowPokemonInfo(true);
-                            }
-                        }}
-                    />
-                ))}
-            </PokemonTeam>
+            <div className="myAccountBody">
+                <AddButton onClick={() => {
+                    setShowForm(prev => !prev);
+                    if (showPokemonInfo) {
+                        setShowPokemonInfo(false);
+                    }
+                }} />
 
-            {showForm && <AddPokemonForm />}
-            {showPokemonInfo && !showForm && currentPokemon && (
-                <CurrentPokemonForm pokemon={currentPokemon} />
-            )}
+                <PokemonTeam onReorder={handleReorder}>
+                    {pokemons.map((poke) => (
+                        <PokemonButton
+                            key={poke.id}
+                            pokemon={poke}
+                            onClick={() => {
+                                if (currentPokemon?.id === poke.id) {
+                                    setShowPokemonInfo(prev => !prev);
+                                } else {
+                                    setShowForm(false);
+                                    setCurrentPokemon(poke);
+                                    setShowPokemonInfo(true);
+                                }
+                            }}
+                        />
+                    ))}
+                </PokemonTeam>
 
-            <AddButton onClick={() => {
-                setShowForm(prev => !prev);
-                if (showPokemonInfo) {
-                    setShowPokemonInfo(false);
-                }
-            }} />
-        </div>
+                {showForm && <AddPokemonForm />}
+                {showPokemonInfo && !showForm && currentPokemon && (
+                    <CurrentPokemonForm pokemon={currentPokemon} />
+                )}
+            </div>
+        </>
     );
 }
