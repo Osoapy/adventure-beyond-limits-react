@@ -1,10 +1,42 @@
 .pokemonTeam-Container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     flex-wrap: wrap;
-    gap: 4px;
-    flex-direction: row;
+
+    border: 2px solid #E4BEF4;
+    border-radius: 10px;
+    padding-bottom: 5px;
+
     height: 100%;
     width: 100%;
+
+    p { 
+        padding-left: 5px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .pokemons-Container {
+        $padding: 2%;
+        padding-left: $padding;
+        padding-right: $padding;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+
+        button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: fit-content;
+            min-width: calc(100% / 6);
+
+            img {
+                max-height: 6.1em;
+            }
+        }
+    }
 }

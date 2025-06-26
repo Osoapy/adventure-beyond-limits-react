@@ -1,7 +1,14 @@
 @import '../../styles/imports/generalImports';
 
 .myAccountBody {
-    padding: 2.5%;
+    $spacing: 7.5px;
+    $padding: 2%;
+    display: flex;
+    flex-direction: column;
+    padding-left: $padding;
+    padding-right: $padding;
+    padding-top: $spacing;
+    gap: $spacing;
 
     .teams-Container {
         @include flexCenter();

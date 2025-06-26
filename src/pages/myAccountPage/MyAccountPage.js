@@ -86,7 +86,25 @@ export default function MyAccountPage() {
                     }
                 }} />
 
-                <PokemonTeam onReorder={handleReorder}>
+                <PokemonTeam onReorder={handleReorder} numberOfTeams={1}>
+                    {pokemons.map((poke) => (
+                        <PokemonButton
+                            key={poke.id}
+                            pokemon={poke}
+                            onClick={() => {
+                                if (currentPokemon?.id === poke.id) {
+                                    setShowPokemonInfo(prev => !prev);
+                                } else {
+                                    setShowForm(false);
+                                    setCurrentPokemon(poke);
+                                    setShowPokemonInfo(true);
+                                }
+                            }}
+                        />
+                    ))}
+                </PokemonTeam>
+
+                <PokemonTeam onReorder={handleReorder} numberOfTeams={2}>
                     {pokemons.map((poke) => (
                         <PokemonButton
                             key={poke.id}

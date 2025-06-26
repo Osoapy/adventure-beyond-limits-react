@@ -14,7 +14,7 @@ import {
 } from '@dnd-kit/sortable';
 import { useState, Children } from 'react';
 
-export default function PokemonTeam({ children, onReorder }) {
+export default function PokemonTeam({ children, onReorder, numberOfTeams }) {
   const [activeId, setActiveId] = useState(null);
   const items = Children.map(children, (child) => child.props.pokemon.id);
   
@@ -48,39 +48,36 @@ export default function PokemonTeam({ children, onReorder }) {
     setActiveId(null);
   }
 
-  function arrayMove(array, oldIndex, newIndex) {
-    const newArray = [...array];
-    const [movedItem] = newArray.splice(oldIndex, 1);
-    newArray.splice(newIndex, 0, movedItem);
-    return newArray;
-  }
-
   return (
     <div className="pokemonTeam-Container">
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCorners}
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-      >
-        <SortableContext items={items} strategy={horizontalListSortingStrategy}>
-          {children}
-        </SortableContext>
-        
-        <DragOverlay>
-          {activeId ? (
-            <div style={{
-              transform: 'scale(1.05)',
-              opacity: 0.8,
-              zIndex: 1000,
-            }}>
-              {Children.toArray(children).find(
-                (child) => child.props.pokemon.id === activeId
-              )}
-            </div>
-          ) : null}
-        </DragOverlay>
-      </DndContext>
+      <p>Time {numberOfTeams} com {children.length} pokémons</p>
+
+      <div className='pokemons-Container'>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCorners}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext items={items} strategy={horizontalListSortingStrategy}>
+            {children}
+          </SortableContext>
+          
+          <DragOverlay>
+            {activeId ? (
+              <div style={{
+                transform: 'scale(1.05)',
+                opacity: 0.8,
+                zIndex: 1000,
+              }}>
+                {Children.toArray(children).find(
+                  (child) => child.props.pokemon.id === activeId
+                )}
+              </div>
+            ) : null}
+          </DragOverlay>
+        </DndContext>
+      </div>
     </div>
   );
 }
