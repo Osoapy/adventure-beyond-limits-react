@@ -20,22 +20,29 @@
 
     .pokemons-Container {
         $padding: 2%;
+        $cont-gap: 4px;
         padding-left: $padding;
         padding-right: $padding;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         width: 100%;
+        gap: $cont-gap;
 
-        button {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: fit-content;
-            min-width: calc(100% / 6);
+        .plusSymbolContainer {
+            aspect-ratio: calc(100% / 6 - $cont-gap * 2)/1;
+            background-color: #F5E3FF;
+            border-color: #E4BEF4;
 
-            img {
-                max-height: 6.1em;
+            .plusSymbol {
+                max-height: 3.05em;
+                position: absolute;
+                aspect-ratio: 1/1;
+            }
+
+            .fakePlusSymbol {
+                position: relative;
+                z-index: -1;
             }
         }
     }

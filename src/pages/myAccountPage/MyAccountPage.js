@@ -4,9 +4,9 @@ import { db } from "../../firebase";
 import './myAccountPage.scss';
 import PokemonTeam from "../../components/pokemonTeam/PokemonTeam";
 import StandardHeader from "../../components/standardHeader/StandardHeader";
-import AddButton from "../../components/addButton/AddTeamButton";
+import AddButton from "../../components/buttons/addTeamButton/AddTeamButton";
 import AddPokemonForm from "../../components/forms/addPokemonForm/AddPokemonForm";
-import PokemonButton from "../../components/pokemonButton/pokemonButton";
+import PokemonButton from "../../components/buttons/pokemonButton/pokemonButton";
 import CurrentPokemonForm from "../../components/forms/currentPokemonForm/CurrentPokemonForm";
 
 export default function MyAccountPage() {
@@ -86,7 +86,7 @@ export default function MyAccountPage() {
                     }
                 }} />
 
-                <PokemonTeam onReorder={handleReorder} numberOfTeams={1}>
+                <PokemonTeam onReorder={handleReorder} numberOfTeams={1} setShowForm={setShowForm} showForm={showForm}>
                     {pokemons.map((poke) => (
                         <PokemonButton
                             key={poke.id}
@@ -104,7 +104,7 @@ export default function MyAccountPage() {
                     ))}
                 </PokemonTeam>
 
-                <PokemonTeam onReorder={handleReorder} numberOfTeams={2}>
+                <PokemonTeam onReorder={handleReorder} numberOfTeams={2} setShowForm={setShowForm} showForm={showForm} >
                     {pokemons.map((poke) => (
                         <PokemonButton
                             key={poke.id}

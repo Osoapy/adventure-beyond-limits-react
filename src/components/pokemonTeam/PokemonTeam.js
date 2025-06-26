@@ -13,8 +13,9 @@ import {
   horizontalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { useState, Children } from 'react';
+import AddPokemonButton from '../buttons/addPokemonButton/AddPokemonButton';
 
-export default function PokemonTeam({ children, onReorder, numberOfTeams }) {
+export default function PokemonTeam({ children, onReorder, numberOfTeams, showForm, setShowForm }) {
   const [activeId, setActiveId] = useState(null);
   const items = Children.map(children, (child) => child.props.pokemon.id);
   
@@ -77,6 +78,11 @@ export default function PokemonTeam({ children, onReorder, numberOfTeams }) {
             ) : null}
           </DragOverlay>
         </DndContext>
+
+        <AddPokemonButton
+          key={`${numberOfTeams}-add-button`}
+          onClick={() => {setShowForm(!showForm); setActiveId(null)}}
+        />
       </div>
     </div>
   );
