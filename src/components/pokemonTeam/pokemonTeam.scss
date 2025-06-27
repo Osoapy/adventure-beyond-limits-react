@@ -60,3 +60,23 @@
         }
     }
 }
+
+@media (max-width: 768px) {
+  .pokemonTeam-Container {
+    .pokemons-Container {
+      align-items: center;
+      gap: 8px;
+    }
+
+    .team-Header {
+      align-items: center;
+      text-align: center;
+
+      .team-Header-Icons {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 5px;
+      }
+    }
+  }
+}
