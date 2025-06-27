@@ -59,12 +59,14 @@ export default function PokemonButton({ onClick, pokemon }) {
             {...attributes}
             {...listeners}
         >
-            <img 
-                className="pokemonTeamImage" 
-                src={spriteUrl} 
-                alt={pokemon?.species || "Pokémon"} 
-                draggable="false"
-            />
+            {spriteUrl && (
+                <img 
+                    className="pokemonTeamImage" 
+                    src={spriteUrl} 
+                    alt={pokemon?.species || "Pokémon"} 
+                    draggable="false"
+                />
+            )}
         </button>
     );
 }

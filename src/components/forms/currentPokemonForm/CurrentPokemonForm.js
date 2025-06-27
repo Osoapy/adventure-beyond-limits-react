@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { Chart, RadarController, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend } from "chart.js";
 import PokemonGif from "../../../utils/fetchs/pokemonGif/PokemonGif";
 import './currentPokemonForm.scss';
-import { FaSave } from "react-icons/fa";
 import CalculatePokemonStats from "../../../utils/functions/calculatePokemonStats/CalculatePokemonStats";
 import { doc, updateDoc } from "firebase/firestore";
+import SaveButton from "../../buttons/saveButton/SaveButton";
 import PokemonMovesDropdown from '../../dropdowns/movesDropdown/PokemonMovesDropdown';
 import { db } from "../../../firebase"; // ajuste o caminho conforme onde está sua config do Firebase
 import PokemonHeldItemDropdown from "../../dropdowns/heldItemDropdown/PokemonHeldItemDropdown";
@@ -339,12 +339,7 @@ export default function CurrentPokemonForm({ pokemon }) {
                 </div>
 
                 {hasChanges && (
-                    <button
-                        onClick={saveChanges}
-                        className="floating-save-button"
-                    >
-                        <FaSave size={24} />
-                    </button>
+                    <SaveButton onClick={saveChanges}></SaveButton>
                 )}
             </div>
         </div>
