@@ -131,6 +131,7 @@ export default function MyAccountPage() {
 					<PokemonTeam
 						key={teamNumber}
 						teamNumber={teamNumber}
+						teamPokemons={groupedByTeam[teamNumber]}
 						onReorder={(oldIndex, newIndex) => handleReorder(teamNumber, oldIndex, newIndex)}
 						setShowForm={setShowForm}
 						showForm={showForm}

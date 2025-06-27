@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 
-const errorAlert = (header, statusCode) => {
-  let message = "Algo deu errado, por favor tente novamente.";
+const errorAlert = (header, statusCode, errorOrigin) => {
+  let message =  errorOrigin || "Algo deu errado, por favor tente novamente.";
 
   // Verificar o status code da resposta
   statusCode = statusCode || "000";
