@@ -13,14 +13,14 @@ import {
   horizontalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { useState, Children } from 'react';
-import { FiShare2 } from 'react-icons/fi';
+import { FiShare2, FiTrash2 } from 'react-icons/fi';
 import shareTeamAlert from '../../utils/sweetAlerts2/shareTeamAlert';
+import excludeTeamAlert from '../../utils/sweetAlerts2/excludeTeamAlert';
 import AddPokemonButton from '../buttons/addPokemonButton/AddPokemonButton';
 
 export default function PokemonTeam({ children, onReorder, teamNumber, showForm, setShowForm, teamPokemons }) {
   const normalizedChildren = Children.toArray(children || []);
 
-  // ✅ Pega todos os ids dos pokémons, ou array vazio
   const items = normalizedChildren.map(child => child.props?.pokemon?.id).filter(Boolean);
 
   const [activeId, setActiveId] = useState(null);
@@ -58,9 +58,14 @@ export default function PokemonTeam({ children, onReorder, teamNumber, showForm,
     <div className="pokemonTeam-Container">
       <div className='team-Header'>
         <p>Time {teamNumber} com {normalizedChildren.length} pokémons</p>
-        <button onClick={() => shareTeamAlert(teamPokemons)} className="share-button">
-          <FiShare2 size={20} />
-        </button>
+        <div className='team-Header-Icons'>
+          <button onClick={() => shareTeamAlert(teamPokemons)} className="share-button">
+            <FiShare2 size={20} />
+          </button>
+          <button onClick={() => excludeTeamAlert(teamNumber)} className="exclude-button">
+            <FiTrash2 size={20} />
+          </button>
+        </div>
       </div>
       <div className="pokemons-Container">
         <DndContext

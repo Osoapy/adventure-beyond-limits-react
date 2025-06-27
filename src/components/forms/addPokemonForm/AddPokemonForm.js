@@ -83,7 +83,7 @@ export default function AddPokemonForm({ teamNumber }) {
   };
 
   return (
-    <div className="player-Token pokemon-Filled-Container" id="JhonnyTail2-Token">
+    <div className="player-Token pokemon-Filled-Container">
       <div className="start">
         <div className="info">Info</div>
         <p className="pokemon-field-text"><b>Species:</b></p>

@@ -1,5 +1,5 @@
-import LogInButton from '../../components/headerButtons/LogInButton';
-import SignUpButton from '../../components/headerButtons/SignUp';
+import LogInButton from '../../components/buttons/headerButtons/LogInButton';
+import SignUpButton from '../../components/buttons/headerButtons/SignUp';
 import StandardHeader from '../../components/standardHeader/StandardHeader';
 import './HomePage.scss';
 

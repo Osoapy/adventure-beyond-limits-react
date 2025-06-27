@@ -28,7 +28,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "fetchMoves": "node fetchMoves.js",
+    "fetchMoves": "node scripts/fetchMoves.js",
+    "deleteAllPokemons": "node scripts/deleteAllPokemonsFromTrainer.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
