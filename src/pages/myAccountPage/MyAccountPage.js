@@ -4,10 +4,12 @@ import { db } from "../../firebase";
 import './myAccountPage.scss';
 import PokemonTeam from "../../components/pokemonTeam/PokemonTeam";
 import StandardHeader from "../../components/standardHeader/StandardHeader";
-import AddTeamButton from "../../components/buttons/addTeamButton/AddTeamButton";
 import AddPokemonForm from "../../components/forms/addPokemonForm/AddPokemonForm";
 import PokemonButton from "../../components/buttons/pokemonButton/pokemonButton";
 import CurrentPokemonForm from "../../components/forms/currentPokemonForm/CurrentPokemonForm";
+import HandlerButton from "../../components/buttons/handlerButton/HandlerButton";
+import importTeamAlert from "../../utils/sweetAlerts2/importTeamAlert";
+import { SavePokemon } from "../../database/SavePokemon";
 
 export default function MyAccountPage() {
 	const [trainer, setTrainer] = useState(null);
@@ -109,6 +111,53 @@ export default function MyAccountPage() {
 		setExtraTeams(prev => [...prev, newTeamNumber]);
 	};
 
+	const handleImportFromShowDown = async () => {
+		const pokemonList = await importTeamAlert(); // espera o input do usuário
+		if (pokemonList?.length > 0) {
+			const email = sessionStorage.getItem("email");
+
+			for (const pokemon of pokemonList) {
+				// Garante 4 slots de move
+				while (pokemon.moves.length < 4) {
+					pokemon.moves.push('');
+				}
+
+				const correctedPokemon = {
+					trainer: email,
+					species: pokemon.species,
+					nickname: pokemon.nickname,
+					level: pokemon.level,
+					mainType: 'normal',
+					gender: pokemon.gender === 'M' ? 'Male' : (pokemon.gender === 'F' ? 'Female' : 'Genderless'),
+					teraType: pokemon.teraType,
+					ability: pokemon.ability,
+					nature: pokemon.nature,
+					team: Math.max(...[...sortedTeamNumbers, ...extraTeams, sortedTeamNumbers.length > 0? Math.max(...sortedTeamNumbers): 0]) + 1,
+					heldItem: pokemon.item,
+					moves: pokemon.moves,
+					ivs: {
+						HP: pokemon.ivs["HP"],
+						Attack: pokemon.ivs["Atk"],
+						Defense: pokemon.ivs["Def"],
+						'S.Atk': pokemon.ivs["SpA"],
+						'S.Def': pokemon.ivs["SpD"],
+						Speed: pokemon.ivs["Spe"]
+					},
+					evs: {
+						HP: pokemon.evs["HP"],
+						Attack: pokemon.evs["Atk"],
+						Defense: pokemon.evs["Def"],
+						'S.Atk': pokemon.evs["SpA"],
+						'S.Def': pokemon.evs["SpD"],
+						Speed: pokemon.evs["Spe"]
+					},
+				};
+
+				await SavePokemon(correctedPokemon);
+			}
+		}
+	};
+
 	return (
 		<>
 			<StandardHeader>
@@ -125,7 +174,10 @@ export default function MyAccountPage() {
 			</StandardHeader>
 
 			<div className="myAccountBody">
-				<AddTeamButton onClick={handleAddTeam} />
+				<div className="buttonsContainer">
+					<HandlerButton label="Criar novo time" onClick={handleAddTeam} />
+					<HandlerButton label="Importar do ShowDown" onClick={handleImportFromShowDown} />
+				</div>
 
 				{sortedTeamNumbers.map(teamNumber => (
 					<PokemonTeam

@@ -10,6 +10,12 @@
     padding-top: $spacing;
     gap: $spacing;
 
+    .buttonsContainer {
+        display: flex;
+        flex-direction: row;
+        gap: 1%;
+    }
+
     .teams-Container {
         @include flexCenter();
 

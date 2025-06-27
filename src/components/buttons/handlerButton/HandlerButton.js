@@ -1,10 +1,10 @@
-import './addTeamButton.scss';
+import './handlerButton.scss';
 
-export default function AddTeamButton({ onClick }) {
+export default function HandlerButton({ onClick, label }) {
     return (
         <div className="addButtonContainer">
             <button className="addButton" onClick={ onClick }>
-                <p>Criar novo time</p>
+                <p>{label}</p>
             </button>
         </div>
     );

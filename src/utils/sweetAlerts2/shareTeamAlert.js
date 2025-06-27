@@ -35,6 +35,9 @@ const shareTeamAlert = (pokemonTeam) => {
         // ABILITY
         if (p.ability) showDownText += `Ability: ${p.ability}\n`;
 
+        // LEVEL
+        if (p.level && p.level !== "100") showDownText += `Level: ${p.level}\n`;
+
         // SHINY
         if (p.shiny) showDownText += `Shiny: Yes\n`;
 
@@ -60,7 +63,7 @@ const shareTeamAlert = (pokemonTeam) => {
                     correctWrite = "SpD";
                     break;
                 case "Speed":
-                    correctWrite = "Spd";
+                    correctWrite = "Spe";
                     break;
                 default:
                     correctWrite = "HP";
@@ -92,7 +95,7 @@ const shareTeamAlert = (pokemonTeam) => {
                     correctWrite = "SpD";
                     break;
                 case "Speed":
-                    correctWrite = "Spd";
+                    correctWrite = "Spe";
                     break;
                 default:
                     correctWrite = "HP";
@@ -116,12 +119,12 @@ const shareTeamAlert = (pokemonTeam) => {
     console.log(showDownText);
 
     const htmlContent = `
-        <div style="position: relative; text-align: left;">
+        <div style="position: relative; text-align: left; max-height: 350px; overflow-y: scroll;">
             <button id="copy-btn" title="Copiar"
                 style="position: absolute; top: 5px; right: 5px; background: transparent; border: none; cursor: pointer;">
                 📋
             </button>
-            <pre style="white-space: pre-wrap; word-wrap: break-word; background-color: #f4f4f4; padding: 10px; border-radius: 5px; margin-top: 30px; font-size: 0.85rem;">
+            <pre style="white-space: pre-wrap; word-wrap: break-word; background-color: #f4f4f4; padding: 10px; border-radius: 5px; font-size: 0.85rem;">
 ${showDownText}
             </pre>
         </div>

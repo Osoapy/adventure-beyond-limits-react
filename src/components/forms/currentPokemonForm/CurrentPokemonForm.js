@@ -19,12 +19,19 @@ export default function CurrentPokemonForm({ pokemon }) {
     const [hasChanges, setHasChanges] = useState(false);
     const chartRef = useRef(null);
     const chartInstanceRef = useRef(null);
+    const nicknameRef = useRef();
+    const levelRef = useRef();
     const [section, setSection] = useState("Stats");
     const [currentNature, setCurrentNature] = useState(pokemon.nature);
     const [currentAbility, setCurrentAbility] = useState(pokemon.ability);
     const [currentGender, setCurrentGender] = useState(pokemon.gender);
     const [currentHeldItem, setCurrentHeldItem] = useState(pokemon.heldItem);
     const [currentMoves, setCurrentMoves] = useState([...pokemon.moves]);
+
+    useEffect(() => {
+        if (nicknameRef.current) nicknameRef.current.innerText = pokemon.nickname;
+        if (levelRef.current) levelRef.current.innerText = pokemon.level;
+    }, [pokemon]);
 
     // Unsaved changes
     useEffect(() => {
@@ -128,8 +135,8 @@ export default function CurrentPokemonForm({ pokemon }) {
 
     const saveChanges = async () => {
         const updatedData = {
-            nickname: document.querySelector(".first-field:nth-of-type(2)")?.innerText,
-            level: document.querySelector(".first-field + .pokemon-field-text + div")?.innerText,
+            nickname: nicknameRef.current?.innerText,
+            level: levelRef.current?.innerText,
             gender: currentGender,
             ability: currentAbility,
             nature: currentNature,
@@ -174,15 +181,13 @@ export default function CurrentPokemonForm({ pokemon }) {
                 <p className="pokemon-field-text first-field">
                     <b className="null">Nickname:</b>
                 </p>
-                <div className="pokemon-field-answear first-field" contentEditable spellCheck={false}>
-                    {pokemon.nickname}
+                <div className="pokemon-field-answear first-field" ref={nicknameRef} contentEditable spellCheck={false}>
                 </div>
 
                 <p className="pokemon-field-text">
                     <b>Level:</b>
                 </p>
-                <div className="pokemon-field-answear" contentEditable spellCheck={false}>
-                    {pokemon.level}
+                <div className="pokemon-field-answear" ref={levelRef} contentEditable spellCheck={false}>
                 </div>
 
                 <p className="pokemon-field-text">
