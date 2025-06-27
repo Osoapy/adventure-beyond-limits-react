@@ -1,28 +1,37 @@
 const parseFirstLine = (line) => {
+  line = line.trim();
   let match;
 
-  match = line.match(/^(.+?) \((.{2,})\) \((M|F)\) @ (.+)$/);
-  if (match) return { nickname: match[1], species: match[2], gender: match[3], item: match[4] };
+  // nickname + species + gender + item
+  match = line.match(/^(.+?) \(([^()]+)\) \((M|F)\) @ (.+)$/);
+  if (match) return { nickname: match[1].trim(), species: match[2].trim(), gender: match[3], item: match[4].trim().replace(' ', '-').toLowerCase() };
 
-  match = line.match(/^(.+?) \((.{2,})\) @ (.+)$/);
-  if (match) return { nickname: match[1], species: match[2], gender: null, item: match[3] };
+  // nickname + species + item
+  match = line.match(/^(.+?) \(([^()]+)\) @ (.+)$/);
+  if (match) return { nickname: match[1].trim(), species: match[2].trim(), gender: null, item: match[3].trim().replace(' ', '-').toLowerCase() };
 
-  match = line.match(/^(.+?) \((.{2,})\) \((M|F)\)$/);
-  if (match) return { nickname: match[1], species: match[2], gender: match[3], item: null };
+  // nickname + species + gender
+  match = line.match(/^(.+?) \(([^()]+)\) \((M|F)\)$/);
+  if (match) return { nickname: match[1].trim(), species: match[2].trim(), gender: match[3], item: null };
 
-  match = line.match(/^(.+?) \((.{2,})\)$/);
-  if (match) return { nickname: match[1], species: match[2], gender: null, item: null };
+  // nickname + species
+  match = line.match(/^(.+?) \(([^()]+)\)$/);
+  if (match) return { nickname: match[1].trim(), species: match[2].trim(), gender: null, item: null };
 
-  match = line.match(/^(.{2,}) \((M|F)\) @ (.+)$/);
-  if (match) return { nickname: null, species: match[1].trim(), gender: match[2], item: match[3] };
+  // species + gender + item
+  match = line.match(/^([^()]+) \((M|F)\) @ (.+)$/);
+  if (match) return { nickname: null, species: match[1].trim(), gender: match[2], item: match[3].trim().replace(' ', '-').toLowerCase() };
 
-  match = line.match(/^(.{2,}) \((M|F)\)$/);
+  // species + gender
+  match = line.match(/^([^()]+) \((M|F)\)$/);
   if (match) return { nickname: null, species: match[1].trim(), gender: match[2], item: null };
 
-  match = line.match(/^(.{2,}) @ (.+)$/);
-  if (match) return { nickname: null, species: match[1].trim(), gender: null, item: match[2] };
+  // species + item
+  match = line.match(/^([^()]+) @ (.+)$/);
+  if (match) return { nickname: null, species: match[1].trim(), gender: null, item: match[2].trim().replace(' ', '-').toLowerCase() };
 
-  match = line.match(/^.{2,}$/);
+  // species only
+  match = line.match(/^([^()]+)$/);
   if (match) return { nickname: null, species: line.trim(), gender: null, item: null };
 
   throw new Error("Linha inicial mal formatada: " + line);
@@ -55,7 +64,7 @@ const parseShowDownText = (text) => {
 
     for (const line of currentLines) {
       if (line.startsWith('Ability:')) {
-        pokemon.ability = line.replace('Ability:', '').trim();
+        pokemon.ability = line.replace('Ability:', '').trim().replace(' ', '-').toLowerCase();
       } else if (line.startsWith('Level:')) {
         pokemon.level = parseInt(line.replace('Level:', '').trim(), 10);
       } else if (line.startsWith('Tera Type:')) {
@@ -73,9 +82,9 @@ const parseShowDownText = (text) => {
           pokemon.ivs[stat] = parseInt(value, 10);
         }
       } else if (line.endsWith(' Nature')) {
-        pokemon.nature = line.replace(' Nature', '').trim();
+        pokemon.nature = line.replace(' Nature', '').trim().toLowerCase();
       } else if (line.startsWith('- ')) {
-        pokemon.moves.push(line.replace('- ', '').trim());
+        pokemon.moves.push(line.replace('- ', '').trim().replace(' ', '-').toLowerCase());
       }
     }
 
@@ -91,6 +100,8 @@ const parseShowDownText = (text) => {
     }
   }
   flushPokemon(); // último Pokémon
+
+  console.log(pokemons);
 
   return pokemons;
 };

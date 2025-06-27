@@ -219,7 +219,7 @@ export default function CurrentPokemonForm({ pokemon }) {
                     <b>Nature:</b>
                 </p>
                 <PokemonNatureDropdown
-                    initialValue={pokemon.nature}
+                    initialValue={pokemon.nature? pokemon.nature : 'docile'}
                     onSelect={(newNature) => {
                         pokemon.nature = newNature;
                         setCurrentNature(newNature);

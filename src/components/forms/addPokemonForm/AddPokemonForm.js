@@ -25,7 +25,7 @@ export default function AddPokemonForm({ teamNumber }) {
     team: teamNumber,
     heldItem: '',
     moves: ['', '', '', ''],
-    ivs: { HP: '0', Attack: '0', Defense: '0', 'S.Atk': '0', 'S.Def': '0', Speed: '0' },
+    ivs: { HP: '31', Attack: '31', Defense: '31', 'S.Atk': '31', 'S.Def': '31', Speed: '31' },
     evs: { HP: '0', Attack: '0', Defense: '0', 'S.Atk': '0', 'S.Def': '0', Speed: '0' },
   };
 

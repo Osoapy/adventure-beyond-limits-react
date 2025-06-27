@@ -21,7 +21,7 @@ $tamanho-img-pfp: 4.5vh;
 // =====================
 .app-bar {
   @include fixedHeight($tamanho-barra-desktop);
-  @include fixedWidth(100vw);
+  @include fixedWidth(100%);
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -31,7 +31,7 @@ $tamanho-img-pfp: 4.5vh;
 
   .app-bar-background {
     @include fixedHeight($tamanho-barra-desktop);
-    @include fixedWidth(100vw);
+    @include fixedWidth(100%);
     position: absolute;
     top: 0;
     left: 0;

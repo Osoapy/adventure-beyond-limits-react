@@ -2,10 +2,31 @@ import { useEffect, useRef, useState } from 'react';
 import '../pokemonDropdown.scss';
 
 const natures = [
-  'adamant', 'bold', 'brave', 'calm', 'careful', 'gentle',
-  'hardy', 'hasty', 'impish', 'jolly', 'lax', 'lonely',
-  'mild', 'modest', 'naive', 'naughty', 'quiet', 'quirky',
-  'rash', 'relaxed', 'sassy', 'serious', 'timid'
+  "adamant",  // Attack+, Sp Atk-
+  "bashful",  // Neutral
+  "bold",     // Defense+, Attack-
+  "brave",    // Attack+, Speed-
+  "calm",     // Sp Def+, Attack-
+  "careful",  // Sp Def+, Sp Atk-
+  "docile",   // Neutral
+  "gentle",   // Sp Def+, Defense-
+  "hardy",    // Neutral
+  "hasty",    // Speed+, Defense-
+  "impish",   // Defense+, Sp Atk-
+  "jolly",    // Speed+, Sp Atk-
+  "lax",      // Defense+, Sp Def-
+  "lonely",   // Attack+, Defense-
+  "mild",     // Sp Atk+, Defense-
+  "modest",   // Sp Atk+, Attack-
+  "naive",    // Speed+, Sp Def-
+  "naughty",  // Attack+, Sp Def-
+  "quiet",    // Sp Atk+, Speed-
+  "quirky",   // Neutral
+  "rash",     // Sp Atk+, Sp Def-
+  "relaxed",  // Defense+, Speed-
+  "sassy",    // Sp Def+, Speed-
+  "serious",  // Neutral
+  "timid",    // Speed+, Attack-
 ];
 
 export default function PokemonNatureDropdown({ onSelect, initialValue }) {

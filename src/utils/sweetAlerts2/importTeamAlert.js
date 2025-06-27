@@ -4,20 +4,24 @@ import parseShowDownText from "../functions/parseShowDownText/parseShowDownText"
 
 const importTeamAlert = async () => {
   const htmlContent = `
+    <style>
+    #showdown-content:empty:before {
+      content: attr(data-placeholder);
+      color: #888;
+      pointer-events: none;
+    }
+    </style>
     <div style="position: relative; text-align: left; max-height: 350px; overflow-y: scroll;">
       <button id="copy-btn" title="Copiar"
           style="position: absolute; top: 5px; right: 5px; background: transparent; border: none; cursor: pointer;">
           📋
       </button>
-      <pre id="showdown-content" contenteditable="true" 
-          style="white-space: pre-wrap; word-wrap: break-word; background-color: #f4f4f4; padding: 10px; border-radius: 5px; font-size: 0.85rem; min-height: 150px;">
-Cole aqui o texto do time no formato Showdown...
-      </pre>
+      <div id="showdown-content" contenteditable="true" data-placeholder="Cole aqui o texto do time no formato ShowDown..." style="white-space: pre-wrap; word-wrap: break-word; background-color: #f4f4f4; padding: 10px; border-radius: 5px; font-size: 0.85rem; min-height: 150px;"></div>
     </div>
   `;
 
   const result = await Swal.fire({
-    title: "Cole ou edite o time no formato Showdown:",
+    title: "Cole ou edite o time no formato ShowDown:",
     html: htmlContent,
     showCancelButton: true,
     confirmButtonText: "Confirmar",

@@ -1,13 +1,20 @@
 export default function getNatureEffect(nature) {
     // MAKING THE NATURE LOWERCASE
-    nature = nature.toLowerCase();
+    if (nature) {
+        nature = nature.toLowerCase();
+    }
+    else {
+        return [0, 0];
+    }
 
     const natures = {
         "adamant": [2, 4],  // Attack+, Sp Atk-
+        "bashful": [0, 0],  // Neutral
         "bold": [3, 2],     // Defense+, Attack-
         "brave": [2, 6],    // Attack+, Speed-
         "calm": [5, 2],     // Sp Def+, Attack-
         "careful": [5, 4],  // Sp Def+, Sp Atk-
+        "docile": [0, 0],   // Neutral
         "gentle": [5, 3],   // Sp Def+, Defense-
         "hardy": [0, 0],    // Neutral
         "hasty": [6, 3],    // Speed+, Defense-

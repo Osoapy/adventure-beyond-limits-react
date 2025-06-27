@@ -128,7 +128,7 @@ export default function MyAccountPage() {
 					nickname: pokemon.nickname,
 					level: pokemon.level,
 					mainType: 'normal',
-					gender: pokemon.gender === 'M' ? 'Male' : (pokemon.gender === 'F' ? 'Female' : 'Genderless'),
+					gender: pokemon.gender === 'M' ? 'male' : (pokemon.gender === 'F' ? 'female' : 'genderless'),
 					teraType: pokemon.teraType,
 					ability: pokemon.ability,
 					nature: pokemon.nature,
