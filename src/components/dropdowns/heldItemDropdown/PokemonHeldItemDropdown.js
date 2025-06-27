@@ -16,10 +16,10 @@ export default function PokemonHeldItemDropdown({ onSelect, initialValue }) {
   }, [initialValue]);  
 
   useEffect(() => {
-    fetch('https://pokeapi.co/api/v2/item-attribute/5/')
+    fetch('https://pokeapi.co/api/v2/item/?offset=20&limit=9999')
         .then(res => res.json())
         .then(data => {
-            const itemNames = data.items.map(item => item.name);
+            const itemNames = data.results.map(item => item.name);
             setItems(itemNames);
         })
         .catch(() => {
