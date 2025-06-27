@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { collection, query, where, getDocs, doc, updateDoc } from "firebase/firestore";
+import { collection, query, where, onSnapshot, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import './myAccountPage.scss';
 import PokemonTeam from "../../components/pokemonTeam/PokemonTeam";
@@ -21,37 +21,48 @@ export default function MyAccountPage() {
 	const email = sessionStorage.getItem("email");
 
 	useEffect(() => {
-		async function fetchTrainer() {
-			if (!email) return;
-			const q = query(
-				collection(db, "player"),
-				where("email", "==", email.toLowerCase().trim())
-			);
-			const snapshot = await getDocs(q);
+		if (!email) return;
+
+		const q = query(
+			collection(db, "player"),
+			where("email", "==", email.toLowerCase().trim())
+		);
+
+		const unsubscribe = onSnapshot(q, (snapshot) => {
 			if (!snapshot.empty) {
-				const data = snapshot.docs[0].data();
-				setTrainer(data);
+			const data = snapshot.docs[0].data();
+			setTrainer(data);
+			} else {
+			setTrainer(null);
 			}
-		}
-		fetchTrainer();
+		}, (error) => {
+			console.error("Erro ao ouvir trainer:", error);
+		});
+
+		return () => unsubscribe();
 	}, [email]);
 
 	useEffect(() => {
-		async function fetchPokemons() {
-			if (!email) return;
-			const q = query(
-				collection(db, "pokemon"),
-				where("trainer", "==", email.toLowerCase().trim())
-			);
-			const snapshot = await getDocs(q);
+		if (!email) return;
+
+		const q = query(
+			collection(db, "pokemon"),
+			where("trainer", "==", email.toLowerCase().trim())
+		);
+
+		const unsubscribe = onSnapshot(q, (snapshot) => {
 			const foundPokemons = snapshot.docs.map(doc => ({
-				id: doc.id,
-				...doc.data()
+			id: doc.id,
+			...doc.data()
 			})).sort((a, b) => (a.ordem ?? 0) - (b.ordem ?? 0));
 
 			setPokemons(foundPokemons);
-		}
-		fetchPokemons();
+		}, (error) => {
+			console.error("Erro ao ouvir pokemons:", error);
+		});
+
+		// Sempre limpar ao desmontar
+		return () => unsubscribe();
 	}, [email]);
 
 	const handleReorder = (teamNumber, oldIndex, newIndex) => {
