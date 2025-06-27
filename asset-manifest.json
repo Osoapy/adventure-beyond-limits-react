@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/adventure-beyond-limits-react/static/css/main.44a44969.css",
-    "main.js": "/adventure-beyond-limits-react/static/js/main.f92b63d4.js",
+    "main.js": "/adventure-beyond-limits-react/static/js/main.6ba22675.js",
     "static/js/453.28199990.chunk.js": "/adventure-beyond-limits-react/static/js/453.28199990.chunk.js",
     "static/media/background.webp": "/adventure-beyond-limits-react/static/media/background.e27a6164309ada361a70.webp",
     "static/media/enteringAccountBackground.jpg": "/adventure-beyond-limits-react/static/media/enteringAccountBackground.985137da7f942de906c6.jpg",
@@ -16,11 +16,11 @@
     "static/media/littleAipom.png": "/adventure-beyond-limits-react/static/media/littleAipom.e01fcac4fd3e3ff96e30.png",
     "index.html": "/adventure-beyond-limits-react/index.html",
     "main.44a44969.css.map": "/adventure-beyond-limits-react/static/css/main.44a44969.css.map",
-    "main.f92b63d4.js.map": "/adventure-beyond-limits-react/static/js/main.f92b63d4.js.map",
+    "main.6ba22675.js.map": "/adventure-beyond-limits-react/static/js/main.6ba22675.js.map",
     "453.28199990.chunk.js.map": "/adventure-beyond-limits-react/static/js/453.28199990.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.44a44969.css",
-    "static/js/main.f92b63d4.js"
+    "static/js/main.6ba22675.js"
   ]
 }
