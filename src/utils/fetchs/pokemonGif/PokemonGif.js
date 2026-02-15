@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import needSwitch from '../../functions/needSwitch/needSwitch';
 
 export default function PokemonGif({ specie }) {
   const [gifUrl, setGifUrl] = useState(null);
@@ -7,8 +8,10 @@ export default function PokemonGif({ specie }) {
   useEffect(() => {
     const buscarGif = async () => {
       try {
-        console.log(`species: ${specie}`)
-        const resposta = await fetch(`https://pokeapi.co/api/v2/pokemon/${specie.toLowerCase()}`);
+        console.log(`species: ${specie}`);
+        let urlOfFetch = `https://pokeapi.co/api/v2/pokemon/${specie.toLowerCase()}`;
+        urlOfFetch = needSwitch(specie);
+        const resposta = await fetch(urlOfFetch);
         if (!resposta.ok) throw new Error('Pokémon não encontrado');
         const dados = await resposta.json();
         const id = dados.id;

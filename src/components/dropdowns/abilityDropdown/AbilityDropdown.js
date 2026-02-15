@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import '../pokemonDropdown.scss';
+import needSwitch from '../../../utils/functions/needSwitch/needSwitch';
 
 export default function PokemonAbilitiesDropdown({ species, onSelect, initialValue }) {
   const [abilities, setAbilities] = useState([]);
@@ -16,6 +17,8 @@ export default function PokemonAbilitiesDropdown({ species, onSelect, initialVal
     } else {
       url = `https://pokeapi.co/api/v2/pokemon/${species.toLowerCase()}`;
     }
+
+    url = needSwitch(species);
   
     fetch(url)
       .then(res => res.json())

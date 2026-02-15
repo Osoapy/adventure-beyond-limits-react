@@ -2,6 +2,7 @@ import './pokemonButton.scss';
 import { useEffect, useState } from "react";
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import needSwitch from '../../../utils/functions/needSwitch/needSwitch';
 
 export default function PokemonButton({ onClick, pokemon }) {
     const {
@@ -30,9 +31,11 @@ export default function PokemonButton({ onClick, pokemon }) {
             if (!pokemon || !pokemon.species) return;
 
             const species = String(pokemon.species).toLowerCase().trim();
+            let url = `https://pokeapi.co/api/v2/pokemon/${species}`;
+            url = needSwitch(species);
 
             try {
-                const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${species}`);
+                const res = await fetch(url);
                 const data = await res.json();
 
                 const sprite = data.sprites.other.home.front_default;

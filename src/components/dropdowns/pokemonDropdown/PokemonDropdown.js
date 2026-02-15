@@ -14,9 +14,22 @@ export default function PokemonDropdown({ onSelect }) {
     fetch('https://pokeapi.co/api/v2/pokemon/?limit=9999')
       .then(res => res.json())
       .then(data => {
-        const names = data.results.map((p) => p.name);
-        setPokemons(names);
+      let names = data.results.map((p) => p.name).filter(name => {
+        if (name.startsWith("mimikyu-")) return false; // remove variações
+        if (name.startsWith("pikachu-")) return false; // remove variações
+        if (name.startsWith("minior-")) return false; // remove variações
+        if (name.endsWith("-cap")) return false; // remove pika likes
+        if (name.endsWith("-primal")) return false; // remove primais
+        if (name.endsWith("-mega")) return false; // remove megas
+        if (name.endsWith("-mega-x")) return false; // remove megas
+        if (name.endsWith("-mega-y")) return false; // remove megas
+        if (name.endsWith("-mega-z")) return false; // remove megas
+        return true;
       });
+      names.push("mimikyu"); // adicionar forma base
+      names.push("minior"); // adicionar forma base
+      setPokemons(names);
+    });
   }, []);
 
   // Update filtered list

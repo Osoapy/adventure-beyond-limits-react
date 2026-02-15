@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../firebase';
+import needSwitch from '../../../utils/functions/needSwitch/needSwitch';
 
 export default function PokemonMovesDropdown({ species, onSelect, initialValue }) {
   const [moves, setMoves] = useState([]);
@@ -19,6 +20,8 @@ export default function PokemonMovesDropdown({ species, onSelect, initialValue }
     } else {
       url = `https://pokeapi.co/api/v2/pokemon/${species.toLowerCase()}`;
     }
+
+    url = needSwitch(species);
 
     fetch(url)
       .then(res => res.json())

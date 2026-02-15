@@ -91,7 +91,6 @@ export default function MyAccountPage() {
                         })).sort((a, b) => (a.ordem ?? 0) - (b.ordem ?? 0));
 
                         setPokemons(found);
-                        localStorage.setItem(`pokemons-${normalizedEmail}`, JSON.stringify(found));
                     },
                     (error) => {
                         console.error("Erro ao ouvir pokemons:", error);

@@ -1,6 +1,10 @@
+import needSwitch from '../../functions/needSwitch/needSwitch';
+
 export default async function GetPrimaryType(species) {
     try {
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${species.toLowerCase()}`);
+      let url = `https://pokeapi.co/api/v2/pokemon/${species.toLowerCase()}`;
+      url = needSwitch(species);
+      const response = await fetch(url);
       if (!response.ok) throw new Error('Pokémon não encontrado');
       
       const data = await response.json();
