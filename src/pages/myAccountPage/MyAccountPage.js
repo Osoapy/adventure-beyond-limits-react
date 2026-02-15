@@ -32,6 +32,8 @@ export default function MyAccountPage() {
 	useEffect(() => {
         if (!normalizedEmail) return;
 
+		localStorage.setItem("normalizedEmail", `${normalizedEmail}`);
+
         const q = query(
             collection(db, "player"),
             where("email", "==", normalizedEmail)
