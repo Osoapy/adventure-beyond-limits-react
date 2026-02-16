@@ -27,13 +27,13 @@ const shareTeamAlert = (pokemonTeam) => {
 
         // HELD ITEM
         if (p.heldItem && p.heldItem.trim() !== "") {
-            showDownText += `@ ${p.heldItem}`;
+            showDownText += `@ ${p.heldItem.replace('-', ' ')}`;
         }
 
         showDownText += `\n`;
 
         // ABILITY
-        if (p.ability) showDownText += `Ability: ${p.ability}\n`;
+        if (p.ability) showDownText += `Ability: ${p.ability.replace('-', ' ')}\n`;
 
         // LEVEL
         if (p.level && p.level !== "100") showDownText += `Level: ${p.level}\n`;
@@ -109,12 +109,18 @@ const shareTeamAlert = (pokemonTeam) => {
         if (p.moves && Array.isArray(p.moves)) {
             for (const move of p.moves) {
                 if (move === "") continue;
-                showDownText += `- ${move}\n`;
+                showDownText += `- ${move.replace('-', ' ')}\n`;
             }
         }
 
         showDownText += `\n`; // separa os pokémon
     }
+
+    function capitalizeWords(text) {
+        return text
+            .replace(/(^|\s)\S/g, match => match.toUpperCase());
+    }
+    showDownText = capitalizeWords(showDownText);
 
     console.log(showDownText);
 
