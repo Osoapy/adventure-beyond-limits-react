@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth } from "../../database/firebase";
 import { useNavigate } from "react-router-dom";
-import littleAipom from "../../assets/littleAipom.png";
-import "./logInPage.scss";
+import littleAipom from "../../assets/images/littleAipom.png";
+import styles from "./logInPage.module.scss";
 
 export default function LogInPage() {
     const [email, setEmail] = useState("");
@@ -20,7 +20,7 @@ export default function LogInPage() {
             const user = userCredential.user;
             console.log("Usuário logado:", user);
             sessionStorage.setItem("email", email);
-            navigate("/main");
+            navigate("/my-teams");
         } catch (err) {
             console.error(err);
             setError("Email ou senha inválidos.");
@@ -28,15 +28,15 @@ export default function LogInPage() {
     };
 
     return (
-        <div className="login-container">
-            <form onSubmit={handleSubmit} className="login-form">
+        <div className={styles["login-container"]}>
+            <form onSubmit={handleSubmit} className={styles["login-form"]}>
                 <main>
-                    <div className="title-and-logo"> 
+                    <div className={styles["title-and-logo"]}> 
                         <h1>Log In</h1>
 
-                        <img className="signup-form-img" src={littleAipom} alt="Little Aipom" />
+                        <img src={littleAipom} alt="Little Aipom" />
                     </div>
-                    {error && <p className="error-msg">{error}</p>}
+                    {error && <p className={styles["error-msg"]}>{error}</p>}
 
                     <label htmlFor="email">Email</label>
                     <input

@@ -1,54 +1,59 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from '../pokemonDropdown.module.scss';
 
-export default function PokemonDropdown({ onSelect }) {
-  const [pokemons, setPokemons] = useState([]);
+export default function HeldItemDropdown({ onSelect, initialValue }) {
+  const [items, setItems] = useState([]);
   const [search, setSearch] = useState('');
   const [filtered, setFiltered] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const inputRef = useRef(null);
   const containerRef = useRef(null);
 
-  // Fetch all Pokémon names
   useEffect(() => {
-    fetch('https://pokeapi.co/api/v2/pokemon/?limit=9999')
-      .then(res => res.json())
-      .then(data => {
-        const names = data.results.map((p) => p.name);
-        setPokemons(names);
-      });
+    if (!initialValue) return;
+
+    setSearch(initialValue);
+  }, [initialValue]);  
+
+  useEffect(() => {
+    fetch('https://pokeapi.co/api/v2/item/?offset=20&limit=9999')
+        .then(res => res.json())
+        .then(data => {
+            const itemNames = data.results.map(item => item.name);
+            setItems(itemNames);
+        })
+        .catch(() => {
+            setItems([]);
+        });
   }, []);
 
-  // Update filtered list
   useEffect(() => {
     setFiltered(
-      pokemons.filter(p => p.toLowerCase().includes(search.toLowerCase()))
+      items.filter(item => item.toLowerCase().includes(search.toLowerCase()))
     );
-  }, [search, pokemons]);
+  }, [search, items]);
 
-  // Hide dropdown if clicked outside
   useEffect(() => {
-    const handler = (e) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(e.target)
-      ) {
+    const handleClickOutside = e => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
         setShowDropdown(false);
       }
     };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   return (
-    <div ref={containerRef} className={styles["pokemon-dropdown"]}>
+    <div
+      ref={containerRef}
+      className={styles["held-item-dropdown"]}
+    >
       <input
         className={styles["pokemon-field-answear"]}
         ref={inputRef}
         value={search}
         onChange={e => setSearch(e.target.value)}
         onFocus={() => setShowDropdown(true)}
-        placeholder="Search Pokémon"
       />
 
       {showDropdown && filtered.length > 0 && (
@@ -58,6 +63,8 @@ export default function PokemonDropdown({ onSelect }) {
             margin: 0,
             padding: 0,
             position: 'absolute',
+            top: '100%',
+            left: 0,
             width: '100%',
             maxHeight: '200px',
             overflowY: 'auto',

@@ -1,0 +1,21 @@
+$tamanho-barra-mobile: 7vh;
+$cor-botao: #fdd835;
+$cor-botao-hover: #fff176;
+$cor-texto-botao: #2f2f2f;
+$padding-botao: 0.5rem 1.2rem;
+$radius-botao: 8px;
+
+.logIn-button {
+      background-color: $cor-botao;
+      color: $cor-texto-botao;
+      border: none;
+      padding: $padding-botao;
+      font-weight: bold;
+      border-radius: $radius-botao;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: $cor-botao-hover;
+      }
+}

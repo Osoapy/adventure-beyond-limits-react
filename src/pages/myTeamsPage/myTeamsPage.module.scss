@@ -1,0 +1,71 @@
+@import '../../utils/styles/mixins/mixins.scss';
+
+.myAccountBody {
+    $spacing: 7.5px;
+    $padding: 2%;
+    display: flex;
+    flex-direction: column;
+    padding-left: $padding;
+    padding-right: $padding;
+    padding-top: $spacing;
+    gap: $spacing;
+
+    .buttonsContainer {
+        display: flex;
+        flex-direction: row;
+        gap: 1%;
+    }
+
+    .teams-Container {
+        @include flexCenter();
+
+        .player-Container {
+            height: 25vh;
+            width: 61%;
+
+            .player {
+                gap: 3%;
+                justify-content: center;
+                display: flex;
+                padding-top: 1%;
+                padding-left: 2%;
+                padding-bottom: 2%;
+                padding-right: 2%;
+                background-color: var(--white);
+                flex-direction: column;
+                width: 100%;
+                height: 100%;
+                border-radius: 15px;
+                box-shadow: 0px 17.5px 6px -6px rgb(235, 234, 237);
+        
+                .top-Container {
+                    display: flex;
+                    height: 5vh;
+                    width: 100%;
+        
+                    .player-Top {
+                        display: flex;
+                        align-items: center;
+                    }
+                    
+                    .underline {
+                        position: absolute;
+                        margin-top: 30px;
+                        width: 7.5%;
+                        height: 3px;
+                        background-color: red;
+                        border-radius: 15px;
+                    }
+                    
+                    .playerImg {
+                        width: auto;
+                        height: 100%;
+                        border-radius: 5px;
+                        margin-right: 2%;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}

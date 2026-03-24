@@ -1,0 +1,91 @@
+.pokemon-team-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+    border: 2px solid #E4BEF4;
+    border-radius: 10px;
+    padding-bottom: 5px;
+
+    height: 100%;
+    width: 100%;
+
+    .team-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+
+        p { 
+            padding-left: 5px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+    }
+
+    .team-header-icons {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-right: 5px;
+
+        button {
+            display: flex;
+            align-items: center;
+            color: #E4BEF4;
+            border: none;
+            background-color: rgba($color: #000000, $alpha: 0);
+        }
+    }
+
+    .pokemons-container {
+        $padding: 2%;
+        $cont-gap: 4px;
+        padding-left: $padding;
+        padding-right: $padding;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: $cont-gap;
+
+        .plusSymbolContainer {
+            aspect-ratio: calc(100% / 6 - $cont-gap * 2)/1;
+            background-color: #F5E3FF;
+            border-color: #E4BEF4;
+
+            .plusSymbol {
+                max-height: 3.05em;
+                position: absolute;
+                aspect-ratio: 1/1;
+            }
+
+            .fakePlusSymbol {
+                position: relative;
+                z-index: -1;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+  .pokemon-team-container {
+    .pokemons-container {
+      align-items: center;
+      gap: 8px;
+    }
+
+    .team-header {
+      align-items: center;
+      text-align: center;
+
+      .team-header-icons {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 5px;
+      }
+    }
+  }
+}

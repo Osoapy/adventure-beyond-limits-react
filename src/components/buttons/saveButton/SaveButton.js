@@ -1,11 +1,11 @@
 import { FaSave } from "react-icons/fa";
-import './saveButton.scss';
+import styles from './saveButton.module.scss';
 
 const SaveButton = ({onClick}) => {
     return (
         <button
             onClick={onClick}
-            className="floating-save-button"
+            className={styles["floating-save-button"]}
         >
             <FaSave size={24} />
         </button>

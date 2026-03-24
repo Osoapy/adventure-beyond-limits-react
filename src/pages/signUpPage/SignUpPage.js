@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
-import littleAipom from "../../assets/littleAipom.png";
-import "./signUpPage.scss";
+import { auth } from "../../database/firebase";
 import { useNavigate } from "react-router-dom";
+import littleAipom from "../../assets/images/littleAipom.png";
+import styles from  "./signUpPage.module.scss";
 
 export default function SignUpPage() {
     const [email, setEmail] = useState("");
@@ -28,7 +28,7 @@ export default function SignUpPage() {
             const user = userCredential.user;
             setSuccess("Conta criada com sucesso!");
             sessionStorage.setItem("email", user.email.toLowerCase());
-            navigate("/create-player");
+            navigate("/my-teams");
         } catch (err) {
             console.error(err);
             setError("Erro ao criar conta.");
@@ -36,16 +36,16 @@ export default function SignUpPage() {
     };
 
     return (
-        <div className="signup-container">
-            <form onSubmit={handleSubmit} className="signup-form">
-                {error && <div className="error-msg">{error}</div>}
-                {success && <div className="success-msg">{success}</div>}
+        <div className={styles["signup-container"]}>
+            <form onSubmit={handleSubmit} className={styles["signup-form"]}>
+                {error && <div className={styles["error-msg"]}>{error}</div>}
+                {success && <div className={styles["success-msg"]}>{success}</div>}
 
                 <main>
-                    <div className="title-and-logo"> 
+                    <div className={styles["title-and-logo"]}> 
                         <h1>Sign Up</h1>
 
-                        <img className="signup-form-img" src={littleAipom} alt="Little Aipom" />
+                        <img className={styles["signup-form-img"]} src={littleAipom} alt="Little Aipom" />
                     </div>
 
                     <label htmlFor="email">&nbsp;&nbsp;E-mail</label>

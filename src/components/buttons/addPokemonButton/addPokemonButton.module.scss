@@ -1,0 +1,41 @@
+$cont-gap: 4px;
+
+.pokemonFromTeam {
+    max-width: calc(100% / 6 - $cont-gap * 2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid rgb(235, 234, 237);
+    background-color: rgb(235, 234, 237);
+    border-radius: 5px;
+    height: 100%;
+    width: 15vw;
+    cursor: pointer;
+
+    img {
+        max-height: 6.1em;
+    }
+}
+
+.plusSymbolContainer {
+    background-color: #F5E3FF;
+    border-color: #E4BEF4;
+
+    .plusSymbol {
+        max-height: 3.05em;
+        position: absolute;
+        aspect-ratio: 1/1;
+    }
+
+    .fakePlusSymbol {
+        position: relative;
+        z-index: -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .pokemonFromTeam {
+        max-width: calc(100% / 3 - $cont-gap * 2);
+        width: 30vw;
+    }
+}

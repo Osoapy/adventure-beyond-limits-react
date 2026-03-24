@@ -1,100 +1,54 @@
-import './pokemonTeam.scss';
-import {
-  DndContext,
-  closestCorners,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-  DragOverlay,
-} from '@dnd-kit/core';
-import {
-  SortableContext,
-  horizontalListSortingStrategy,
-} from '@dnd-kit/sortable';
-import { useState, Children } from 'react';
-import { FiShare2, FiTrash2 } from 'react-icons/fi';
-import shareTeamAlert from '../../utils/sweetAlerts2/shareTeamAlert';
-import excludeTeamAlert from '../../utils/sweetAlerts2/excludeTeamAlert';
-import AddPokemonButton from '../buttons/addPokemonButton/AddPokemonButton';
+import { FiShare2, FiTrash2 } from "react-icons/fi";
+import styles from "./pokemonTeam.module.scss";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import AddPokemonButton from "../buttons/addPokemonButton/AddPokemonButton";
+import OpenPokemonButton from "../buttons/openPokemonButton/OpenPokemonButton";
+import ClickedPokemonForm from "../forms/clickedPokemonForm/ClickedPokemonForm"
 
-export default function PokemonTeam({ children, onReorder, teamNumber, showForm, setShowForm, teamPokemons }) {
-  const normalizedChildren = Children.toArray(children || []);
+const MySwal = withReactContent(Swal);
 
-  const items = normalizedChildren.map(child => child.props?.pokemon?.id).filter(Boolean);
-
-  const [activeId, setActiveId] = useState(null);
-
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 8,
-      },
-    }),
-    useSensor(KeyboardSensor)
-  );
-
-  function handleDragStart(event) {
-    setActiveId(event.active.id);
-  }
-
-  function handleDragEnd(event) {
-    const { active, over } = event;
-
-    if (active && over && active.id !== over.id) {
-      const oldIndex = items.indexOf(active.id);
-      const newIndex = items.indexOf(over.id);
-      if (onReorder && oldIndex >= 0 && newIndex >= 0) {
-        onReorder(oldIndex, newIndex);
-      }
-    }
-
-    setActiveId(null);
-  }
-
-  const activeChild = normalizedChildren.find(child => child.props?.pokemon?.id === activeId);
-
-  return (
-    <div className="pokemonTeam-Container">
-      <div className='team-Header'>
-        <p>Time {teamNumber} com {normalizedChildren.length} pokémons</p>
-        <div className='team-Header-Icons'>
-          <button onClick={() => shareTeamAlert(teamPokemons)} className="share-button">
-            <FiShare2 size={20} />
-          </button>
-          <button onClick={() => excludeTeamAlert(teamNumber)} className="exclude-button">
-            <FiTrash2 size={20} />
-          </button>
+export default function PokemonTeam({ teamNumber, teamData, email }) {
+    return (
+        <div className={styles["pokemon-team-container"]}>
+            <div className={styles["team-header"]}>
+                <p>Time {teamNumber} com {teamData.pokemons ? teamData.pokemons.length : 0} pokémons</p>
+                <div className={styles["team-header-icons"]}>
+                    <button onClick={() => /*shareTeamAlert(teamPokemons)*/console.log("Ahoy!")} className={styles["share-button"]}>
+                        <FiShare2 size={20} />
+                    </button>
+                    <button onClick={() => /*excludeTeamAlert(teamNumber)*/console.log("Ahoy!")} className={styles["exclude-button"]}>
+                        <FiTrash2 size={20} />
+                    </button>
+                </div>
+            </div>
+            <div className={styles["pokemons-container"]}>
+                {teamData.pokemons && teamData.pokemons.map((pokemon, index) => (
+                    <OpenPokemonButton
+                        key={index}
+                        pokemon={pokemon}
+                        onClick={() => {
+                            MySwal.fire({
+                                title: '',
+                                width: 1000,
+                                background: 'transparent',
+                                color: '#fff',
+                                showConfirmButton: false,
+                                showCloseButton: true,
+                                allowOutsideClick: true,
+                                html: (
+                                    <ClickedPokemonForm
+                                        pokemon={pokemon}
+                                        teamNumber={teamNumber}
+                                        email={email}
+                                    />
+                                ),
+                            });
+                        }}
+                    />
+                ))}
+                <AddPokemonButton teamNumber={teamNumber} email={email} />
+            </div>
         </div>
-      </div>
-      <div className="pokemons-Container">
-        <DndContext
-          sensors={sensors}
-          collisionDetection={closestCorners}
-          onDragStart={handleDragStart}
-          onDragEnd={handleDragEnd}
-        >
-          <SortableContext items={items} strategy={horizontalListSortingStrategy}>
-            {normalizedChildren}
-          </SortableContext>
-          
-          <DragOverlay>
-            {activeChild ? (
-              <div style={{ transform: 'scale(1.05)', opacity: 0.8, zIndex: 1000 }}>
-                {activeChild}
-              </div>
-            ) : null}
-          </DragOverlay>
-        </DndContext>
-
-        <AddPokemonButton
-          key={`${teamNumber}-add-button`}
-          onClick={() => {
-            setShowForm({ show: !showForm.show, teamNumber }); 
-            setActiveId(null);
-          }}
-        />
-      </div>
-    </div>
-  );
+    );
 }

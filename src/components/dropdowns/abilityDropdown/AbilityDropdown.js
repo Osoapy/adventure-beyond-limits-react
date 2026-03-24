@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import '../pokemonDropdown.scss';
-import needSwitch from '../../../utils/functions/needSwitch/needSwitch';
+import styles from '../pokemonDropdown.module.scss';
 
-export default function PokemonAbilitiesDropdown({ species, onSelect, initialValue }) {
+export default function AbilityDropdown({ species, onSelect, initialValue }) {
   const [abilities, setAbilities] = useState([]);
   const [search, setSearch] = useState('');
   const [filtered, setFiltered] = useState([]);
@@ -17,8 +16,6 @@ export default function PokemonAbilitiesDropdown({ species, onSelect, initialVal
     } else {
       url = `https://pokeapi.co/api/v2/pokemon/${species.toLowerCase()}`;
     }
-
-    url = needSwitch(species);
   
     fetch(url)
       .then(res => res.json())
@@ -64,10 +61,10 @@ export default function PokemonAbilitiesDropdown({ species, onSelect, initialVal
   return (
     <div
       ref={containerRef}
-      className='abilities-dropdown'
+      className={styles["abilities-dropdown"]}
     >
       <input
-        className='pokemon-field-answear'
+        className={styles["pokemon-field-answear"]}
         ref={inputRef}
         value={search}
         onChange={e => setSearch(e.target.value)}
@@ -99,11 +96,7 @@ export default function PokemonAbilitiesDropdown({ species, onSelect, initialVal
                 setShowDropdown(false);
                 onSelect(name);
               }}
-              style={{
-                padding: '8px',
-                cursor: 'pointer',
-                borderBottom: '1px solid #eee',
-              }}
+              className={styles["dropdown-item"]}
             >
               {name}
             </li>

@@ -1,10 +1,37 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from '../pokemonDropdown.module.scss';
 
-export default function GenderDropdown({ species, onSelect, initialValue }) {
-  const [genders, setGenders] = useState([]);
+const natures = [
+  "adamant",  // Attack+, Sp Atk-
+  "bashful",  // Neutral
+  "bold",     // Defense+, Attack-
+  "brave",    // Attack+, Speed-
+  "calm",     // Sp Def+, Attack-
+  "careful",  // Sp Def+, Sp Atk-
+  "docile",   // Neutral
+  "gentle",   // Sp Def+, Defense-
+  "hardy",    // Neutral
+  "hasty",    // Speed+, Defense-
+  "impish",   // Defense+, Sp Atk-
+  "jolly",    // Speed+, Sp Atk-
+  "lax",      // Defense+, Sp Def-
+  "lonely",   // Attack+, Defense-
+  "mild",     // Sp Atk+, Defense-
+  "modest",   // Sp Atk+, Attack-
+  "naive",    // Speed+, Sp Def-
+  "naughty",  // Attack+, Sp Def-
+  "quiet",    // Sp Atk+, Speed-
+  "quirky",   // Neutral
+  "rash",     // Sp Atk+, Sp Def-
+  "relaxed",  // Defense+, Speed-
+  "sassy",    // Sp Def+, Speed-
+  "serious",  // Neutral
+  "timid",    // Speed+, Attack-
+];
+
+export default function NatureDropdown({ onSelect, initialValue }) {
   const [search, setSearch] = useState('');
-  const [filtered, setFiltered] = useState([]);
+  const [filtered, setFiltered] = useState(natures);
   const [showDropdown, setShowDropdown] = useState(false);
   const inputRef = useRef(null);
   const containerRef = useRef(null);
@@ -16,35 +43,10 @@ export default function GenderDropdown({ species, onSelect, initialValue }) {
   }, [initialValue]);  
 
   useEffect(() => {
-    if (!species || species === '') {
-      setGenders(['male', 'female', 'genderless']);
-      return;
-    }
-
-    fetch(`https://pokeapi.co/api/v2/pokemon-species/${species.toLowerCase()}`)
-      .then(res => res.json())
-      .then(data => {
-        const rate = data.gender_rate;
-        if (rate === -1) {
-          setGenders(['genderless']);
-        } else if (rate === 0) {
-          setGenders(['male']);
-        } else if (rate === 8) {
-          setGenders(['female']);
-        } else {
-          setGenders(['male', 'female']);
-        }
-      })
-      .catch(() => {
-        setGenders([]);
-      });
-  }, [species]);
-
-  useEffect(() => {
     setFiltered(
-      genders.filter(g => g.toLowerCase().includes(search.toLowerCase()))
+      natures.filter(n => n.toLowerCase().includes(search.toLowerCase()))
     );
-  }, [search, genders]);
+  }, [search]);
 
   useEffect(() => {
     const handleClickOutside = e => {
@@ -59,7 +61,7 @@ export default function GenderDropdown({ species, onSelect, initialValue }) {
   return (
     <div
       ref={containerRef}
-      className={styles["genders-dropdown"]}
+      className={styles["nature-dropdown"]}
     >
       <input
         className={styles["pokemon-field-answear"]}
@@ -86,17 +88,17 @@ export default function GenderDropdown({ species, onSelect, initialValue }) {
             zIndex: 10,
           }}
         >
-          {filtered.map(g => (
+          {filtered.map(name => (
             <li
-              key={g}
+              key={name}
               onClick={() => {
-                setSearch(g);
+                setSearch(name);
                 setShowDropdown(false);
-                onSelect(g);
+                onSelect(name);
               }}
               className={styles["dropdown-item"]}
             >
-              {g}
+              {name}
             </li>
           ))}
         </ul>
