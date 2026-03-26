@@ -1,5 +1,7 @@
 @import '../../utils/styles/mixins/mixins.scss';
 
+$gapBetweenBlocks: 30px;
+
 #myChart {
     max-height: 90% !important;
     min-height: 90% !important;
@@ -13,14 +15,15 @@
     align-items: center;
     height: 100%;
     width: 100%;
-    gap: 25px;
+    gap: $gapBetweenBlocks;
 }
 
-.start, .moves-container, .ivs-container, .stats {
+.start, .moves-container, .ivs-container, .stats-visualiser {
     display: flex;
     width: 61%;
     border-radius: 15px;
     box-shadow: 0px 17.5px 6px -6px rgb(235, 234, 237);
+    background-color: white;
     height: 35vh;
 }
 
@@ -57,6 +60,13 @@
     justify-content: flex-start;
 }
 
+.stats-visualiser {
+    justify-content: center;
+    align-items: flex-start;
+    height: 45vh;
+    margin-bottom: 2.5%;
+}
+
 .left-button, .att-button, .right-button {
     width: 100%;
     height: 100%;
@@ -66,6 +76,10 @@
     align-items: center;
     border-width: 0px;
     border-radius: 15px;
+    
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .iv-button {
@@ -125,16 +139,6 @@
     align-items: center;
 }
 
-.stats-visualiser {
-    justify-content: center;
-    align-items: flex-start;
-    box-shadow: 0px 17.5px 6px -6px rgb(235, 234, 237);
-    display: flex;
-    background-color: white;
-    height: 45vh;
-    width: 61%;
-}
-
 canvas {
     font-size: 100px;
 }
@@ -154,10 +158,10 @@ canvas {
     display: flex;
     justify-content: center;
     align-items: center;
-}
 
-.pokemon-sprite {
-    width: 100%;
+    .pokemon-sprite {
+        width: 100%;
+    }
 }
 
 .info, .info-moves, .info-ivs-evs, .stats-info {
@@ -175,15 +179,15 @@ canvas {
 }
 
 .info-moves {
-    top: calc(35vh + 25px);
+    top: calc(35vh + $gapBetweenBlocks);
 }
 
 .info-ivs-evs {
-    top: calc(35vh + 50px + 35vh);
+    top: calc(35vh + 35vh + $gapBetweenBlocks * 2);
 }
 
 .stats-info {
-    top: calc(35vh + 75px + 35vh + 35vh);
+    top: calc(35vh + 35vh + 35vh + $gapBetweenBlocks * 3);
 }
 
 .ability {
@@ -202,6 +206,7 @@ canvas {
 }
 
 .pokemon-field-text, .pokemon-field-answear {
+    text-align: left;
     font-size: 100%;
     color: black;
     border: 0px;

@@ -1,6 +1,6 @@
 $distance: 2vw;
 
-.floating-save-button {
+.floating-delete-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -8,12 +8,12 @@ $distance: 2vw;
     width: 50px;
     padding: 11px;
     position: fixed;
-    bottom: calc($distance + 55px);
+    bottom: $distance;
     right: $distance;
-    background-color: #F5E3FF;
+    background-color: #ffe3e3;
     border: 2px;
     border-style: solid;
-    border-color: #E4BEF4;
+    border-color: #f4bebe;
     color: black;
     border-radius: 10px;
     cursor: pointer;
@@ -22,6 +22,6 @@ $distance: 2vw;
     transition: background-color 0.3s;
     
     &:hover {
-        background-color: #d58af6;
+        background-color: #f68686;
     }
 }

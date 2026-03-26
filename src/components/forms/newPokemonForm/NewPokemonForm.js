@@ -154,8 +154,8 @@ export default function NewPokemonForm({ teamNumber, email }) {
 
         <div className={styles[`ivs`] + " " + styles[`${activeStats === 'ivs' ? 'show' : 'hide'}`]}>
           {Object.keys(pokemonData.ivs).map(stat => (
-            <div className="ev" key={`iv-${stat}`}>
-              <div className="iv-text">{stat}</div>
+            <div className={styles["ev"]} key={`iv-${stat}`}>
+              <div className={styles["iv-text"]}>{stat}</div>
               <input
                 placeholder={pokemonData.ivs[stat]}
                 type='number'
@@ -170,7 +170,7 @@ export default function NewPokemonForm({ teamNumber, email }) {
         <div className={styles[`evs`] + " " + styles[`${activeStats === 'evs' ? 'show' : 'hide'}`]}>
           {Object.keys(pokemonData.evs).map(stat => (
             <div className={styles["ev"]} key={`ev-${stat}`}>
-              <div className="ev-text">{stat}</div>
+              <div className={styles["ev-text"]}>{stat}</div>
               <input
                 placeholder={pokemonData.evs[stat]}
                 type='number'

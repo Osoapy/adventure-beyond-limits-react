@@ -5,12 +5,14 @@ import styles from '../standardForm.module.scss';
 import getPokemonStats from "../../../utils/getPokemonStats/getPokemonStats";
 import SaveButton from "../../buttons/saveButton/SaveButton";
 import { savePokemon } from "../../../database/functions/savePokemon";
+import { excludePokemon } from "../../../database/functions/excludePokemon"
 // DROPDOWNS
 import MovesDropdown from '../../dropdowns/movesDropdown/MovesDropdown';
 import HeldItemDropdown from "../../dropdowns/heldItemDropdown/HeldItemDropdown";
 import GenderDropdown from "../../dropdowns/genderDropdown/GenderDropdown";
 import AbilitiesDropdown from "../../dropdowns/abilityDropdown/AbilityDropdown";
 import NatureDropdown from "../../dropdowns/natureDropdown/NatureDropdown";
+import ExcludeButton from "../../buttons/excludeButton/ExcludeButton";
 
 Chart.register(RadarController, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
@@ -31,38 +33,7 @@ export default function CurrentPokemonForm({ pokemon, teamNumber, email }) {
     useEffect(() => {
         if (nicknameRef.current) nicknameRef.current.innerText = pokemon.nickname;
         if (levelRef.current) levelRef.current.innerText = pokemon.level;
-    }, [pokemon]);
-
-    // Unsaved changes
-    useEffect(() => {
-        const editableElements = document.querySelectorAll('[contenteditable="true"]');
-        const handleInput = () => setHasChanges(true);
-
-        editableElements.forEach(el => {
-            el.addEventListener("input", handleInput);
-        });
-
-        return () => {
-            editableElements.forEach(el => {
-                el.removeEventListener("input", handleInput);
-            });
-        };
-    }, [pokemon]);
-
-    useEffect(() => {
-        const ivEvInputs = document.querySelectorAll('.iv-value, .ev-value');
-        const handleChange = () => setHasChanges(true);
-    
-        ivEvInputs.forEach(input => {
-            input.addEventListener("input", handleChange);
-        });
-    
-        return () => {
-            ivEvInputs.forEach(input => {
-                input.removeEventListener("input", handleChange);
-            });
-        };
-    }, [pokemon]);    
+    }, [pokemon]);  
 
     // Graphic
     useEffect(() => {
@@ -303,6 +274,7 @@ export default function CurrentPokemonForm({ pokemon, teamNumber, email }) {
                             type='number'
                             className={styles["iv-value"]}
                             min="0" max="31"
+                            onChange={() => setHasChanges(true)}
                         />
                     </div>
                 ))}
@@ -312,9 +284,13 @@ export default function CurrentPokemonForm({ pokemon, teamNumber, email }) {
                 {ready && pokemon.attributes && ["HP", "Attack", "Defense", "S.Atk", "S.Def", "Speed"].map((stat, i) => (
                     <div className={styles["stat"]} key={i}>
                         <div className={styles["stats-text"]}>{stat}</div>
-                        <div className={styles["stats-value"]} spellCheck={false}>
-                            {pokemon.attributes[stat]}
-                        </div>
+                        <input
+                            defaultValue={pokemon.attributes[stat]}
+                            type='number'
+                            className={styles["stats-value"]}
+                            readOnly={true}
+                        >
+                        </input>
                     </div>
                 ))}
             </div>
@@ -328,6 +304,7 @@ export default function CurrentPokemonForm({ pokemon, teamNumber, email }) {
                             type='number'
                             className={styles["ev-value"]}
                             min="0" max="252"
+                            onChange={() => setHasChanges(true)}
                         />
                     </div>
                 ))}
@@ -360,6 +337,8 @@ export default function CurrentPokemonForm({ pokemon, teamNumber, email }) {
             {hasChanges && (
                 <SaveButton onClick={saveChanges}></SaveButton>
             )}
+
+            <ExcludeButton onClick={() => excludePokemon(email, pokemon.teamNumber, pokemon.id)}></ExcludeButton>
         </div>
     </div>
 );
