@@ -2,6 +2,7 @@ import styles from '../standardForm.module.scss';
 import { useState } from 'react';
 import { addPokemon } from '../../../database/functions/addPokemon';
 import Swal from 'sweetalert2';
+import NestSwal from '../../../utils/alerts/nestSwal/NestSwal';
 // DROPDOWNS
 import PokemonDropdown from '../../dropdowns/pokemonDropdown/PokemonDropdown';
 import GenderDropdown from '../../dropdowns/genderDropdown/GenderDropdown';
@@ -12,6 +13,11 @@ import MovesDropdown from '../../dropdowns/movesDropdown/MovesDropdown';
 
 export default function NewPokemonForm({ teamNumber, email }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [swal, setSwal] = useState({
+    open: false,
+    title: '',
+    text: '',
+  });
 
   const defaultData = {
     trainer: email,
@@ -57,14 +63,25 @@ export default function NewPokemonForm({ teamNumber, email }) {
   };
 
   const validatePokemon = () => {
-    if (!pokemonData.species || pokemonData.species.trim() === '') {
-      Swal.fire({ icon: 'warning', title: 'Faltou a espécie!', text: 'Escolha uma espécie de Pokémon.' });
+    if (!pokemonData.species) {
+      console.log("Faltou a espécie.")
+      setSwal({
+        open: true,
+        title: 'Faltou a espécie!',
+        text: 'Escolha uma espécie de Pokémon.',
+      });
       return false;
     }
+
     if (!pokemonData.gender || !pokemonData.ability || !pokemonData.nature) {
-      Swal.fire({ icon: 'warning', title: 'Campos obrigatórios!', text: 'Preencha gênero, habilidade e natureza.' });
+      setSwal({
+        open: true,
+        title: 'Ooops!',
+        text: 'Tenha certeza de preencher o gênero, a habilidade e a natureza do seu pokemon.',
+      });
       return false;
     }
+
     return true;
   };
 
@@ -190,6 +207,18 @@ export default function NewPokemonForm({ teamNumber, email }) {
           disabled={isSubmitting}
         />
       </div>
+
+        {swal.open && (
+          <NestSwal
+            title={swal.title}
+            text={swal.text}
+            onClose={() => setSwal({
+              open: false,
+              title: '',
+              text: '',
+            })}
+          />
+        )}
     </div>
   );
 }
