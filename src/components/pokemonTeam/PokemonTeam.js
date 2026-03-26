@@ -2,13 +2,16 @@ import { FiShare2, FiTrash2 } from "react-icons/fi";
 import styles from "./pokemonTeam.module.scss";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import ClickedPokemonForm from "../forms/clickedPokemonForm/ClickedPokemonForm";
+// ALERTS
+import excludeTeamAlert from "../../utils/alerts/excludeTeamAlert/excludeTeamAlert";
+// BUTTON
 import AddPokemonButton from "../buttons/addPokemonButton/AddPokemonButton";
 import OpenPokemonButton from "../buttons/openPokemonButton/OpenPokemonButton";
-import ClickedPokemonForm from "../forms/clickedPokemonForm/ClickedPokemonForm"
 
 const MySwal = withReactContent(Swal);
 
-export default function PokemonTeam({ teamNumber, teamData, email }) {
+export default function PokemonTeam({ teamNumber, teamData, email, realTeamNumber }) {
     return (
         <div className={styles["pokemon-team-container"]}>
             <div className={styles["team-header"]}>
@@ -17,7 +20,7 @@ export default function PokemonTeam({ teamNumber, teamData, email }) {
                     <button onClick={() => /*shareTeamAlert(teamPokemons)*/console.log("Ahoy!")} className={styles["share-button"]}>
                         <FiShare2 size={20} />
                     </button>
-                    <button onClick={() => /*excludeTeamAlert(teamNumber)*/console.log("Ahoy!")} className={styles["exclude-button"]}>
+                    <button onClick={() => excludeTeamAlert(email, realTeamNumber)} className={styles["exclude-button"]}>
                         <FiTrash2 size={20} />
                     </button>
                 </div>
@@ -39,7 +42,7 @@ export default function PokemonTeam({ teamNumber, teamData, email }) {
                                 html: (
                                     <ClickedPokemonForm
                                         pokemon={pokemon}
-                                        teamNumber={teamNumber}
+                                        teamNumber={realTeamNumber}
                                         email={email}
                                     />
                                 ),
@@ -47,7 +50,7 @@ export default function PokemonTeam({ teamNumber, teamData, email }) {
                         }}
                     />
                 ))}
-                <AddPokemonButton teamNumber={teamNumber} email={email} />
+                <AddPokemonButton teamNumber={realTeamNumber} email={email} />
             </div>
         </div>
     );

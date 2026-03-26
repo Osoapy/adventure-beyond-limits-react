@@ -76,6 +76,7 @@ export default function MyAccountPage() {
             key={index}
             teamData={team}
             teamNumber={index + 1}
+            realTeamNumber={team.number}
             email={auth.currentUser.email}
           />
         ))}
