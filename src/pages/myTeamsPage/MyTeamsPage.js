@@ -7,6 +7,7 @@ import { db, auth } from "../../database/firebase";
 import PokemonTeam from "../../components/pokemonTeam/PokemonTeam";
 import StandardHeader from "../../components/headers/standardHeader/StandardHeader";
 import CreateNewTeamButton from "../../components/buttons/createNewTeamButton/CreateNewTeamButton";
+import ImportFromShowdownButton from "../../components/buttons/importFromShowdownButton/ImportFromShowdownButton";
 import styles from "./myTeamsPage.module.scss";
 
 export default function MyAccountPage() {
@@ -69,6 +70,7 @@ export default function MyAccountPage() {
       <div className={styles.myAccountBody}>
 				<div className={styles.buttonsContainer}>
           <CreateNewTeamButton teamsList={teams} setTeamsList={setTeams} />
+          <ImportFromShowdownButton />
 				</div>
 
         {teams.map((team, index) => (
