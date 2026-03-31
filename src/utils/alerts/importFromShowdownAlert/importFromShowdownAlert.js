@@ -1,8 +1,10 @@
 import Swal from "sweetalert2";
 import errorAlert from "../errorAlert/errorAlert";
 import parseShowdownText from "../../parseShowdownText/parseShowdownText";
+import handleCreateNewTeam from "../../handleCreateNewTeam/handleCreateNewTeam";
+import { addPokemon } from "../../../database/functions/addPokemon";
 
-const importFromShowdownAlert = async () => {
+const importFromShowdownAlert = async (teamList, setTeamList, email) => {
     const htmlContent = `
     <style>
     #showdown-content:empty:before {
@@ -46,6 +48,10 @@ const importFromShowdownAlert = async () => {
         }
         const pokemonList = parseShowdownText(showdownText);
         console.log("before parsing:\n\n", showdownText, "\n\nafter parsing:\n\n", pokemonList);
+        const showdownImportedTeamNumber = await handleCreateNewTeam(teamList, setTeamList);
+        for (const pokemonData of pokemonList) {
+            await addPokemon(email, showdownImportedTeamNumber, pokemonData);
+        }
         return pokemonList;
     }
 

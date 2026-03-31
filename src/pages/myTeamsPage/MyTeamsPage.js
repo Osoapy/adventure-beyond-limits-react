@@ -12,6 +12,7 @@ import styles from "./myTeamsPage.module.scss";
 
 export default function MyAccountPage() {
   const [teams, setTeams] = useState([]);
+  const [email, setEmail] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => { // Verifica a autenticação do usuário e carrega os times de pokemons
@@ -23,6 +24,7 @@ export default function MyAccountPage() {
 
       try {
         const email = user.email?.toLowerCase().trim();
+        setEmail(email);
 
         const userRef = collection(db, "trainers", email, "teams");
         const userSnap = await getDocs(userRef);
@@ -70,7 +72,7 @@ export default function MyAccountPage() {
       <div className={styles.myAccountBody}>
 				<div className={styles.buttonsContainer}>
           <CreateNewTeamButton teamsList={teams} setTeamsList={setTeams} />
-          <ImportFromShowdownButton />
+          <ImportFromShowdownButton teamList={teams} setTeamList={setTeams} email={email}/>
 				</div>
 
         {teams.map((team, index) => (
@@ -79,7 +81,7 @@ export default function MyAccountPage() {
             teamData={team}
             teamNumber={index + 1}
             realTeamNumber={team.number}
-            email={auth.currentUser.email}
+            email={email}
           />
         ))}
 			</div>

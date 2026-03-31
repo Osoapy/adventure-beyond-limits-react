@@ -3,7 +3,6 @@ import spriteUrl from '../../../assets/images/plusSymbol.png';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import NewPokemonForm from "../../forms/newPokemonForm/NewPokemonForm";
-import addPokemon from "../../../database/functions/addPokemon";
 
 const MySwal = withReactContent(Swal);
 
