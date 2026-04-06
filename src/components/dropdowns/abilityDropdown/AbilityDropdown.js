@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from '../pokemonDropdown.module.scss';
+import handleSpecificSpecies from '../../../utils/handleSpecificSpecies/handleSpecificSpecies'; 
 
 export default function AbilityDropdown({ species, onSelect, initialValue }) {
   const [abilities, setAbilities] = useState([]);
@@ -14,7 +15,7 @@ export default function AbilityDropdown({ species, onSelect, initialValue }) {
     if (!species || species === '') {
       url = 'https://pokeapi.co/api/v2/ability/?limit=9999';
     } else {
-      url = `https://pokeapi.co/api/v2/pokemon/${species.toLowerCase()}`;
+      url = `https://pokeapi.co/api/v2/pokemon/${handleSpecificSpecies(species)}`;
     }
   
     fetch(url)

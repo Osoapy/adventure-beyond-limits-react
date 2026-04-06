@@ -1,10 +1,11 @@
 import applyPokemonNature from "../applyPokemonNature/applyPokemonNature";
 import getNatureEffect from "../getNatureEffect/getNatureEffect";
+import handleSpecificSpecies from "../handleSpecificSpecies/handleSpecificSpecies";
 
 export default async function getPokemonStats(pokemon) {
     // Buscar os base stats a partir da species na API
     const attributeDictionary = ['HP', 'Attack', 'Defense', 'S.Atk', 'S.Def', 'Speed']
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.species.toLowerCase()}`);
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${handleSpecificSpecies(pokemon.species.toLowerCase(), 'stats')}`);
     const data = await response.json();
     const baseStats = data.stats.map(stat => stat.base_stat); // ordem: HP, Atk, Def, Sp.Atk, Sp.Def, Speed
 

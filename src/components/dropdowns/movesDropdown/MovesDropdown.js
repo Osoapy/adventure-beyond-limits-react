@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../database/firebase';
 import styles from '../pokemonDropdown.module.scss';
+import handleSpecificSpecies from '../../../utils/handleSpecificSpecies/handleSpecificSpecies';
 
 export default function MovesDropdown({ species, onSelect, initialValue }) {
   const [moves, setMoves] = useState([]);
@@ -18,7 +19,7 @@ export default function MovesDropdown({ species, onSelect, initialValue }) {
     if (!species || species === '') {
       url = 'https://pokeapi.co/api/v2/move/?limit=9999';
     } else {
-      url = `https://pokeapi.co/api/v2/pokemon/${species.toLowerCase()}`;
+      url = `https://pokeapi.co/api/v2/pokemon/${handleSpecificSpecies(species)}`;
     }
 
     fetch(url)

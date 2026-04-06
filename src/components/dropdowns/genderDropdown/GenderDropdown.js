@@ -24,19 +24,26 @@ export default function GenderDropdown({ species, onSelect, initialValue }) {
     fetch(`https://pokeapi.co/api/v2/pokemon-species/${species.toLowerCase()}`)
       .then(res => res.json())
       .then(data => {
+        setSearch('');
         const rate = data.gender_rate;
         if (rate === -1) {
           setGenders(['genderless']);
+          setSearch('genderless');
+          onSelect('genderless');
         } else if (rate === 0) {
           setGenders(['male']);
+          setSearch('male');
+          onSelect('male');
         } else if (rate === 8) {
           setGenders(['female']);
+          setSearch('female');
+          onSelect('female');
         } else {
           setGenders(['male', 'female']);
         }
       })
       .catch(() => {
-        setGenders([]);
+        setGenders(['genderless', 'male', 'female']);
       });
   }, [species]);
 

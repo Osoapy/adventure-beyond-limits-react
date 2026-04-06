@@ -15,7 +15,22 @@ export default function PokemonDropdown({ onSelect }) {
       .then(res => res.json())
       .then(data => {
         const names = data.results.map((p) => p.name);
-        setPokemons(names);
+        // FILTERING OUT MEGA EVOLUTIONS, GIGANTAMAX, AND OTHER VARIANTS
+        const filteredNames = names.filter(
+          (name) => 
+            !name.includes('-mega') && 
+            !name.includes('-gmax') &&
+            !name.includes('-stellar') &&
+            !name.includes('-mode') &&
+            !name.includes('-construct') &&
+            !name.includes('-build') &&
+            !name.includes('-gulping') &&
+            !name.includes('-gorging') &&
+            !name.includes('-totem') &&
+            !name.includes('mimikyu')
+        );
+        names.push('mimikyu');
+        setPokemons(filteredNames);
       });
   }, []);
 

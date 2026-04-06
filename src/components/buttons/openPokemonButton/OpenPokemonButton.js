@@ -1,3 +1,4 @@
+import handleSpecificSpecies from '../../../utils/handleSpecificSpecies/handleSpecificSpecies';
 import styles from './openPokemonButton.module.scss';
 import { useEffect, useState } from "react";
 
@@ -12,7 +13,7 @@ export default function OpenPokemonButton({ onClick, pokemon }) {
             const species = String(pokemon.species).toLowerCase().trim();
 
             try {
-                const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${species}`);
+                const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${handleSpecificSpecies(species, 'sprite')}`);
                 const data = await res.json();
 
                 const sprite = data.sprites.other.home.front_default;
