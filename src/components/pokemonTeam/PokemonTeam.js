@@ -5,6 +5,7 @@ import withReactContent from 'sweetalert2-react-content';
 import ClickedPokemonForm from "../forms/clickedPokemonForm/ClickedPokemonForm";
 // ALERTS
 import excludeTeamAlert from "../../utils/alerts/excludeTeamAlert/excludeTeamAlert";
+import exportTeamAlert from "../../utils/alerts/exportTeamAlert/exportTeamAlert";
 // BUTTON
 import AddPokemonButton from "../buttons/addPokemonButton/AddPokemonButton";
 import OpenPokemonButton from "../buttons/openPokemonButton/OpenPokemonButton";
@@ -17,7 +18,7 @@ export default function PokemonTeam({ teamNumber, teamData, email, realTeamNumbe
             <div className={styles["team-header"]}>
                 <p>Time {teamNumber} com {teamData.pokemons ? teamData.pokemons.length : 0} pokémons</p>
                 <div className={styles["team-header-icons"]}>
-                    <button onClick={() => /*shareTeamAlert(teamPokemons)*/console.log("Ahoy!")} className={styles["share-button"]}>
+                    <button onClick={() => exportTeamAlert(teamData.pokemons)} className={styles["share-button"]}>
                         <FiShare2 size={20} />
                     </button>
                     <button onClick={() => excludeTeamAlert(email, realTeamNumber)} className={styles["exclude-button"]}>
