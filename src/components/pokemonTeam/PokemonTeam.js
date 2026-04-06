@@ -12,7 +12,8 @@ import OpenPokemonButton from "../buttons/openPokemonButton/OpenPokemonButton";
 
 const MySwal = withReactContent(Swal);
 
-export default function PokemonTeam({ teamNumber, teamData, email, realTeamNumber }) {
+export default function PokemonTeam({ teamNumber, teamData, email, realTeamNumber, setTeams }) {
+
     return (
         <div className={styles["pokemon-team-container"]}>
             <div className={styles["team-header"]}>
@@ -21,7 +22,7 @@ export default function PokemonTeam({ teamNumber, teamData, email, realTeamNumbe
                     <button onClick={() => exportTeamAlert(teamData.pokemons)} className={styles["share-button"]}>
                         <FiShare2 size={20} />
                     </button>
-                    <button onClick={() => excludeTeamAlert(email, realTeamNumber)} className={styles["exclude-button"]}>
+                    <button onClick={() => excludeTeamAlert(email, realTeamNumber, setTeams)} className={styles["exclude-button"]}>
                         <FiTrash2 size={20} />
                     </button>
                 </div>
@@ -45,6 +46,8 @@ export default function PokemonTeam({ teamNumber, teamData, email, realTeamNumbe
                                         pokemon={pokemon}
                                         teamNumber={realTeamNumber}
                                         email={email}
+                                        setTeams={setTeams}
+                                        closeSwal={MySwal.close}
                                     />
                                 ),
                             });

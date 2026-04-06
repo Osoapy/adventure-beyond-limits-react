@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import { excludeTeam } from "../../../database/functions/excludeTeam";
 
-const excludeTeamAlert = async (email, teamNumber) => {
+const excludeTeamAlert = async (email, teamNumber, setTeams) => {
     const result = await Swal.fire({
         title: "Você deseja excluir o time?",
         text: "Essa ação não poderá ser desfeita!",
@@ -15,6 +15,7 @@ const excludeTeamAlert = async (email, teamNumber) => {
 
     if (result.isConfirmed) {
         excludeTeam(email, teamNumber)
+        setTeams(prevTeams => prevTeams.filter(team => team.number !== teamNumber));
     }
 };
 

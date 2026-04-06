@@ -16,7 +16,7 @@ import ExcludeButton from "../../buttons/excludeButton/ExcludeButton";
 
 Chart.register(RadarController, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
-export default function CurrentPokemonForm({ pokemon, teamNumber, email }) {
+export default function CurrentPokemonForm({ pokemon, teamNumber, email, setTeams, closeSwal }) {
     const [ready, setReady] = useState(false);
     const [hasChanges, setHasChanges] = useState(false);
     const chartRef = useRef(null);
@@ -338,7 +338,7 @@ export default function CurrentPokemonForm({ pokemon, teamNumber, email }) {
                 <SaveButton onClick={saveChanges}></SaveButton>
             )}
 
-            <ExcludeButton onClick={() => excludePokemon(email, pokemon.teamNumber, pokemon.id)}></ExcludeButton>
+            <ExcludeButton onClick={() => excludePokemon(email, pokemon.teamNumber, pokemon.id, setTeams, closeSwal)}></ExcludeButton>
         </div>
     </div>
 );

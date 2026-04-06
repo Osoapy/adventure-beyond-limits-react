@@ -82,6 +82,7 @@ export default function MyAccountPage() {
             teamNumber={index + 1}
             realTeamNumber={team.number}
             email={email}
+            setTeams={setTeams}
           />
         ))}
 			</div>

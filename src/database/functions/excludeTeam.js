@@ -29,7 +29,7 @@ export async function excludeTeam(email, teamNumber) {
     const teamRef = doc(db, "trainers", normalizedEmail, "teams", teamId);
     await deleteDoc(teamRef);
 
-    console.log("Time e todos os pokémons foram excluídos com sucesso");
+    console.log(`Time ${teamNumber} e todos os pokémons foram excluídos com sucesso`);
     return true;
 
   } catch (error) {
