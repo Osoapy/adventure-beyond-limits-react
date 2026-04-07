@@ -1,14 +1,14 @@
 import { addTeam } from "../../database/functions/addTeam";
 import { getAuth } from "firebase/auth";
 
-export default async function handleCreateNewTeam(teamsList, setTeamsList) {
+export default async function handleCreateNewTeam(teamsList, setTeamsList, pokemonList) {
     const user = getAuth().currentUser;
 
     if (!user) {
         console.error("Usuário não autenticado");
         return;
     }
-
+    
     let biggestTeamNumber = 0;
 
     teamsList.forEach(team => {
@@ -22,7 +22,8 @@ export default async function handleCreateNewTeam(teamsList, setTeamsList) {
     console.log("Próximo número do time:", nextTeamNumber);
 
     await addTeam(user.email, nextTeamNumber);
-    setTeamsList(prev => [...prev, { number: nextTeamNumber }]);
+    if (!pokemonList) setTeamsList(prev => [...prev, { number: nextTeamNumber }]);
+    else setTeamsList(prev => [...prev, { number: nextTeamNumber, pokemons: pokemonList }]);
 
     return nextTeamNumber;
 }

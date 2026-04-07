@@ -11,7 +11,7 @@ import NatureDropdown from '../../dropdowns/natureDropdown/NatureDropdown';
 import HeldItemDropdown from '../../dropdowns/heldItemDropdown/HeldItemDropdown';
 import MovesDropdown from '../../dropdowns/movesDropdown/MovesDropdown';
 
-export default function NewPokemonForm({ teamNumber, email }) {
+export default function NewPokemonForm({ teamNumber, email, setTeams }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [swal, setSwal] = useState({
     open: false,
@@ -89,7 +89,7 @@ export default function NewPokemonForm({ teamNumber, email }) {
 
     setIsSubmitting(true);
     try {
-      await addPokemon(email, teamNumber, pokemonData);
+      await addPokemon(email, teamNumber, pokemonData, setTeams);
       Swal.fire({ icon: 'success', title: 'Pokémon criado!', text: `${pokemonData.nickname || pokemonData.species} foi salvo.` });
       setPokemonData(defaultData);
     } catch (err) {

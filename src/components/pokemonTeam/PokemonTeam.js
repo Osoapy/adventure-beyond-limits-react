@@ -54,7 +54,7 @@ export default function PokemonTeam({ teamNumber, teamData, email, realTeamNumbe
                         }}
                     />
                 ))}
-                <AddPokemonButton teamNumber={realTeamNumber} email={email} />
+                <AddPokemonButton teamNumber={realTeamNumber} email={email} setTeams={setTeams} />
             </div>
         </div>
     );

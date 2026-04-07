@@ -6,7 +6,7 @@ import NewPokemonForm from "../../forms/newPokemonForm/NewPokemonForm";
 
 const MySwal = withReactContent(Swal);
 
-export default function AddPokemonButton({ teamNumber, email }) {
+export default function AddPokemonButton({ teamNumber, email, setTeams }) {
     const openPokemonModal = () => {
         const defaultData = {
             trainer: email,
@@ -36,6 +36,7 @@ export default function AddPokemonButton({ teamNumber, email }) {
                     defaultData={defaultData}
                     teamNumber={teamNumber}
                     email={email}
+                    setTeams={setTeams}
                 />
             ),
         });
